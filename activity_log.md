@@ -22,13 +22,23 @@ Hardware:
 
 - HC-SR04+
 
+test code and wiring from [HC-SR04 Ultrasonic Sensor With Raspberry Pi : 6 Steps - Instructables](https://www.instructables.com/HC-SR04-Ultrasonic-Sensor-With-Raspberry-Pi-2/) 
 
-
-[HC-SR04 Ultrasonic Sensor With Raspberry Pi : 6 Steps - Instructables](https://www.instructables.com/HC-SR04-Ultrasonic-Sensor-With-Raspberry-Pi-2/) 
-
-- HC-SR04+ funzionano a 3.3V  e non a 5V
+- HC-SR04+ funzionano a 3.3V  e non a 5V! Non serve il partitore di tensione. => CONNESSIONE DIRETTA
 - Spegnere Raspberry e stacare  alimentazione quando di modifica il circuito elettrico
 - check model specific pinout [GPIO - Raspberry Pi Documentation](https://www.raspberrypi.org/documentation/usage/gpio/)![GPIO pins](media\GPIO-Pinout-Diagram-2.png)
+
+clonato repository su rasberry 
+
+fix syntax for python 3
+
+config git user info on raspberry
+
+test OK funziona. (foto scattate da cellulare)
+
+
+
+
 
 
 
