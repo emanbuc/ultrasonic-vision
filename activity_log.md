@@ -70,6 +70,13 @@ definito schema file dati
 - dati per riga con ID sensore in modo da poter aggiungere sensori a piacere senza dover modificare lo schema
 - valore in colonna "generica"*value" in modo da poter supportare anche alri tipi di dato
 
+refactoring del codice:
+
+- funzioni principali estratte dal main
+- predisposizione per:
+  - modalità sensore simulato
+  - gestione array di sensori
+
 
 
 
