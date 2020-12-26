@@ -1,25 +1,5 @@
 # Activity Log
 
-## 2020-12-21
-
-project kickoff
-
-## 2020-12-22
-
-creato repository di progetto
-
-studio di fattibilità
-
-roadmap di progetto
-
-ipotesi architettura HW e SW
-
-## 2020-12-25
-
-Creato progetto e repository separato per modello riconoscimento oggetti avanzato
-
-
-
 ## 2020-12-26
 
 ### Basic Raspberry setup
@@ -58,10 +38,10 @@ run  [ultrasonic-sensor-test.py](src\ultrasonic-sensor-test.py)
 
 test OK funziona. (foto scattate da cellulare)
 
+<<<<<<< HEAD
 Test salvataggio dati acquisiti su file per future elaborazioni
 
-
-
+=======
 test lettura distanza e salvataggio dati in file CSV [save-sensor-data-to-file.py](src/save-sensor-data-to-file.py)
 
 testOK
@@ -69,6 +49,7 @@ testOK
 definito schema file dati
 - dati per riga con ID sensore in modo da poter aggiungere sensori a piacere senza dover modificare lo schema
 - valore in colonna "generica"*value" in modo da poter supportare anche alri tipi di dato
+>>>>>>> origin/main
 
 
 
