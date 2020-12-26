@@ -7,7 +7,7 @@ GPIO.setmode(GPIO.BCM)
 TRIG = 23 
 ECHO = 24
 
-print "Distance measurement in progress"
+print("Distance measurement in progress")
 
 GPIO.setup(TRIG,GPIO.OUT)
 GPIO.setup(ECHO,GPIO.IN)
@@ -21,7 +21,7 @@ while True:
 
   
   GPIO.output(TRIG, False)
-  print "Waitng For Sensor To Settle"
+  print ("Waitng For Sensor To Settle")
   time.sleep(2)
 
   GPIO.output(TRIG, True)
@@ -41,7 +41,7 @@ while True:
   distance = round(distance, 2)            
 
   if distance < 100:      
-    print "Distance:",distance - 0.5,"cm"  
+    print ("Distance:",distance - 0.5,"cm")
 
     ax = fig.add_subplot(111)
     rect1 = matplotlib.patches.Rectangle((-200,-100), 400, 200, color='red')
@@ -50,7 +50,7 @@ while True:
     plt.pause(0.00001)
 
   if distance > 100 and distance < 200:      
-    print "Distance:",distance - 0.5,"cm"  
+    print ("Distance:",distance - 0.5,"cm") 
     ax = fig.add_subplot(111)
     rect1 = matplotlib.patches.Rectangle((-200,-100), 400, 200, color='yellow')
     ax.add_patch(rect1)
@@ -58,7 +58,7 @@ while True:
     plt.pause(0.00001)
     
   if distance > 200:
-    print "Out Of Range"                   
+    print ("Out Of Range")                   
     ax = fig.add_subplot(111)
     rect1 = matplotlib.patches.Rectangle((-200,-100), 400, 200, color='green')
     ax.add_patch(rect1)
