@@ -25,7 +25,24 @@ def calculateDistance(pulseDuration):
     print(distance)
     distance = round(distance, 2)
     return distance
+
+def readFromSensor():
+    GPIO.output(TRIG_01, False)
+    print ("Waitng For Sensor To Settle")
+    time.sleep(2)
+
+    GPIO.output(TRIG_01, True)
+    time.sleep(0.00001)                      
+    GPIO.output(TRIG_01, False)                 
+
+    while GPIO.input(ECHO_01)==0:               
+        pulse_start = time.time()              
+
+    while GPIO.input(ECHO_01)==1:               
+        pulse_end = time.time()
     
+    return pulse_start,pulse_end
+
 
 TRIG_01 = 23 
 ECHO_01 = 24
@@ -39,22 +56,8 @@ configureGPIO(TRIG_01,ECHO_01)
 file= createDataFile()
 
 while True:
-
-  sensorId='HCSR04_001'
-  GPIO.output(TRIG_01, False)
-  print ("Waitng For Sensor To Settle")
-  time.sleep(2)
-
-  GPIO.output(TRIG_01, True)
-  time.sleep(0.00001)                      
-  GPIO.output(TRIG_01, False)                 
-
-  while GPIO.input(ECHO_01)==0:               
-    pulse_start = time.time()              
-
-  while GPIO.input(ECHO_01)==1:               
-    pulse_end = time.time()                
-
+  sensorId='HCSR04_001' 
+  pulse_start,pulse_end =readFromSensor()
   pulseDuration = pulse_end - pulse_start
   sampleTimestamp= pulse_end - (pulseDuration/2)
   distance= calculateDistance(pulseDuration)
