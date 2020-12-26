@@ -76,6 +76,8 @@ refactoring del codice:
 - predisposizione per:
   - modalità sensore simulato
   - gestione array di sensori
+- Mockup GPIO per sviluppo su windows
+- Inserita modalità FAKE_HW per eseguire software senza hardware (distanza random)
 
 
 

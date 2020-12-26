@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import random
 import os 
 import time
 from time import strftime
@@ -43,7 +44,7 @@ def readFromSensor():
     
     return pulse_start,pulse_end
 
-
+FAKE_HW = True
 TRIG_01 = 23 
 ECHO_01 = 24
 
@@ -57,7 +58,15 @@ file= createDataFile()
 
 while True:
   sensorId='HCSR04_001' 
-  pulse_start,pulse_end =readFromSensor()
+  if FAKE_HW == True:
+      pulse_start = time.time()
+      pulse_end= pulse_start + ( random.randint(1,100)/10000.0)
+
+  else:
+      pulse_start,pulse_end =readFromSensor()
+      time.sleep(0.1) 
+  
+  
   pulseDuration = pulse_end - pulse_start
   sampleTimestamp= pulse_end - (pulseDuration/2)
   distance= calculateDistance(pulseDuration)
