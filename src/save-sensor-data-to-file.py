@@ -18,9 +18,9 @@ from datetime import datetime
 # ==================================================
 # --- GLOBAL CONFIG -------
 FAKE_HW = False #True for debug in windows | False to run with real sensors
-SENSORS= ['HCSR04_001'] #List os sensors unique ID
-TRIGGER_GPIOS = [23] #List of GPIO connect to sensors trigger pin
-ECHO_GPIOS = [24] #List of GPIO connect to sensors echo pin
+SENSORS= ['HCSR04_001','HCSR04_002'] #List os sensors unique ID
+TRIGGER_GPIOS = [23,22] #List of GPIO connect to sensors trigger pin
+ECHO_GPIOS = [24,27] #List of GPIO connect to sensors echo pin
 
 # ==================================================
 # --- FUNCTIONS ----------
