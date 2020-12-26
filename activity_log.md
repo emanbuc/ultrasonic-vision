@@ -34,7 +34,13 @@ fix syntax for python 3
 
 config git user info on raspberry
 
+run  [ultrasonic-sensor-test.py](src\ultrasonic-sensor-test.py) 
+
 test OK funziona. (foto scattate da cellulare)
+
+Test salvataggio dati acquisiti su file per future elaborazioni
+
+
 
 
 
