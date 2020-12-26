@@ -4,11 +4,26 @@ import os
 import time
 from time import strftime
 from datetime import datetime 
+
+# ==================================================
+# --- GLOBAL CONFIG -------
+FAKE_HW = True #True for debug in windows | False to run with real sensors
+SENSORS= ['HCSR04_001'] #List os sensors unique ID
+TRIGGER_GPIOS = [23] #List of GPIO connect to sensors trigger pin
+ECHO_GPIOS = [24] #List of GPIO connect to sensors echo pin
+
+# ==================================================
+# --- FUNCTIONS ----------
     
-def configureGPIO(TRIG_01,ECHO_01):
+def configureGPIO(TRIGGER_GPIOS,ECHO_GPIOS):
+
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(TRIG_01,GPIO.OUT)
-    GPIO.setup(ECHO_01,GPIO.IN)
+    
+    for triggerGpio in TRIGGER_GPIOS:
+        GPIO.setup(triggerGpio,GPIO.OUT)
+    
+    for echoGpio in ECHO_GPIOS:
+        GPIO.setup(echoGpio,GPIO.IN)
 
 def createDataFile():
     filename= strftime("%Y%m%d_%H%M%S")+".csv"
@@ -27,48 +42,49 @@ def calculateDistance(pulseDuration):
     distance = round(distance, 2)
     return distance
 
-def readFromSensor():
-    GPIO.output(TRIG_01, False)
+def readFromSensor(sensorIndex):
+    GPIO.output(TRIGGER_GPIOS[sensorIndex], False)
     print ("Waitng For Sensor To Settle")
     time.sleep(2)
 
-    GPIO.output(TRIG_01, True)
+    GPIO.output(TRIGGER_GPIOS[sensorIndex], True)
     time.sleep(0.00001)                      
-    GPIO.output(TRIG_01, False)                 
+    GPIO.output(TRIGGER_GPIOS[sensorIndex], False)                 
 
-    while GPIO.input(ECHO_01)==0:               
+    while GPIO.input(ECHO_GPIOS[sensorIndex])==0:               
         pulse_start = time.time()              
 
-    while GPIO.input(ECHO_01)==1:               
+    while GPIO.input(ECHO_GPIOS[sensorIndex])==1:               
         pulse_end = time.time()
     
     return pulse_start,pulse_end
 
-FAKE_HW = True
-TRIG_01 = 23 
-ECHO_01 = 24
+# ==================================================
+# --- MAIN -----------------------------------------
 
 print("Distance measurement in progress")
-print("TRIG_01: "+ str(TRIG_01))
-print("ECHO_01: "+str(ECHO_01))
+print("TRIGGERS: "+ str(TRIGGER_GPIOS))
+print("ECHOS: "+str(ECHO_GPIOS))
 
 
-configureGPIO(TRIG_01,ECHO_01)
+configureGPIO(TRIGGER_GPIOS,ECHO_GPIOS)
 file= createDataFile()
 
+#TODO: add start/stop button
 while True:
-  sensorId='HCSR04_001' 
-  if FAKE_HW == True:
-      pulse_start = time.time()
-      pulse_end= pulse_start + ( random.randint(1,100)/10000.0)
+    for sensorIndex in range(0,len(SENSORS)):
+        sensorId=SENSORS[sensorIndex] 
+        if FAKE_HW == True:
+            pulse_start = time.time()
+            pulse_end= pulse_start + ( random.randint(1,100)/10000.0)
 
-  else:
-      pulse_start,pulse_end =readFromSensor()
-      time.sleep(0.1) 
-  
-  
-  pulseDuration = pulse_end - pulse_start
-  sampleTimestamp= pulse_end - (pulseDuration/2)
-  distance= calculateDistance(pulseDuration)
-  writeDataToLocalFile(sampleTimestamp,sensorId,distance)
+        else:
+            pulse_start,pulse_end =readFromSensor(sensorIndex)
+            time.sleep(0.1) 
+        
+        
+        pulseDuration = pulse_end - pulse_start
+        sampleTimestamp= pulse_end - (pulseDuration/2)
+        distance= calculateDistance(pulseDuration)
+        writeDataToLocalFile(sampleTimestamp,sensorId,distance)
 
