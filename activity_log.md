@@ -36,6 +36,15 @@ config git user info on raspberry
 
 test OK funziona. (foto scattate da cellulare)
 
+test lettura distanza e salvataggio dati in file CSV [save-sensor-data-to-file.py](src/save-sensor-data-to-file.py)
+
+testOK
+
+definito schema file dati
+- dati per riga con ID sensore in modo da poter aggiungere sensori a piacere senza dover modificare lo schema
+- valore in colonna "generica"*value" in modo da poter supportare anche alri tipi di dato
+
+
 
 
 
