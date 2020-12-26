@@ -1,4 +1,14 @@
-import RPi.GPIO as GPIO
+# ===================================================
+#--------------- FAKE HARDWARE SETTINGS ------------
+
+#IMPORT FakeRPi to execute script without real sensors
+#IMPORT RPI to execute script on Raspberry with REAL
+#sensors
+
+#import FakeRPi.GPIO as GPIO  # real hardware sensors
+import RPi.GPIO as GPIO #emulated sensors
+
+# ------------------------------------------------
 import random
 import os 
 import time
@@ -7,7 +17,7 @@ from datetime import datetime
 
 # ==================================================
 # --- GLOBAL CONFIG -------
-FAKE_HW = True #True for debug in windows | False to run with real sensors
+FAKE_HW = False #True for debug in windows | False to run with real sensors
 SENSORS= ['HCSR04_001'] #List os sensors unique ID
 TRIGGER_GPIOS = [23] #List of GPIO connect to sensors trigger pin
 ECHO_GPIOS = [24] #List of GPIO connect to sensors echo pin
