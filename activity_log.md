@@ -79,6 +79,21 @@ refactoring del codice:
 - Mockup GPIO per sviluppo su windows
 - Inserita modalità FAKE_HW per eseguire software senza hardware (distanza random)
 
+## 2020-12-27 
+
+Gestione sensori multipli 
+
+Test acquisizione dati con sensori multipli 
+
+- test OK. Foto setup scattata da smartphone
+- aggiunto a repository esempio di acquisizione  con due sensori
+
+Attivato Azure for students  con account  emanuele.buchicchio@studenti.unipg.it 
+
+Attivato Workspace Azure Machine Learning 
+
+
+
 
 
 
