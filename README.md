@@ -10,7 +10,7 @@ L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo
 ### Attività previste
 
 - [ ] Progettare e realizzare un prototipo del sistema di acquisizione dati (hardware e software)
-- [ ] Progettare e realizzare un prototipo sistema di classificazione (modello addestrato e  webservice consumabile con endpoint pubblico)
+- [ ] Progettare e realizzare un prototipo di classificatore per riconoscere il tipo di oggetto
 - [ ] Relazione sul lavoro svolto e risultati ottenuti
 - [ ] Documentazione utile per proseguire lo sviluppo del sistema 
 
@@ -34,7 +34,7 @@ La componete di campo utilizza dei misuratori di distanza ad ultrasuoni. Ogni mi
 
 I misuratori sono sono fissi ed in posizioni note. L'insieme delle sistanze stimate rispetto ai diversi misuratori, conbinato con le informazioni sulla configurazione geometrica del sistema,  viene utilizzato per stimare la posizione del bersaglio ed riconoscere  il tipo di oggetto. L'aggregazione e la prima elaborazione dei dati provenienti dai sensori viene eseguita localmente a livello di _edge_ (_edge computing_). A questo livello viene elaborata la stima della posizione e può essere eseguita anche la classificazione del oggetto. I dati acquisiti vengono poi inviati alla componente _cloud_ per elaborazioni di secondo livello, miglioramento del modello di classificazione e memorizzazione a lungo termine (_cloud computing_).
 
-Il riconoscimento dell'oggetto viene eseguito utilizzando un classificatore muticlasse addestrato con dati ottenuti da misurazioni precedentemente eseguite con il sistema nella stessa configurazione (numero e posizione dei sensori) su oggetti noti a priori. Il classificatore può essere eseguito localmente sul disposivo di campo che gestisce i sensori, come web server su rete locale oppure come web server remoto.
+Il riconoscimento dell'oggetto viene eseguito utilizzando un classificatore multiclasse addestrato con dati ottenuti da misurazioni precedentemente eseguite con il sistema nella stessa configurazione (numero e posizione dei sensori) su oggetti noti a priori. Il classificatore può essere eseguito localmente sul dispositivo di campo che gestisce i sensori, come web server su rete locale oppure come web server remoto.
 
 In generale la configurazione geometrica del sistema ed il numero di sensori devono essere scelta in base ai requisiti di simmetria e risoluzione che si vogliono soddisfare. Nel caso del prototipo realizzato per questo progetto non erano stati posti  particolari vincoli e quindi sono stati utilizzati i sensori che erano disponibili in laboratorio, sperimentando diverse configurazioni geometriche. 
 
@@ -46,17 +46,11 @@ In generale la configurazione geometrica del sistema ed il numero di sensori dev
 
 
 
-
-
-
-
-
-
 ## Il prototipo realizzato (versione 1.0)
 
 ### Scopo
 
-Testare possibilità di stimare la posizione di un oggetto e riconoscere il tipo di oggetto utilizzando un numero limtato di sensori
+Testare possibilità di stimare la posizione di un oggetto e riconoscere il tipo di oggetto utilizzando un numero limitato di sensori
 
 ### Requisiti 
 
@@ -75,10 +69,12 @@ Testare possibilità di stimare la posizione di un oggetto e riconoscere il tipo
 - [ ] definire configurazione geometrica riproducibile del sistema
 - [ ] creare dataset per addestramento modello
 - [ ] sviluppare un classificatore dimostrativo con un modello semplice
-- [ ] deploy del modello su raspberry 
+- [ ] deploy del modello su Raspberry 
 - [ ] deploy del modello come web service
 - [ ] valutazione performance del modello
-- [ ] ottimizzare modello 
+- [ ] ottimizzare classificatore
+- [ ] relazione finale
+- [ ] documentazione di progetto 
 
 ### Hardware
 
