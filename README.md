@@ -119,6 +119,14 @@ Esistono versioni industriale dei Raspberry a partire da 130-150€
 
 ## Futuri Sviluppi 
 
+### Connettività ed invio dati verso storage esterno
+
+Aggiungere sistema per invio dei dati acquisiti verso uno storage esterno. Es. IoT Hub. attraverso protocollo MQTT e rete ethernet/wifi.
+
+### Trigger automatico 
+
+Aggiungere un sistema di trigger per avviare in maniera automatica la misura (es. fotocellula, sensore di prossimità IR, PIR, ...)
+
 ### Caratterizzazione dei sensori ad ultrasuoni utilizzati 
 
 Ricavare (dove non disponibile) una caratterizzazione affidabile dei sensori utilizzati.

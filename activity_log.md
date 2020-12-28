@@ -94,6 +94,27 @@ Attivato Workspace Azure Machine Learning
 
 
 
+## 2020-12-28
+
+GPIO.cleanup() see [RPi.GPIO basics 3 – How to Exit GPIO programs cleanly, avoid warnings and protect your Pi – RasPi.TV](http://raspi.tv/2013/rpi-gpio-basics-3-how-to-exit-gpio-programs-cleanly-avoid-warnings-and-protect-your-pi)
+
+Gestione eventu "button press" come trigger per avviare la misura
+
+-  la gestione può essere fatta in stile "eventi e callback" (interrupt service routine nel mondo dei micrcontrollori) oppure andando in pooling all'interno di un main loop 
+- https://roboticsbackend.com/raspberry-pi-gpio-interrupts-tutorial/
+- Nota:  nel caso di Raspberry l'SDK in python non espone gli interrupt HW del micro. Però essite una funzionalità software analoga. 
+
+Pull-Up / Pull-Down resistors in Raspberry PI
+
+	- si possono usare le resistenze interne e semplificare il circuito
+	- https://kalitut.com/raspberrypi-gpio-pull-up-pull-down-resistor/ 
+	- https://raspi.tv/2013/rpi-gpio-basics-6-using-inputs-and-outputs-together-with-rpi-gpio-pull-ups-and-pull-downs
+	- La
+
+
+
+
+
 
 
 
