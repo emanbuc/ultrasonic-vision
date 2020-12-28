@@ -21,7 +21,7 @@ FAKE_HW = False #True for debug in windows | False to run with real sensors
 SENSORS= ['HCSR04_001','HCSR04_002'] #List os sensors unique ID
 TRIGGER_GPIOS = [23,22] #List of GPIO connect to sensors trigger pin
 ECHO_GPIOS = [24,27] #List of GPIO connect to sensors echo pin
-MAIN_TRIGGER_GPIO = 2
+MAIN_TRIGGER_GPIO = 26
 
 ## =================================================
 # --- GLOBAL VARIABLES
@@ -34,14 +34,15 @@ MAIN_TRIGGER_GPIO = 2
 def configureGPIO(TRIGGER_GPIOS,ECHO_GPIOS):
 
     GPIO.setmode(GPIO.BCM)
-
-    GPIO.setup(MAIN_TRIGGER_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     
     for triggerGpio in TRIGGER_GPIOS:
         GPIO.setup(triggerGpio,GPIO.OUT)
     
     for echoGpio in ECHO_GPIOS:
         GPIO.setup(echoGpio,GPIO.IN)
+    
+    #pull down for trigger button   
+    GPIO.setup(MAIN_TRIGGER_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)    
 
 def createDataFile():
     filename= strftime("%Y%m%d_%H%M%S")+".csv"
@@ -77,8 +78,8 @@ def readFromSensor(sensorIndex):
     
     return pulse_start,pulse_end
 
-def doMeasureCallback(channel):
-    print("Button pressed!")
+def doMeasure():
+    print(" ==== doMeasure starts ====")
     
     for sensorIndex in range(0,len(SENSORS)):
         sensorId=SENSORS[sensorIndex] 
@@ -108,11 +109,11 @@ print("ECHOS: "+str(ECHO_GPIOS))
 configureGPIO(TRIGGER_GPIOS,ECHO_GPIOS)
 file= createDataFile()
 
-GPIO.add_event_detect(MAIN_TRIGGER_GPIO,GPIO.RISING,callback=doMeasureCallback) # Setup event on rising edge
-message = input("Press enter to quit\n\n") # Run until someone presses enter
-
-#TODO: add start/stop button
 while True:
-    print (".")
+    mainTriggerState= GPIO.input(MAIN_TRIGGER_GPIO)
+    if(mainTriggerState):
+        doMeasure()
+    else:
+        print(".")
 # GPIO.cleanup() # Clean up
 
