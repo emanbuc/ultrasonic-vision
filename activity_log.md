@@ -101,15 +101,19 @@ GPIO.cleanup() see [RPi.GPIO basics 3 – How to Exit GPIO programs cleanly, avo
 Gestione eventu "button press" come trigger per avviare la misura
 
 -  la gestione può essere fatta in stile "eventi e callback" (interrupt service routine nel mondo dei micrcontrollori) oppure andando in pooling all'interno di un main loop 
-- https://roboticsbackend.com/raspberry-pi-gpio-interrupts-tutorial/
-- Nota:  nel caso di Raspberry l'SDK in python non espone gli interrupt HW del micro. Però essite una funzionalità software analoga. 
+- 
+- Nota:  nel caso di Raspberry l'SDK in python non espone gli interrupt HW del micro, quindi lo faccio nel main loop
+  - esiste una gestione software delle callbak  simile agli interrupt https://roboticsbackend.com/raspberry-pi-gpio-interrupts-tutorial/ per fare "edge detection sugli input digitali"
+    - https://sourceforge.net/p/raspberry-gpio-python/wiki/Inputs/
+    - https://raspberrypihq.com/use-a-push-button-with-raspberry-pi-gpio/
 
-Pull-Up / Pull-Down resistors in Raspberry PI
+Raspberry PI dispone di resistenze Pull-Up / Pull-Down onboard configurabili via software
 
-	- si possono usare le resistenze interne e semplificare il circuito
+	- si possono usare le resistenze interne e semplificare il circuito eliminando resistenze esterne
 	- https://kalitut.com/raspberrypi-gpio-pull-up-pull-down-resistor/ 
 	- https://raspi.tv/2013/rpi-gpio-basics-6-using-inputs-and-outputs-together-with-rpi-gpio-pull-ups-and-pull-downs
-	- La
+	- https://www.programcreek.com/python/example/98874/RPi.GPIO.add_event_detect
+	- 
 
 
 
