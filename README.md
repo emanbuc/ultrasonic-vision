@@ -14,11 +14,19 @@ L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo
 - [ ] Relazione sul lavoro svolto e risultati ottenuti
 - [ ] Documentazione utile per proseguire lo sviluppo del sistema 
 
+### Architettura
+
+Architettura Industrial IoT standard a tre livelli field, edge/fog, cloud (oppure on-premeses).
+
+[diagramma]
+
+[Edge vs Fog computing]
+
 ## Funzionamento del sistema
 
-Il sistema utilizza dei misuratori di distanza ad ultrasuoni. Ogni misuratore è indipendente ed è composto da un emettitore di impulsi ad ultrasuoni e da un ricevitore. La distanza del bersaglio viene stimanta misurando il tempo (_Time Of Flight - TOF_) trascorso tra l'emissione dell'impulso e la ricezione del primo eco riflesso dal beraglio.
+La componete di campo utilizza dei misuratori di distanza ad ultrasuoni. Ogni misuratore è indipendente ed è composto da un emettitore di impulsi ad ultrasuoni e da un ricevitore. La distanza del bersaglio viene stimanta misurando il tempo (_Time Of Flight - TOF_) trascorso tra l'emissione dell'impulso e la ricezione del primo eco riflesso dal beraglio.
 
-I misuratori sono sono fissi ed in posizioni note. L'insieme delle sistanze stimate rispetto ai diversi misuratori, conbinato con le informazioni sulla configurazione geometrica del sistema,  viene utilizzato per stimare la posizione del bersaglio ed riconoscere  il tipo di oggetto.
+I misuratori sono sono fissi ed in posizioni note. L'insieme delle sistanze stimate rispetto ai diversi misuratori, conbinato con le informazioni sulla configurazione geometrica del sistema,  viene utilizzato per stimare la posizione del bersaglio ed riconoscere  il tipo di oggetto. L'aggregazione e la prima elaborazione dei dati provenienti dai sensori viene eseguita localmente a livello di _edge_ (_edge computing_). A questo livello viene elaborata la stima della posizione e può essere eseguita anche la classificazione del oggetto. I dati acquisiti vengono poi inviati alla componente _cloud_ per elaborazioni di secondo livello, miglioramento del modello di classificazione e memorizzazione a lungo termine (_cloud computing_).
 
 Il riconoscimento dell'oggetto viene eseguito utilizzando un classificatore muticlasse addestrato con dati ottenuti da misurazioni precedentemente eseguite con il sistema nella stessa configurazione (numero e posizione dei sensori) su oggetti noti a priori. Il classificatore può essere eseguito localmente sul disposivo di campo che gestisce i sensori, come web server su rete locale oppure come web server remoto.
 
@@ -29,6 +37,14 @@ In generale la configurazione geometrica del sistema ed il numero di sensori dev
 **Il numero dei sensori utilizzabili** (e quindi la risoluzione spaziale del sistema) è limitato dal numero di linee di input/output digitale (_GPIO_)  del microcontrollore utilizzato e dal tempo disponibile per effettuare la misura (i misuratori vengono accesi singolarmente in sequenza). Solitamente i sensori ad ultrasuoni richiedono 2 linee (anche se alcuni modelli ne richiedono solo una). Nel caso del prototipo sonostati utilizzati dei sensori HC-SR04 che richiedono 2 GPIO e un Raspberry PI 3 mette nativamente a disposizone 24 GPIO quindi il prototipo, senza circuiteria aggiuntiva per multiplexing, può gestire fino a 12 sensori.
 
 **Il raggio d'azione** del sistema dipende dalla configurazione geometrica del sistema e dalle caratteristiche dei misuratori utilizzati. Molti misuratori commerciali a bassa costo hanno una portata operativa di 2-3 metri anche se ne esistono alcuni con portata fino 7 metri.  Ad esempio disponendo i misuratori ai vertici e lungo i lati di un quadrato di potrebbe agevolmente coprire un area di almeno 2 mq anche con misuratori di fascia economica. Un altra possibilità è quella di disporre i misuratori lungo un circonferenza di diametro minore o uguale alla portata massima dei dispositivi.
+
+
+
+
+
+
+
+
 
 ## Il prototipo realizzato (versione 1.0)
 
