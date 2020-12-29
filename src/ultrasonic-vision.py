@@ -5,8 +5,8 @@
 #IMPORT RPI to execute script on Raspberry with REAL
 #sensors
 
-#import FakeRPi.GPIO as GPIO  # real hardware sensors
-import RPi.GPIO as GPIO #emulated sensors
+import FakeRPi.GPIO as GPIO  # real hardware sensors
+#import RPi.GPIO as GPIO #emulated sensors
 
 # ------------------------------------------------
 import random
@@ -17,7 +17,8 @@ from datetime import datetime
 
 # ==================================================
 # --- GLOBAL CONFIG -------
-FAKE_HW = False #True for debug in windows | False to run with real sensors
+FAKE_HW = True
+ #True for debug in windows | False to run with real sensors
 SENSORS= ['HCSR04_001','HCSR04_002','HCSR04_003','HCSR04_004'] #List os sensors unique ID
 TRIGGER_GPIOS = [23,22,5,2] #List of GPIO connect to sensors trigger pin
 ECHO_GPIOS = [24,27,6,3] #List of GPIO connect to sensors echo pin
@@ -52,17 +53,17 @@ def createDataFile():
         for sensorIdex in range(0,len(SENSORS)):
             sensorIdString = sensorIdString + ","+str(SENSORS[sensorIdex])
 
-        file.write("Time"+sensorIdString+ "\n")
+        file.write("Time"+sensorIdString+",ObjectClass\n")
     return file
 
-def writeDataToLocalFile(sampleTimestamp,sensorIds,distances):
+def writeDataToLocalFile(sampleTimestamp,sensorIds,distances,objectClass):
     distanceString = ""
     for distance in distances:
         distanceString = distanceString+","+str(distance)
     
     # precision reduced to seconds. An integer value is better for timestand conversion
     secondsUnixEpocTimestamp = round(sampleTimestamp) 
-    file.write(str(secondsUnixEpocTimestamp)+distanceString+"\n")
+    file.write(str(secondsUnixEpocTimestamp)+distanceString+","+objectClass+"\n")
     file.flush()
 
 def calculateDistance(pulseDuration):
@@ -88,6 +89,19 @@ def readFromSensor(sensorIndex):
     
     return pulse_start,pulse_end
 
+def doObjectClassification(sensors, distances):
+    #TODO: call real classification model
+    predictedClass = "A" 
+    if (distances[0]>100):
+        predictedClass = "B"
+    elif distances[0]>150:
+        predictedClass = "C"
+    elif distances[0]>200:
+        predictedClass = "D"
+
+    return predictedClass
+
+
 def doMeasure():
     print(" ==== doMeasure starts ====")
     distances = []
@@ -105,7 +119,8 @@ def doMeasure():
         distance= calculateDistance(pulseDuration)
         distances.append(distance)
     
-    writeDataToLocalFile(sampleTimestamp,SENSORS,distances)
+    objectClass = doObjectClassification(SENSORS,distances)
+    writeDataToLocalFile(sampleTimestamp,SENSORS,distances,objectClass)
 
 
 # ==================================================
@@ -129,6 +144,7 @@ while True:
     if(mainTriggerState):
         doMeasure()
     else:
+        time.sleep(0.1) 
         print(".")
 # GPIO.cleanup() # Clean up
 
