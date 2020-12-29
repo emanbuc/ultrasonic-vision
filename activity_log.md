@@ -212,7 +212,7 @@ wiring e firmware configuration for four sensors configuration
 Per rendere facimente utilizzabili i dati ho modificato lo schame del file prodotto dal sistema:
 
 ```yaml
-time:  'timestamp unix epoch time (precision to seconds)' #long
+Time:  'timestamp unix epoch time (precision to seconds)' #long
 
 HCSR04_001: 'distanza stimata da sensore 1' #: float
 
@@ -222,14 +222,26 @@ HCSR04_003: 'distanza stimata da sensore 3' #: float
 
 HCSR04_004: 'distanza stimata da sensore 4' #: float
 
-objectClass: 'tipo di oggetto (classe) presente'  #: string 
+ObjectClass: 'tipo di oggetto (classe) presente'  #: string 
 ```
 
+## Traning dataset 
+
+creato dataset (con dati simulati) per iniare a sperimentare l'addestramento ed il deploy del classificatore
+
+![image-20201229120842143](media\image-20201229120842143.png)
 
 
 
+## Training Pipeline with AutoML
+
+Creato Notebook per creazione Pipeline che produce e pubblica classificatore usando i dataset pubblicato in github
+
+Work in progress.... 
 
 
+
+Test Classificatore 
 
 
 
