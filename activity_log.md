@@ -201,5 +201,35 @@ Nota5: dalla sessione remota desktop sembra non funzionare l'arresto ed il riavv
 
 
 
+## 2020-12-29
+
+### configurazione a quattro sensori
+
+wiring e firmware configuration for four sensors configuration
+
+### Data format for machine learning training
+
+Per rendere facimente utilizzabili i dati ho modificato lo schame del file prodotto dal sistema:
+
+```yaml
+time:  'timestamp unix epoch time (precision to seconds)' #long
+
+HCSR04_001: 'distanza stimata da sensore 1' #: float
+
+HCSR04_002: 'distanza stimata da sensore 2' #: float
+
+HCSR04_003: 'distanza stimata da sensore 3' #: float
+
+HCSR04_004: 'distanza stimata da sensore 4' #: float
+
+objectClass: 'tipo di oggetto (classe) presente'  #: string 
+```
+
+
+
+
+
+
+
 
 
