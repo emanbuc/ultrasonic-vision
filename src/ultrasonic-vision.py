@@ -5,8 +5,8 @@
 #IMPORT RPI to execute script on Raspberry with REAL
 #sensors
 
-import FakeRPi.GPIO as GPIO  # real hardware sensors
-#import RPi.GPIO as GPIO #emulated sensors
+#import FakeRPi.GPIO as GPIO  # real hardware sensors
+import RPi.GPIO as GPIO #emulated sensors
 
 # ------------------------------------------------
 import random
@@ -17,7 +17,9 @@ from datetime import datetime
 
 # ==================================================
 # --- GLOBAL CONFIG -------
-FAKE_HW = True
+FAKE_HW = False
+TRAINING_MODE = True
+TRAINING_LABEL = "GLASS"
  #True for debug in windows | False to run with real sensors
 SENSORS= ['HCSR04_001','HCSR04_002','HCSR04_003','HCSR04_004'] #List os sensors unique ID
 TRIGGER_GPIOS = [23,22,5,2] #List of GPIO connect to sensors trigger pin
@@ -46,7 +48,12 @@ def configureGPIO(TRIGGER_GPIOS,ECHO_GPIOS):
     GPIO.setup(MAIN_TRIGGER_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)    
 
 def createDataFile():
-    filename= strftime("%Y%m%d_%H%M%S")+".csv"
+    
+    label=""
+    if(TRAINING_MODE==True):
+        label = "_TRAIN_"+TRAINING_LABEL
+        
+    filename= strftime("%Y%m%d_%H%M%S")+label+".csv"
     file = open(filename, "w+")
     if os.stat(filename).st_size == 0: 
         sensorIdString = ""        
@@ -112,14 +119,16 @@ def doMeasure():
 
         else:
             pulse_start,pulse_end =readFromSensor(sensorIndex)
-            time.sleep(0.1) 
+            time.sleep(0.5) 
                 
         pulseDuration = pulse_end - pulse_start
         sampleTimestamp= pulse_end - (pulseDuration/2)
         distance= calculateDistance(pulseDuration)
         distances.append(distance)
-    
-    objectClass = doObjectClassification(SENSORS,distances)
+    if(TRAINING_MODE==True):
+        objectClass= TRAINING_LABEL
+    else:
+        objectClass = doObjectClassification(SENSORS,distances)
     writeDataToLocalFile(sampleTimestamp,SENSORS,distances,objectClass)
 
 
