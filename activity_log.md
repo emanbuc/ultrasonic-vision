@@ -241,7 +241,32 @@ Work in progress....
 
 
 
-Test Classificatore 
+## 2020-12-30
+
+AutoML training notebook
+
+Test pubblicazione webservice
+
+Test creazione pipeline per retrain automatico
+
+## 2020-12-31
+
+Assemblato prototipo nella configurazione a 4 sensori
+
+Test acquisizione tadi di training con vari oggetti
+
+Arrivati oggi altri 4  sensori (da montare appena possibile)
 
 
 
+## 2021-01-01
+
+## Wiring
+
+cavi allarme
+
+cavi dupont
+
+collegamento per gruppo sensori 3D
+
+Sistemi di acquisizione con molti sensori e legge di Murphy
