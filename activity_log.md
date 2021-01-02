@@ -292,18 +292,6 @@ Montaggio telaio per gruppo sensori superiori e test acquisiszione a vuoto con i
 
 problemi di interferezenza del telaio sui sensori
 
-disponibili solo sensori a 5V => necesario uso partirore per collegamento a GPIO Raspberry con range 0-3.3V 
-
- - tra resistenze disponibili in laboratorio scelti valori 18K e 10K => v_out = 5 * 18K / (18K+10K)=3.2V
-
- - ![V_2 = V_{out} = V_{in} \frac{R_2}{R_1 + R_2}](media/Voltage_divider_formula.svg)
-
- - ![voltage divider](media/Voltage_divider.svg)
-
- - image source: [Voltage divider - Partitore di tensione - Wikipedia](https://it.wikipedia.org/wiki/Partitore_di_tensione#/media/File:Voltage_divider.svg)
-
-   
-
 geometria e materiale degli oggetti ha un effetto rilevante nella stima della distanza a parità di posizione dell'oggetto e configurazione geometrica dei sensori.
 
 Esperimento con barriera parallela al piano dei sensori (label: WALL_45_DEGREE) e telaio sensori soffitto montato
@@ -314,43 +302,76 @@ Esperimento con barriera parallela al piano dei sensori (label: WALL_45_DEGREE) 
 
 ## 2021-01-02
 
-Collegamento sensori tetto usando partitori
+### Configurazione a sette sensori
 
-ESD protection ... non serve main fino a quando indossando abiti sintetici parte una scintilla verso un micro appena comprato!
+L'hardware utilizzato consente di utilizzare fino a 12 sensori. Al momento in laboratorio sono disponibili 5 sensori HCSR04+ e 5 sensori HCSR04 . Per l'addestramento del classificatore è stata utilizzata una configurazione con sette sensori in modo da lasciare alcuni sensori disponibili per testare l'utilizzo di moduli remoti con microcontrollore ESP8266, mantenendo invariata la configurazione dei sistema principale.
 
-	- i moduli SRHC04 sono molto robusti! sembra ancora operativo
-	- 
+### Interfacciamento con moduli HC-SR-04 / HC-SR-04+ 
 
-Usare il rosso per Vcc 5V e Vcc 3.3 non è una buona idea
+I moduli HC-SR-04 in commercio sono più o meno tutti uguali e derivano da uno stesso progetto di base. La versione "+" è stata modificata per avere tensioni di ingresso/uscita a 3.3V al posto dei 5V dell'originale.  
 
-Acquisizione second dataset di training con configuraizone  a sette sensori e barriere parallele ai piani dei sensori
+I moduli HC-SR-04+ possono essere collegati direttamente ai GPIO del Raspberry.
 
-- EMPTY_SEVEN
+I moduli HC-SR-04 non possono essere collegati direttamente ai GPIO di Raspberry, ma serve un adattatore di livello da 5V a 3.3V. In questo caso è sufficiente un partitore di tensione.
 
-- SQUARE_MILK_90
+Tra resistenze disponibili in laboratorio sono stati scelti valori 18K e 10K per realizzare il partitore.
 
-- SQUARE_MILK_45
+ => v_out = 5 * 18K / (18K+10K)=3.2V 
 
-  - misure instabili e fuori range da parte di alcuni sensori: credo dipenda dalla geometria dell'oggetto 
-    - vengono prodotte misure fuori range che propabilmente non portano informazione utile per la classificazione.
-    - ragionare su come gestire i fuori range
+ - ![V_2 = V_{out} = V_{in} \frac{R_2}{R_1 + R_2}](media/Voltage_divider_formula.svg)
 
-- BEAN_CAN
+ - ![voltage divider](media/Voltage_divider.svg)
 
-- SOAP_BOTTLE_FRONT
-
-- SOAP_BOTTLE_SIDE
-
-- GLASS
-
-- RECTANGULAR_BOX
-
-  
+ - image source: [Voltage divider - Partitore di tensione - Wikipedia](https://it.wikipedia.org/wiki/Partitore_di_tensione#/media/File:Voltage_divider.svg)
 
 
+Nota: *Usare il rosso per Vcc 5V e Vcc 3.3 non è una buona idea*!
 
-Dal sensore 007 non riesco ad ottenere una lettura corretta. Ho provato a sostituire il sensore, ma il risultato non migliora.  La lettura però presenta un errore sistematico approssimativamente costante, quindi procedo lo stesso all'acquisizione dei dati di training.
+Test della configurazione a sette sensori (file "EMPTY_SEVEN")
 
-- problema di cablatura?
-- disturbo ambientale?
-- 
+- misure instabili e fuori range da parte di alcuni sensori: credo dipenda dalla geometria dell'oggetto 
+  - vengono prodotte misure fuori range che probabilmente non portano informazione utile per la classificazione.
+  - ragionare su come gestire i fuori range
+- Dal sensore 007 non riesco ad ottenere una lettura corretta.  Ho provato a sostituire il sensore, ma il risultato non migliora.  La lettura però presenta un errore sistematico approssimativamente costante, quindi posso procedere lo stesso all'acquisizione dei dati di training.
+
+  - problema di cablatura?
+  - disturbo ambientale?
+  - 
+
+### ESD Protection
+
+Solitamente per maneggiare i moduli destinati ai makers non servono procedure ed accortezze di protezione da scariche elettrostatiche. Questa volta però ho esagerato: durante il posizionamento dei sensori indossavo abiti sintetici e scarpe di gomma ed ho avuto modo di testare la robustrezza dai sensori a due scariche di notevole intensità. Fortuantamente funzionano ancora!  Non serve il canonico kit scarpe, camice e braccialetto per questi componenti, ma ho iniziato a toccare un termosifone prima di toccare componenti del sistema!
+
+
+
+## Dati training 3D
+
+Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisizione dati, senza utilizzare riferimenti precisi per la posizione con lo scopo di rendere più robusto il riconoscimento da parte del classificatore. Per ogni oggetto acquisizione dati è stata ripetuta più volte dopo aver tolto e posizionato nuovamente l'oggetto con variazioni casuali di posizionamento. 
+
+### Posizionamento oggetti
+
+Sono stati sperimentati diversi posizionamenti degli oggetti all'interno del range dei sensori.  I dati di training del classificatore sono stati acquisiti posizionando gli oggetti nella zona centrale on modo da avere potenzialmente letture significative da tutti sensori presenti (compresi quelli ora non presenti nella configurazione a sette sensori)
+
+![posizionamento_oggetto](C:\gitrepos\ultrasonic-vision\media\object_postion03.jpg)
+
+
+
+Acquisizione second dataset di training con configurazione  a sette sensori e barriere parallele ai piani dei sensori
+
+- SQUARE_MILK_90 ![SQUARE_MILK_90](media/SQUARE_MILK_90.jpg)
+- SQUARE_MILK_45 ![SQUARE_MILK_45](media/SQUARE_MILK_45.jpg)
+
+- BEAN_CAN ![BEAN_CAN](media/BEAN_CAN.jpg)
+- SOAP_BOTTLE_FRONT ![SOAP_BOTTLE_FRONT](media/SOAP_BOTTLE_FRONT.jpg)
+- SOAP_BOTTLE_SIDE ![SOAP_BOTTLE_SIDE](media/SOAP_BOTTLE_SIDE.jpg)
+- GLASS ![GLASS](media/GLASS.jpg)
+- RECTANGULAR_BOX  ![RECTANGULAR_BOX](media/RECTANGULAR_BOX.jpg)
+- RECTANGULAR_BOX_SIDE ![RECTANGULAR_BOX_SIDE](media/RECTANGULAR_BOX_SIDE.jpg)
+- WALL_BALL ![BALL_WALL](media/BALL_WALL.jpg)
+- BALL_CENTER ![BALL_CENTER](media/BALL_CENTER.jpg)
+- BEER_BOTTLE ![BEER_BOTTLE](media/BEER_BOTTLE.jpg)
+
+Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisizione dati, senza utilizzare riferimenti precisi per la posizione con lo scopo di rendere più robusto il riconoscimento da parte del classificatore. Per ogni oggetto l'acquisizione dati è stata ripetuta più volte dopo aver tolto e posizionato nuovamente l'oggetto con variazioni casuali di posizionamento. 
+
+
+
