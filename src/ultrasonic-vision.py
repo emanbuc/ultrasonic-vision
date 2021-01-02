@@ -19,7 +19,7 @@ from datetime import datetime
 # --- GLOBAL CONFIG -------
 FAKE_HW = False
 TRAINING_MODE = True
-TRAINING_LABEL = "RECTANGULAR_BOX"
+TRAINING_LABEL = "SQUARE_MILK_90"
  #True for debug in windows | False to run with real sensors
 SENSORS= ['HCSR04_001','HCSR04_002','HCSR04_003','HCSR04_004','HCSR04_005','HCSR04_006','HCSR04_007'] #List os sensors unique ID
 TRIGGER_GPIOS = [23,22,5,2,17,20,14] #List of GPIO connect to sensors trigger pin
