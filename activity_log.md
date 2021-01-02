@@ -263,13 +263,30 @@ Arrivati oggi altri 4  sensori (da montare appena possibile)
 
 ## Wiring
 
-cavi allarme
+I moduli HCSC04 sono predisposit per collegamento con cavi Dupont a 4 poli. In laboratorio ho disponibili solo cavi corti (10-20cm), metre per collegare i sensori sul tetto sono necessari cavi a circa 1 metro.  Cavi lunghi sono più difficili da trovare disponibili sul mercato, ma sono costosi [Amazon.it : cavi dupont](https://www.amazon.it/s?k=cavi+dupont).  Per il prototipo ho individuato due possibili soluzioni economincamente sostenibili:
 
-cavi dupont
+- cavo ethernet (xx coppie di cavi)
+- cavo per sensori impianto di allarme a 4 poli (Vcc, GND, signal01, signal02) + schermatura + anima i nylon per restistenza meccanica
+
+Avevo disponibili degli spezzoni da circa due metri di cavo per sistemi di allarme già tagliati  ed li ho utilizzati per realizzare i cavi dupont.
+
+![Visualizza immagine di origine](media/cavo_allarme.jpg)
+
+[Cavo antifurto 2 x 0,50 mm² + 2 x 0,22 mm² GR2 - MESSI & PAOLONI 5222-CCA - Spagnuolo S.R.L.](https://www.spagnuolosrl.it/prodotto/cavo-antifurto-2-x-050-mm-2-x-022-mm-gr2-messi-paoloni-5222-cca/)
+
+ Dopo aver intestato i cavi con i connettori dupont maschio/femmina ho così ottenuto dei a quattrofili ottimi per il collegamento dei moduli HCSR04
+
+[Immagine cavo realizzato]
+
+
 
 collegamento per gruppo sensori 3D
 
 Sistemi di acquisizione con molti sensori e legge di Murphy
+
+	- con solo 7 sensori la legge di Murphy non vale: solo sporadicamente si sono verificati errori docuti al collegamento dei sensori .
+
+Diversi problemi invece docuti alle breadboard di pessima qualità ... con tutti questi collegamenti meglio andare usare una millefori per ottenere un sistema ben più affidabile usando alla fine solo poco tempo in più nell'assemblaggio.
 
 Montaggio telaio per gruppo sensori superiori e test acquisiszione a vuoto con i sensori delle pareti
 
@@ -295,3 +312,45 @@ Esperimento con barriera parallela al piano dei sensori (label: WALL_45_DEGREE) 
 
 
 
+## 2021-01-02
+
+Collegamento sensori tetto usando partitori
+
+ESD protection ... non serve main fino a quando indossando abiti sintetici parte una scintilla verso un micro appena comprato!
+
+	- i moduli SRHC04 sono molto robusti! sembra ancora operativo
+	- 
+
+Usare il rosso per Vcc 5V e Vcc 3.3 non è una buona idea
+
+Acquisizione second dataset di training con configuraizone  a sette sensori e barriere parallele ai piani dei sensori
+
+- EMPTY_SEVEN
+
+- SQUARE_MILK_90
+
+- SQUARE_MILK_45
+
+  - misure instabili e fuori range da parte di alcuni sensori: credo dipenda dalla geometria dell'oggetto 
+    - vengono prodotte misure fuori range che propabilmente non portano informazione utile per la classificazione.
+    - ragionare su come gestire i fuori range
+
+- BEAN_CAN
+
+- SOAP_BOTTLE_FRONT
+
+- SOAP_BOTTLE_SIDE
+
+- GLASS
+
+- RECTANGULAR_BOX
+
+  
+
+
+
+Dal sensore 007 non riesco ad ottenere una lettura corretta. Ho provato a sostituire il sensore, ma il risultato non migliora.  La lettura però presenta un errore sistematico approssimativamente costante, quindi procedo lo stesso all'acquisizione dei dati di training.
+
+- problema di cablatura?
+- disturbo ambientale?
+- 
