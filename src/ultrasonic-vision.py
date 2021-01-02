@@ -19,12 +19,15 @@ from datetime import datetime
 # --- GLOBAL CONFIG -------
 FAKE_HW = False
 TRAINING_MODE = True
-TRAINING_LABEL = "WALL_45_DEGREE"
+TRAINING_LABEL = "RECTANGULAR_BOX"
  #True for debug in windows | False to run with real sensors
-SENSORS= ['HCSR04_001','HCSR04_002','HCSR04_003','HCSR04_004'] #List os sensors unique ID
-TRIGGER_GPIOS = [23,22,5,2] #List of GPIO connect to sensors trigger pin
-ECHO_GPIOS = [24,27,6,3] #List of GPIO connect to sensors echo pin
+SENSORS= ['HCSR04_001','HCSR04_002','HCSR04_003','HCSR04_004','HCSR04_005','HCSR04_006','HCSR04_007'] #List os sensors unique ID
+TRIGGER_GPIOS = [23,22,5,2,17,20,14] #List of GPIO connect to sensors trigger pin
+ECHO_GPIOS = [24,27,6,3,18,21,15] #List of GPIO connect to sensors echo pin
 MAIN_TRIGGER_GPIO = 26
+
+MEASURE_TO_TAKE = 10
+CONTINUOUS_MODE = True
 
 ## =================================================
 # --- GLOBAL VARIABLES
@@ -76,17 +79,18 @@ def writeDataToLocalFile(sampleTimestamp,sensorIds,distances,objectClass):
 def calculateDistance(pulseDuration):
     distance = pulseDuration * 17150
     distance = round(distance, 2)
-    print(distance)
     return distance
 
 def readFromSensor(sensorIndex):
     GPIO.output(TRIGGER_GPIOS[sensorIndex], False)
-    print ("Waitng For Sensor To Settle. Sensor index: "+str(sensorIndex))
+    print ("Waitng 2 seconds for sensor to Settle. Sensor: "+SENSORS[sensorIndex])
     time.sleep(2)
 
     GPIO.output(TRIGGER_GPIOS[sensorIndex], True)
     time.sleep(0.00001)                      
-    GPIO.output(TRIGGER_GPIOS[sensorIndex], False)                 
+    GPIO.output(TRIGGER_GPIOS[sensorIndex], False)
+    
+    pulse_start = time.time()  
 
     while GPIO.input(ECHO_GPIOS[sensorIndex])==0:               
         pulse_start = time.time()              
@@ -124,11 +128,14 @@ def doMeasure():
         pulseDuration = pulse_end - pulse_start
         sampleTimestamp= pulse_end - (pulseDuration/2)
         distance= calculateDistance(pulseDuration)
+        print(distance)
         distances.append(distance)
     if(TRAINING_MODE==True):
         objectClass= TRAINING_LABEL
     else:
         objectClass = doObjectClassification(SENSORS,distances)
+        print("Object Type: "+ objectClass)
+        
     writeDataToLocalFile(sampleTimestamp,SENSORS,distances,objectClass)
 
 
@@ -155,5 +162,7 @@ while True:
     else:
         time.sleep(0.1) 
         print(".")
+
+
 # GPIO.cleanup() # Clean up
 
