@@ -270,3 +270,28 @@ cavi dupont
 collegamento per gruppo sensori 3D
 
 Sistemi di acquisizione con molti sensori e legge di Murphy
+
+Montaggio telaio per gruppo sensori superiori e test acquisiszione a vuoto con i sensori delle pareti
+
+problemi di interferezenza del telaio sui sensori
+
+disponibili solo sensori a 5V => necesario uso partirore per collegamento a GPIO Raspberry con range 0-3.3V 
+
+ - tra resistenze disponibili in laboratorio scelti valori 18K e 10K => v_out = 5 * 18K / (18K+10K)=3.2V
+
+ - ![V_2 = V_{out} = V_{in} \frac{R_2}{R_1 + R_2}](media/Voltage_divider_formula.svg)
+
+ - ![voltage divider](media/Voltage_divider.svg)
+
+ - image source: [Voltage divider - Partitore di tensione - Wikipedia](https://it.wikipedia.org/wiki/Partitore_di_tensione#/media/File:Voltage_divider.svg)
+
+   
+
+geometria e materiale degli oggetti ha un effetto rilevante nella stima della distanza a parità di posizione dell'oggetto e configurazione geometrica dei sensori.
+
+Esperimento con barriera parallela al piano dei sensori (label: WALL_45_DEGREE) e telaio sensori soffitto montato
+
+- ora la distanza della barriera e coerente su tutti i sensori. Errore di qualche centimetro (approssimativamente entro 10%)
+
+
+
