@@ -14,11 +14,13 @@ import os
 import time
 from time import strftime
 from datetime import datetime 
+import requests
+import json
 
 # ==================================================
 # --- GLOBAL CONFIG -------
-FAKE_HW = False
-TRAINING_MODE = True
+FAKE_HW = True
+TRAINING_MODE = False
 TRAINING_LABEL = "SQUARE_MILK_90"
  #True for debug in windows | False to run with real sensors
 SENSORS= ['HCSR04_001','HCSR04_002','HCSR04_003','HCSR04_004','HCSR04_005','HCSR04_006','HCSR04_007'] #List os sensors unique ID
@@ -32,7 +34,12 @@ CONTINUOUS_MODE = True
 ## =================================================
 # --- GLOBAL VARIABLES
 
+# URL for the web service, should be similar to:
+# 'http://8530a665-66f3-49c8-a953-b82a2d312917.eastus.azurecontainer.io/score'
+scoring_uri = 'http://64b32d7c-d926-4197-b807-1350e63adf7c.westeurope.azurecontainer.io/score'
 
+# If the service is authenticated, set the key or token
+key = ''
 
 # ==================================================
 # --- FUNCTIONS ----------
@@ -100,15 +107,25 @@ def readFromSensor(sensorIndex):
     
     return pulse_start,pulse_end
 
-def doObjectClassification(sensors, distances):
-    #TODO: call real classification model
-    predictedClass = "A" 
-    if (distances[0]>100):
-        predictedClass = "B"
-    elif distances[0]>150:
-        predictedClass = "C"
-    elif distances[0]>200:
-        predictedClass = "D"
+def doObjectClassification(SENSORS, distances):
+    
+    inputDataObj ={}
+
+    for sensorIndex in range(0,len(SENSORS)):
+        sensor = SENSORS[sensorIndex]
+        inputDataObj[sensor] = distances[sensorIndex]
+    
+    # Convert to JSON string
+    inputDataJson = json.dumps(inputDataObj)
+
+    # Set the content type
+    headers = {'Content-Type': 'application/json'}
+    # If authentication is enabled, set the authorization header
+    headers['Authorization'] = f'Bearer {key}'
+
+    # Make the request and display the response
+    resp = requests.post(scoring_uri, inputDataJson, headers=headers)
+    print(resp.json())
 
     return predictedClass
 

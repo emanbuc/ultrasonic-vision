@@ -1,5 +1,5 @@
 {
-    "subscription_id": "4f90113f-c88e-4cd8-9b87-9f1b78abca6a",
-    "resource_group": "ML-PHD",
-    "workspace_name": "mlws-phd"
+    "subscription_id": "<subscription-ID>",
+    "resource_group": "<GROUP-ID>",
+    "workspace_name": "<Workspace-ID>"
 }
