@@ -16,6 +16,8 @@ from time import strftime
 from datetime import datetime 
 import requests
 import json
+from json.decoder import JSONDecoder
+import sys, getopt
 
 # ==================================================
 # --- GLOBAL CONFIG -------
@@ -36,7 +38,7 @@ CONTINUOUS_MODE = True
 
 # URL for the web service, should be similar to:
 # 'http://8530a665-66f3-49c8-a953-b82a2d312917.eastus.azurecontainer.io/score'
-scoring_uri = 'http://64b32d7c-d926-4197-b807-1350e63adf7c.westeurope.azurecontainer.io/score'
+scoring_uri = 'localhost:8080/score'
 
 # If the service is authenticated, set the key or token
 key = ''
@@ -73,7 +75,7 @@ def createDataFile():
         file.write("Time"+sensorIdString+",ObjectClass\n")
     return file
 
-def writeDataToLocalFile(sampleTimestamp,sensorIds,distances,objectClass):
+def writeDataToLocalFile(file,sampleTimestamp,sensorIds,distances,objectClass):
     distanceString = ""
     for distance in distances:
         distanceString = distanceString+","+str(distance)
@@ -107,7 +109,7 @@ def readFromSensor(sensorIndex):
     
     return pulse_start,pulse_end
 
-def doObjectClassification(SENSORS, distances):
+def doObjectClassification(SENSORS, distances,key,scoring_uri):
     
     data ={"Time": 0}
 
@@ -128,10 +130,10 @@ def doObjectClassification(SENSORS, distances):
 
     # Make the request and display the response
     resp = requests.post(scoring_uri, inputDataJson, headers=headers)
-    print(resp.json())
     
     #TODO: parse json result
-    return predictedClass
+    respObj = JSONDecoder().decode(resp.json())
+    return respObj['result'][0]
 
 
 def doMeasure():
@@ -151,39 +153,68 @@ def doMeasure():
         distance= calculateDistance(pulseDuration)
         print(distance)
         distances.append(distance)
-    if(TRAINING_MODE==True):
-        objectClass= TRAINING_LABEL
-    else:
-        objectClass = doObjectClassification(SENSORS,distances)
-        print("Object Type: "+ objectClass)
-        
-    writeDataToLocalFile(sampleTimestamp,SENSORS,distances,objectClass)
+    return distances,sampleTimestamp
 
+def readArgument(argv,key,scoring_uri):
+   try:
+      print(argv)
+      opts, args = getopt.getopt(argv,"hk:u",["key","uri"])
+   except getopt.GetoptError:
+      print ('test.py -k <key> -u <uri> -i <inputfile> -o <outputfile>')
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print ('test.py -k <key> -u <uri> -i <inputfile> -o <outputfile>')
+         sys.exit()
+      elif opt in ("-k","--key"):
+        key= arg
+      elif opt in ("-u","--uri"):
+        scoring_uri= arg
+
+   print ('Key token is "', key)
+   print ('URI token is "', scoring_uri)
 
 # ==================================================
 # --- MAIN -----------------------------------------
+def main(argv):
+    print("Distance measurement in progress")
+    print("TRIGGERS: "+ str(TRIGGER_GPIOS))
+    print("ECHOS: "+str(ECHO_GPIOS))
+    #readArgument(argv,key,scoring_uri)
+    if len(argv)!= 2:
+        print("usage: ultrasonic-vision.py <key> <scoring-uri>")
+        sys.exit(2)
 
-print("Distance measurement in progress")
-print("TRIGGERS: "+ str(TRIGGER_GPIOS))
-print("ECHOS: "+str(ECHO_GPIOS))
+    key = argv[0]
+    scoring_uri = argv[1]
 
 
-configureGPIO(TRIGGER_GPIOS,ECHO_GPIOS)
-file= createDataFile()
+    configureGPIO(TRIGGER_GPIOS,ECHO_GPIOS)
+    file = createDataFile()
 
-while True:
-    if(FAKE_HW):
-        mainTriggerState= True
-        input("press enter to continue")        
-    else:
-        mainTriggerState= GPIO.input(MAIN_TRIGGER_GPIO)
+    while True:
+        if(FAKE_HW):
+            mainTriggerState= True
+            input("press enter to continue")        
+        else:
+            mainTriggerState= GPIO.input(MAIN_TRIGGER_GPIO)
 
-    if(mainTriggerState):
-        doMeasure()
-    else:
-        time.sleep(0.1) 
-        print(".")
+        if(mainTriggerState):
+            distances,sampleTimestamp = doMeasure()
+            if(TRAINING_MODE==True):
+                objectClass= TRAINING_LABEL
+            else:
+                objectClass = doObjectClassification(SENSORS,distances,key,scoring_uri)
+                print("Object Type: "+ objectClass)
+                
+            writeDataToLocalFile(file,sampleTimestamp,SENSORS,distances,objectClass)
 
+        else:
+            time.sleep(0.1) 
+            print(".")
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
 
 # GPIO.cleanup() # Clean up
 
