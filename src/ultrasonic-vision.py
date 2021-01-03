@@ -109,12 +109,15 @@ def readFromSensor(sensorIndex):
 
 def doObjectClassification(SENSORS, distances):
     
-    inputDataObj ={"Time": time.time()}
+    data ={"Time": 0}
 
     for sensorIndex in range(0,len(SENSORS)):
         sensor = SENSORS[sensorIndex]
-        inputDataObj[sensor] = distances[sensorIndex]
+        data[sensor] = distances[sensorIndex]
     
+    inputDataObj = {
+        "data": [data]
+    }
     # Convert to JSON string
     inputDataJson = json.dumps(inputDataObj)
 
@@ -126,7 +129,8 @@ def doObjectClassification(SENSORS, distances):
     # Make the request and display the response
     resp = requests.post(scoring_uri, inputDataJson, headers=headers)
     print(resp.json())
-
+    
+    #TODO: parse json result
     return predictedClass
 
 
