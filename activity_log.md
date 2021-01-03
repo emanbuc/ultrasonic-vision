@@ -261,9 +261,11 @@ Arrivati oggi altri 4  sensori (da montare appena possibile)
 
 ## 2021-01-01
 
-## Wiring
+## Cablaggio pannello sensori superiore
 
-I moduli HCSC04 sono predisposit per collegamento con cavi Dupont a 4 poli. In laboratorio ho disponibili solo cavi corti (10-20cm), metre per collegare i sensori sul tetto sono necessari cavi a circa 1 metro.  Cavi lunghi sono più difficili da trovare disponibili sul mercato, ma sono costosi [Amazon.it : cavi dupont](https://www.amazon.it/s?k=cavi+dupont).  Per il prototipo ho individuato due possibili soluzioni economincamente sostenibili:
+I moduli HCSC04 sono predisposit per collegamento con cavi Dupont a 4 poli. In laboratorio ho disponibili solo cavi corti (10-20cm), metre per collegare i sensori sul tetto sono necessari cavi a circa 1 metro.  
+
+Cavi lunghi sono più difficili da trovare disponibili sul mercato, ma sono costosi [Amazon.it : cavi dupont](https://www.amazon.it/s?k=cavi+dupont).  Per il prototipo ho individuato due possibili soluzioni economincamente sostenibili:
 
 - cavo ethernet (xx coppie di cavi)
 - cavo per sensori impianto di allarme a 4 poli (Vcc, GND, signal01, signal02) + schermatura + anima i nylon per restistenza meccanica
@@ -276,27 +278,33 @@ Avevo disponibili degli spezzoni da circa due metri di cavo per sistemi di allar
 
  Dopo aver intestato i cavi con i connettori dupont maschio/femmina ho così ottenuto dei a quattrofili ottimi per il collegamento dei moduli HCSR04
 
-[Immagine cavo realizzato]
+![cavo sensori](media/sensor_cable02.jpg)
 
+Dopo aver realizzato i tre cavi di lunghezza sufficiente e stato possibile montare il pannello superiore con i sensori ed il relativo telaio di sostegno. Per minimizzare i disturbi il telaio di supporto è stato realizzato filo di ferro plastificato a sezione circolare.
 
+![roof sensor panel](media/roof_panel_wiring.jpg)
 
-collegamento per gruppo sensori 3D
+### Test stima posizione del bersaglio con telaio supporto pannello superiore montato
+
+Dopo aver montato il pannello superiore è stato eseguito un test del funzionamento del sistema a vuoto e con oggetti presenti nella zona di rilevazione. Nel caso non siano presenti oggetti che producono echi sonar ben definiti entro 2-3 metri di distanza i sensori HC-SR-04 producono dei risultati instabili tipici del funzionamento fuori scala.
+
+Per evitare questo problema l'area di rilevamento è stata delimitata montando una barriera sul lato opposto a quello dei sensori. In un primo momento la barriera di delimitazione risultava essere inclinata di circa 45° rispetto al piano frontale dei sensori. In queste condizioni la distanza stimata dai sensori non era corretta. (vedi acquisizione dati "WALL")
+
+Il pannello originale è stato poi sostituito da due pannelli separati, paralleli ai sensori (vedi acquisizione dat "WALL_45_DEGREE"). In questa configurazione tutti i sensori riescono a stimare la distanza con un errore massimo di qualche centimetro (accuratezza 5-10%) che è ragionevole ai fine dell'esperimento corrente.
+
+I test effettuati hanno evidenziato che:
+
+-  i sensori sono sensibili rispetto alle condizioni dell'ambiente circostante e in alcuni casi hanno restituito delle letture anomale
+- La forma ed il materiale degli oggetti ha un effetto importante nell'accuratezza della stima della distanza. 
+  - Per la riflessione delle onde sonore vale la legge si Snell quindi se l'onda sonora colpisce una superficie non parallela al piano frontale del sensore è possibile che l'onda riflessa non raggiunga direttamente il ricevitore (distanza stimata superiode a quella reale, o non lo raggiunga affatto)
+  - L'impednza acustica dell'interfaccia tra l'aria (gas) ed un corpo solido bersaglio è solitamente molto elevata e questo in generale genera una buona riflessione. In presenza di superfici  fonoassorbenti l'energi ariflessa può essere molto minore e a volte l'eco putrebbe non essere rilevato dal ricevitore
+  - 
 
 Sistemi di acquisizione con molti sensori e legge di Murphy
 
 	- con solo 7 sensori la legge di Murphy non vale: solo sporadicamente si sono verificati errori docuti al collegamento dei sensori .
 
 Diversi problemi invece docuti alle breadboard di pessima qualità ... con tutti questi collegamenti meglio andare usare una millefori per ottenere un sistema ben più affidabile usando alla fine solo poco tempo in più nell'assemblaggio.
-
-Montaggio telaio per gruppo sensori superiori e test acquisiszione a vuoto con i sensori delle pareti
-
-problemi di interferezenza del telaio sui sensori
-
-geometria e materiale degli oggetti ha un effetto rilevante nella stima della distanza a parità di posizione dell'oggetto e configurazione geometrica dei sensori.
-
-Esperimento con barriera parallela al piano dei sensori (label: WALL_45_DEGREE) e telaio sensori soffitto montato
-
-- ora la distanza della barriera e coerente su tutti i sensori. Errore di qualche centimetro (approssimativamente entro 10%)
 
 
 
@@ -352,7 +360,7 @@ Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisiz
 
 Sono stati sperimentati diversi posizionamenti degli oggetti all'interno del range dei sensori.  I dati di training del classificatore sono stati acquisiti posizionando gli oggetti nella zona centrale on modo da avere potenzialmente letture significative da tutti sensori presenti (compresi quelli ora non presenti nella configurazione a sette sensori)
 
-![posizionamento_oggetto](C:\gitrepos\ultrasonic-vision\media\object_postion03.jpg)
+![posizionamento_oggetto](media/object_postion03.jpg)
 
 
 
@@ -374,4 +382,112 @@ Acquisizione second dataset di training con configurazione  a sette sensori e ba
 Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisizione dati, senza utilizzare riferimenti precisi per la posizione con lo scopo di rendere più robusto il riconoscimento da parte del classificatore. Per ogni oggetto l'acquisizione dati è stata ripetuta più volte dopo aver tolto e posizionato nuovamente l'oggetto con variazioni casuali di posizionamento. 
 
 
+
+### Microsoft Azure for Student 
+
+Utilizzando l'account @studenti.unipg.it è stato possibile attivare un abbonamento gratuitp "Azure for Students" con 100€ di credito e vari servizi gratuiti inclusi.
+
+![image-20210102225641266](media/azure_for_student.png)
+
+### Training dataset 20210102
+
+Tutti i dati acquisiti con la configurazione a 7 sensori in data 2021-01-02 sono stati raccolti in un unico dataset denominato "ultrasonic_vision_20211020" registrato nel workspace Azure Machine Learning
+
+![image-20210102224058440](media/dataset_azureml_20210120.png)
+
+### AutoML per classificatore
+
+Per sviluppare e pubblicare rapidamente un classificatore da utilizzare insieme al prototipo è stato usato creato un workspace Azure Machine Learning e poi utilizzato il servizio *Automated Machine Learning*. AutoML, applica automaticamente una serie di tecniche standard di feature engeneering, parameters tuning e prova ad eseguire il training di diversi modelli utilizzando. dati forniti. Alla fine viene proposto il modello con le migliori performacne rispetto alla metrica selezionata tra quelli testati durante l'esperimento. I risultati ottenuti con i singoli esperimenti possono poi essere analizzati nel dettaglio.
+
+![image-20210102225745809](/Users/emanuelebuchicchio/ultrasonic-vision/media/azure_machine_learning_studio.png)
+
+### 
+
+Nel caso specifico come metric aprimaria è stata scelta weighted AUC dato che il numeor di campioni non era omogeneo per tutte le classi. Il modello migliore tra quelli valutati è risultato essere uno di tipo "RobustScaler, LightGBM"
+
+Modello addestrato:  [AutoML71880948429.zip](models/AutoML71880948429.zip) 
+
+https://github.com/microsoft/LightGBM 
+
+### Valutazione del modello
+
+Reference: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-understand-automated-ml#classification-metrics 
+
+![image-20210102234946336](media/model_metrics.png)
+
+#### Confusion Matrix
+
+Confusion matrices provide a visual for how a machine learning model is making systematic errors in its predictions for classification models. The word "confusion" in the name comes from a model "confusing" or mislabeling samples. A cell at row `i` and column `j` in a confusion matrix contains the number of samples in the evaluation dataset that belong to class `C_i` and were classified by the model as class `C_j`.
+
+In the studio, a darker cell indicates a higher number of samples. Selecting **Normalized** view in the dropdown will normalize over each matrix row to show the percent of class `C_i` predicted to be class `C_j`. The benefit of the default **Raw** view is that you can see whether imbalance in the distribution of actual classes caused the model to misclassify samples from the minority class, a common issue in imbalanced datasets.
+
+The confusion matrix of a good model will have most samples along the diagonal
+
+![image-20210102234838298](media/confusion_matrix.png)
+
+#### ROC curve
+
+The receiver operating characteristic (ROC) curve plots the relationship between true positive rate (TPR) and false positive rate (FPR) as the decision threshold changes. The ROC curve can be less informative when training models on datasets with high class imbalance, as the majority class can drown out contributions from minority classes.
+
+The area under the curve (AUC) can be interpreted as the proportion of correctly classified samples. More precisely, the AUC is the probability that the classifier ranks a randomly chosen positive sample higher than a randomly chosen negative sample. The shape of the curve gives an intuition for relationship between TPR and FPR as a function of the classification threshold or decision boundary.
+
+A curve that approaches the top-left corner of the chart is approaching a 100% TPR and 0% FPR, the best possible model. A random model would produce an ROC curve along the `y = x` line from the bottom-left corner to the top-right. A worse than random model would have an ROC curve that dips below the `y = x` line.
+
+![image-20210103004240899](/Users/emanuelebuchicchio/ultrasonic-vision/media/model_roc_curve.png)
+
+#### The precision-recall curve 
+
+The precision-recall curve plots the relationship between precision and recall as the decision threshold changes. Recall is the ability of a model to detect all positive samples and precision is the ability of a model to avoid labeling negative samples as positive. Some business problems might require higher recall and some higher precision depending on the relative importance of avoiding false negatives vs false positives.
+
+![image-20210103004658289](media/model_precision_recall.png)
+
+#### Cumulative gains curve
+
+The cumulative gains curve plots the percent of positive samples correctly classified as a function of the percent of samples considered where we consider samples in the order of predicted probability.
+
+To calculate gain, first sort all samples from highest to lowest probability predicted by the model. Then take `x%` of the highest confidence predictions. Divide the number of positive samples detected in that `x%` by the total number of positive samples to get the gain. Cumulative gain is the percent of positive samples we detect when considering some percent of the data that is most likely to belong to the positive class.
+
+A perfect model will rank all positive samples above all negative samples giving a cumulative gains curve made up of two straight segments. The first is a line with slope `1 / x` from `(0, 0)` to `(x, 1)` where `x` is the fraction of samples that belong to the positive class (`1 / num_classes` if classes are balanced). The second is a horizontal line from `(x, 1)` to `(1, 1)`. In the first segment, all positive samples are classified correctly and cumulative gain goes to `100%` within the first `x%` of samples considered.
+
+The baseline random model will have a cumulative gains curve following `y = x` where for `x%` of samples considered only about `x%` of the total positive samples were detected. A perfect model will have a micro average curve that touches the top-left corner and a macro average line that has slope `1 / num_classes` until cumulative gain is 100% and then horizontal until the data percent is 100.
+
+![image-20210103005108612](/Users/emanuelebuchicchio/ultrasonic-vision/media/model_cumulative_gain.png)
+
+#### Lift curve
+
+The lift curve shows how many times better a model performs compared to a random model. Lift is defined as the ratio of cumulative gain to the cumulative gain of a random model.
+
+This relative performance takes into account the fact that classification gets harder as you increase the number of classes. (A random model incorrectly predicts a higher fraction of samples from a dataset with 10 classes compared to a dataset with two classes)
+
+The baseline lift curve is the `y = 1` line where the model performance is consistent with that of a random model. In general, the lift curve for a good model will be higher on that chart and farther from the x-axis, showing that when the model is most confident in its predictions it performs many times better than random guessing.
+
+![image-20210103005738688](media/model_lift_curve.png)
+
+#### Calibration curve
+
+Nota: questa è l'unica metrica non soddifacente dl modello analizzato,
+
+The calibration curve plots a model's confidence in its predictions against the proportion of positive samples at each confidence level. A well-calibrated model will correctly classify 100% of the predictions to which it assigns 100% confidence, 50% of the predictions it assigns 50% confidence, 20% of the predictions it assigns a 20% confidence, and so on. A perfectly calibrated model will have a calibration curve following the `y = x` line where the model perfectly predicts the probability that samples belong to each class.
+
+An over-confident model will over-predict probabilities close to zero and one, rarely being uncertain about the class of each sample and the calibration curve will look similar to backward "S". An under-confident model will assign a lower probability on average to the class it predicts and the associated calibration curve will look similar to an "S". The calibration curve does not depict a model's ability to classify correctly, but instead its ability to correctly assign confidence to its predictions. A bad model can still have a good calibration curve if the model correctly assigns low confidence and high uncertainty.
+
+ Note
+
+The calibration curve is sensitive to the number of samples, so a small validation set can produce noisy results that can be hard to interpret. This does not necessarily mean that the model is not well-calibrated.
+
+![image-20210103010400452](media/model_calibration_curve.png)
+
+## 2021-01-03
+
+### Deploy web service 
+
+Il modello ottenuto tramite AutoML è stato poi pubblicato come webservice consumabile da parte del software presente a bordo del Raspberry. Il modello sarà eseguito all'interno di un container docker ed sarà accessibile tramite chiamata POST ad un endpoint REST. 
+
+![image-20210103001251119](/Users/emanuelebuchicchio/ultrasonic-vision/media/deploy_model.png)
+
+
+
+Endpoint: http://64b32d7c-d926-4197-b807-1350e63adf7c.westeurope.azurecontainer.io/score
+
+Nota: Per l'utlizzo dell'endpoint è necessario includere nella chiamata le chiave di autenticazione.
 

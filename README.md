@@ -9,8 +9,8 @@ L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo
 
 ### Attività previste
 
-- [ ] Progettare e realizzare un prototipo del sistema di acquisizione dati (hardware e software)
-- [ ] Progettare e realizzare un prototipo di classificatore per riconoscere il tipo di oggetto
+- [x] Progettare e realizzare un prototipo del sistema di acquisizione dati (hardware e software)
+- [x] Progettare e realizzare un prototipo di classificatore per riconoscere il tipo di oggetto
 - [ ] Relazione sul lavoro svolto e risultati ottenuti
 - [ ] Documentazione utile per proseguire lo sviluppo del sistema 
 
