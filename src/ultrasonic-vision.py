@@ -5,8 +5,8 @@
 #IMPORT RPI to execute script on Raspberry with REAL
 #sensors
 
-#import FakeRPi.GPIO as GPIO  # real hardware sensors
-import RPi.GPIO as GPIO #emulated sensors
+import FakeRPi.GPIO as GPIO  # real hardware sensors
+# import RPi.GPIO as GPIO #emulated sensors
 
 # ------------------------------------------------
 import random
@@ -109,7 +109,7 @@ def readFromSensor(sensorIndex):
 
 def doObjectClassification(SENSORS, distances):
     
-    inputDataObj ={}
+    inputDataObj ={"Time": time.time()}
 
     for sensorIndex in range(0,len(SENSORS)):
         sensor = SENSORS[sensorIndex]
