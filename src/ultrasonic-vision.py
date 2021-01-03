@@ -33,16 +33,6 @@ MAIN_TRIGGER_GPIO = 26
 MEASURE_TO_TAKE = 10
 CONTINUOUS_MODE = True
 
-## =================================================
-# --- GLOBAL VARIABLES
-
-# URL for the web service, should be similar to:
-# 'http://8530a665-66f3-49c8-a953-b82a2d312917.eastus.azurecontainer.io/score'
-scoring_uri = 'localhost:8080/score'
-
-# If the service is authenticated, set the key or token
-key = ''
-
 # ==================================================
 # --- FUNCTIONS ----------
     
@@ -155,25 +145,6 @@ def doMeasure():
         distances.append(distance)
     return distances,sampleTimestamp
 
-def readArgument(argv,key,scoring_uri):
-   try:
-      print(argv)
-      opts, args = getopt.getopt(argv,"hk:u",["key","uri"])
-   except getopt.GetoptError:
-      print ('test.py -k <key> -u <uri> -i <inputfile> -o <outputfile>')
-      sys.exit(2)
-   for opt, arg in opts:
-      if opt == '-h':
-         print ('test.py -k <key> -u <uri> -i <inputfile> -o <outputfile>')
-         sys.exit()
-      elif opt in ("-k","--key"):
-        key= arg
-      elif opt in ("-u","--uri"):
-        scoring_uri= arg
-
-   print ('Key token is "', key)
-   print ('URI token is "', scoring_uri)
-
 # ==================================================
 # --- MAIN -----------------------------------------
 def main(argv):
@@ -216,5 +187,4 @@ def main(argv):
 if __name__ == "__main__":
    main(sys.argv[1:])
 
-# GPIO.cleanup() # Clean up
 
