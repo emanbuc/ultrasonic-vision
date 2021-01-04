@@ -511,15 +511,27 @@ il modello si è dimostrato poco robusto nell'utilizzo. Sembra avere problemi di
 - alcune volte fornisce risultati instabili (la classe cambia senza che l'oggetto venga mosso a causa del rumore)
 - spostamento dell'oggetto produce errori di classificazione
 
+### Nuovo esperimento AutoML per eliminare Timestamp da schema input del webservice
+
+[riporare risultati e scaricare modelli]
+
 ## 2021-01-04
 
 Ipotesi di lavoro:
 
-1. testare altri modelli con un "calibration curve" migliore
+1. testare altri modelli con un "calibration curve" migliore ed eseguire "explain model" su quelli migliori
+
+   1. run 182 -> 202
+   2. 
+
 2. semplificare il problema riducendo le classi ai casi più facili e ripetere addestramento
+
 3. ripulire dati da misure errate, fuori scala, ... ecc  e poi rifare addestramento sui dati puliti.
-   - es. non distanze assolute, ma differenze, somme, rapporti tra distanze.
-   - trovare qualche cosa che dipenda dal tipo di oggetto e non dalla sua posizione precisa
-   - 
-4. trovare feature in grado di portare ad una classificazione più robusta:
-5. - 
+
+4. trovare feature in grado di portare ad una classificazione più robusta. Trovare features che dipendano dal tipo di oggetto e non dalla sua posizione precisa es. non distanze assolute, ma differenze, somme, rapporti tra distanze. Verificare le seguenti ipotesi con plot di correlazione:
+
+   1. somma delle distanze ad h1, somma delle distanze ad h2
+   2. differenza tra le somme delle distanze ad h1 e h2
+   3. differenze tra le tre altezze: (z1-z2) , (z3-z2), (z1-z3),(z2-z3)
+
+   
