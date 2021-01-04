@@ -465,7 +465,7 @@ The baseline lift curve is the `y = 1` line where the model performance is consi
 
 #### Calibration curve
 
-Nota: questa è l'unica metrica non soddifacente dl modello analizzato,
+Nota: questa è l'unica metrica non soddifacente dl modello analizzato. Un grafico molto lontano da quello del modello ideale che fa sospettare un problema di "overfitting"
 
 The calibration curve plots a model's confidence in its predictions against the proportion of positive samples at each confidence level. A well-calibrated model will correctly classify 100% of the predictions to which it assigns 100% confidence, 50% of the predictions it assigns 50% confidence, 20% of the predictions it assigns a 20% confidence, and so on. A perfectly calibrated model will have a calibration curve following the `y = x` line where the model perfectly predicts the probability that samples belong to each class.
 
@@ -483,7 +483,7 @@ The calibration curve is sensitive to the number of samples, so a small validati
 
 Il modello ottenuto tramite AutoML è stato poi pubblicato come webservice consumabile da parte del software presente a bordo del Raspberry. Il modello sarà eseguito all'interno di un container docker ed sarà accessibile tramite chiamata POST ad un endpoint REST. 
 
-![image-20210103001251119](/Users/emanuelebuchicchio/ultrasonic-vision/media/deploy_model.png)
+![image-20210103001251119](media/deploy_model.png)
 
 
 
@@ -491,3 +491,35 @@ Endpoint: http://64b32d7c-d926-4197-b807-1350e63adf7c.westeurope.azurecontainer.
 
 Nota: Per l'utlizzo dell'endpoint è necessario includere nella chiamata le chiave di autenticazione.
 
+### Azure ML SDK Installation
+
+[Install the Azure Machine Learning SDK for Python - Azure Machine Learning Python | Microsoft Docs](https://docs.microsoft.com/en-us/python/api/overview/azure/ml/install?view=azure-ml-py)
+
+```shell
+python -m pip install -U pip
+pip install cryptography
+pip install azureml-sdk
+pip show azureml-core
+```
+
+Nota: la versione deve essere la stessa di quella usata nel workspace su AzureML
+
+### Test sul campo
+
+il modello si è dimostrato poco robusto nell'utilizzo. Sembra avere problemi di overfitting.
+
+- alcune volte fornisce risultati instabili (la classe cambia senza che l'oggetto venga mosso a causa del rumore)
+- spostamento dell'oggetto produce errori di classificazione
+
+## 2021-01-04
+
+Ipotesi di lavoro:
+
+1. testare altri modelli con un "calibration curve" migliore
+2. semplificare il problema riducendo le classi ai casi più facili e ripetere addestramento
+3. ripulire dati da misure errate, fuori scala, ... ecc  e poi rifare addestramento sui dati puliti.
+   - es. non distanze assolute, ma differenze, somme, rapporti tra distanze.
+   - trovare qualche cosa che dipenda dal tipo di oggetto e non dalla sua posizione precisa
+   - 
+4. trovare feature in grado di portare ad una classificazione più robusta:
+5. - 
