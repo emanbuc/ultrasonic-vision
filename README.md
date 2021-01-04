@@ -18,7 +18,7 @@ L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo
 
 Il sistema adotta un approccio Edge/Fog computing: l'elaborazione è eseguita quanto più possibile vicino alla sorgente dei dati.  Anche la componente di intelligenza è eseguita sul campo (Edge AI), lasciando sul cloud solo l'addestramento del modello di classificazione per sfruttare le maggiori risorse computazionali disponibili. L'architettura di riferimento è a quattro livelli
 
-![image-20201229054638716](media\architecture_field_edge_fog_cloud_with_task.png)
+![image-20201229054638716](media/architecture_field_edge_fog_cloud_with_task.png)
 
 [diagramma implementazione architettura in sistema specifico]
 
