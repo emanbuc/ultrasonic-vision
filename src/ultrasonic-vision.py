@@ -101,20 +101,21 @@ def readFromSensor(sensorIndex):
 
 def doObjectClassification(SENSORS, distances,key,scoring_uri):
     
-    data ={'Column2': '0'}
-
+    
+    rawData={}
     for sensorIndex in range(0,len(SENSORS)):
         sensor = SENSORS[sensorIndex]
-        data[sensor] = distances[sensorIndex]
+        rawData[sensor] = distances[sensorIndex]
 
-    data['distanceSumLow'] = data['HCSR04_001'] + data['HCSR04_002']
-    data['distanceSumHi'] = data['HCSR04_003'] + data['HCSR04_004']
-    data['differentialDistanceFromRoof65'] = data['HCSR04_006'] - data['HCSR04_005']
-    data['differentialDistanceFromRoof67'] = data['HCSR04_006'] - data['HCSR04_007']
-    data['differentialDistanceFromRoof57'] = data['HCSR04_005']- data['HCSR04_007']
+    wsInputData ={'Column2': '0'}
+    wsInputData['distanceSumLow'] = rawData['HCSR04_001'] + rawData['HCSR04_002']
+    wsInputData['distanceSumHi'] = rawData['HCSR04_003'] + rawData['HCSR04_004']
+    wsInputData['differentialDistanceFromRoof65'] = rawData['HCSR04_006'] - rawData['HCSR04_005']
+    wsInputData['differentialDistanceFromRoof67'] = rawData['HCSR04_006'] - rawData['HCSR04_007']
+    wsInputData['differentialDistanceFromRoof57'] = rawData['HCSR04_005']- rawData['HCSR04_007']
     
     inputDataObj = {
-        "data": [data]
+        "data": [wsInputData]
     }
     # Convert to JSON string
     inputDataJson = json.dumps(inputDataObj)
@@ -139,6 +140,7 @@ def doMeasure():
         if FAKE_HW == True:
             pulse_start = time.time()
             pulse_end= pulse_start + ( random.randint(1,100)/10000.0)
+            time.sleep(1)
 
         else:
             pulse_start,pulse_end =readFromSensor(sensorIndex)
@@ -171,8 +173,7 @@ def main(argv):
 
     while True:
         if(FAKE_HW):
-            mainTriggerState= True
-            input("press enter to continue")        
+            mainTriggerState= True       
         else:
             mainTriggerState= GPIO.input(MAIN_TRIGGER_GPIO)
 

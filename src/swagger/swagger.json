@@ -1,1 +1,157 @@
-{"swagger": "2.0", "info": {"title": "ultrasonic-vision", "description": "API specification for the Azure Machine Learning service ultrasonic-vision", "version": "1.0"}, "schemes": ["https"], "consumes": ["application/json"], "produces": ["application/json"], "securityDefinitions": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header", "description": "For example: Bearer abc123"}}, "paths": {"/": {"get": {"operationId": "ServiceHealthCheck", "description": "Simple health check endpoint to ensure the service is up at any given point.", "responses": {"200": {"description": "If service is up and running, this response will be returned with the content 'Healthy'", "schema": {"type": "string"}, "examples": {"application/json": "Healthy"}}, "default": {"description": "The service failed to execute due to an error.", "schema": {"$ref": "#/definitions/ErrorResponse"}}}}}, "/score": {"post": {"operationId": "RunMLService", "description": "Run web service's model and get the prediction output", "security": [{"Bearer": []}], "parameters": [{"name": "serviceInputPayload", "in": "body", "description": "The input payload for executing the real-time machine learning service.", "schema": {"$ref": "#/definitions/ServiceInput"}}], "responses": {"200": {"description": "The service processed the input correctly and provided a result prediction, if applicable.", "schema": {"$ref": "#/definitions/ServiceOutput"}}, "default": {"description": "The service failed to execute due to an error.", "schema": {"$ref": "#/definitions/ErrorResponse"}}}}}}, "definitions": {"ServiceInput": {"type": "object", "properties": {"data": {"type": "array", "items": {"type": "object", "properties": {"Time": {"type": "number", "format": "double"}, "HCSR04_001": {"type": "number", "format": "double"}, "HCSR04_002": {"type": "number", "format": "double"}, "HCSR04_003": {"type": "number", "format": "double"}, "HCSR04_004": {"type": "number", "format": "double"}, "HCSR04_005": {"type": "number", "format": "double"}, "HCSR04_006": {"type": "number", "format": "double"}, "HCSR04_007": {"type": "number", "format": "double"}}}}}, "example": {"data": [{"Time": 0.0, "HCSR04_001": 0.0, "HCSR04_002": 0.0, "HCSR04_003": 0.0, "HCSR04_004": 0.0, "HCSR04_005": 0.0, "HCSR04_006": 0.0, "HCSR04_007": 0.0}]}}, "ServiceOutput": {"type": "array", "items": {"type": "integer", "format": "int64"}, "example": [0]}, "ErrorResponse": {"type": "object", "properties": {"status_code": {"type": "integer", "format": "int32"}, "message": {"type": "string"}}}}}
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "ultrasonic-vision",
+        "description": "API specification for the Azure Machine Learning service ultrasonic-vision",
+        "version": "1.0"
+    },
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "For example: Bearer abc123"
+        }
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "ServiceHealthCheck",
+                "description": "Simple health check endpoint to ensure the service is up at any given point.",
+                "responses": {
+                    "200": {
+                        "description": "If service is up and running, this response will be returned with the content 'Healthy'",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "application/json": "Healthy"
+                        }
+                    },
+                    "default": {
+                        "description": "The service failed to execute due to an error.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/score": {
+            "post": {
+                "operationId": "RunMLService",
+                "description": "Run web service's model and get the prediction output",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "serviceInputPayload",
+                        "in": "body",
+                        "description": "The input payload for executing the real-time machine learning service.",
+                        "schema": {
+                            "$ref": "#/definitions/ServiceInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The service processed the input correctly and provided a result prediction, if applicable.",
+                        "schema": {
+                            "$ref": "#/definitions/ServiceOutput"
+                        }
+                    },
+                    "default": {
+                        "description": "The service failed to execute due to an error.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ServiceInput": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "Column2": {
+                                "type": "string"
+                            },
+                            "distanceSumHi": {
+                                "type": "number",
+                                "format": "double"
+                            },
+                            "distanceSumLow": {
+                                "type": "number",
+                                "format": "double"
+                            },
+                            "differentialDistanceFromRoof65": {
+                                "type": "number",
+                                "format": "double"
+                            },
+                            "differentialDistanceFromRoof67": {
+                                "type": "number",
+                                "format": "double"
+                            },
+                            "differentialDistanceFromRoof57": {
+                                "type": "number",
+                                "format": "double"
+                            }
+                        }
+                    }
+                }
+            },
+            "example": {
+                "data": [
+                    {
+                        "Column2": "example_value",
+                        "distanceSumHi": 0.0,
+                        "distanceSumLow": 0.0,
+                        "differentialDistanceFromRoof65": 0.0,
+                        "differentialDistanceFromRoof67": 0.0,
+                        "differentialDistanceFromRoof57": 0.0
+                    }
+                ]
+            }
+        },
+        "ServiceOutput": {
+            "type": "array",
+            "items": {
+                "type": "integer",
+                "format": "int64"
+            },
+            "example": [
+                0
+            ]
+        },
+        "ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "status_code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
