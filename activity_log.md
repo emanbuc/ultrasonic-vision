@@ -534,4 +534,42 @@ Ipotesi di lavoro:
    2. differenza tra le somme delle distanze ad h1 e h2
    3. differenze tra le tre altezze: (z1-z2) , (z3-z2), (z1-z3),(z2-z3)
 
+   ## Analisi dati acquisiti
+   
+   Analisi dati su Colab (gratuito rispetto ad Azure che per l'esecuzione dei notebook è a pagamento)
+   
+   [Un benvenuto a Colaboratory - Colaboratory (google.com)](https://colab.research.google.com/)
+   
+    [data_visualizzation.ipynb](notebbok/data_visualizzation.ipynb) 
+   
+   ## 2021-01-05
+   
+   Creazione nuovo dataset di training
+   
+    [create_training_dataset.ipynb](notebbok/create_training_dataset.ipynb) 
+   
+   
+   
+   Avvio nuovo Run AutoML su dataset ripulito per generare nuvo modello da testare in ambiente di produzione
+   
+   
+   
+   Prototipo spostato e pannelli sensori riassemblati
+   
+   - test robustezza modello rispetto a variazioni geometria del sistema di acquisizione
+   
+   
+   
+   Test in produzione del nuovo modello
+   
+   
+   
+   Notebook training classificatore SVM
+   
+   
+   
+   Altro Run AutoML con nuovo dataset contenente solo le nuove feature
+   
+   - voglio vedere se in questo modo viene fuori un modello con prestazioni decenti nell'utilizzo reale
+   
    
