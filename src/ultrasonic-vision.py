@@ -5,8 +5,8 @@
 #IMPORT RPI to execute script on Raspberry with REAL
 #sensors
 
-import FakeRPi.GPIO as GPIO  # real hardware sensors
-# import RPi.GPIO as GPIO #emulated sensors
+# import FakeRPi.GPIO as GPIO  # real hardware sensors
+import RPi.GPIO as GPIO #emulated sensors
 
 # ------------------------------------------------
 import random
@@ -21,7 +21,7 @@ import sys, getopt
 
 # ==================================================
 # --- GLOBAL CONFIG -------
-FAKE_HW = True
+FAKE_HW = False
 TRAINING_MODE = False
 TRAINING_LABEL = "SQUARE_MILK_90"
  #True for debug in windows | False to run with real sensors
