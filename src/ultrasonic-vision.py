@@ -23,7 +23,7 @@ import sys, getopt
 # --- GLOBAL CONFIG -------
 FAKE_HW = False
 TRAINING_MODE = False
-TRAINING_LABEL = "SQUARE_MILK_90"
+TRAINING_LABEL = "EMPTY_SEVEN2"
  #True for debug in windows | False to run with real sensors
 SENSORS= ['HCSR04_001','HCSR04_002','HCSR04_003','HCSR04_004','HCSR04_005','HCSR04_006','HCSR04_007'] #List os sensors unique ID
 TRIGGER_GPIOS = [23,22,5,2,17,20,14] #List of GPIO connect to sensors trigger pin
@@ -101,11 +101,17 @@ def readFromSensor(sensorIndex):
 
 def doObjectClassification(SENSORS, distances,key,scoring_uri):
     
-    data ={"Time": 0}
+    data ={'Column2': '0'}
 
     for sensorIndex in range(0,len(SENSORS)):
         sensor = SENSORS[sensorIndex]
         data[sensor] = distances[sensorIndex]
+
+    data['distanceSumLow'] = data['HCSR04_001'] + data['HCSR04_002']
+    data['distanceSumHi'] = data['HCSR04_003'] + data['HCSR04_004']
+    data['differentialDistanceFromRoof65'] = data['HCSR04_006'] - data['HCSR04_005']
+    data['differentialDistanceFromRoof67'] = data['HCSR04_006'] - data['HCSR04_007']
+    data['differentialDistanceFromRoof57'] = data['HCSR04_005']- data['HCSR04_007']
     
     inputDataObj = {
         "data": [data]
