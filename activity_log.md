@@ -589,8 +589,12 @@ Altro Run AutoML con nuovo dataset contenente solo le nuove feature
 Acquisizione nuovi dati di training dopo aver spostato  riassemblato il prototipo
 
 - ancora lettura spostato intorno a 100 da parte del sensore 007
+- dati su CSV caricati
 
 Refactoring gestione argomenti da riga di comando e parametri di configurazione ultrsonic-vision.py
 
-Script rimozione outliar dai sensori
+Script rimozione outliars 
+
+- fatto come notebook
+- 
 
