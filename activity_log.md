@@ -534,52 +534,63 @@ Ipotesi di lavoro:
    2. differenza tra le somme delle distanze ad h1 e h2
    3. differenze tra le tre altezze: (z1-z2) , (z3-z2), (z1-z3),(z2-z3)
 
-   ## Analisi dati acquisiti
-   
-   Analisi dati su Colab (gratuito rispetto ad Azure che per l'esecuzione dei notebook è a pagamento)
-   
-   [Un benvenuto a Colaboratory - Colaboratory (google.com)](https://colab.research.google.com/)
-   
-    [data_visualizzation.ipynb](notebbok/data_visualizzation.ipynb) 
-   
-   ## 2021-01-05
-   
-   Creazione nuovo dataset di training
-   
-    [create_training_dataset.ipynb](notebbok/create_training_dataset.ipynb) 
-   
-   
-   
-   Avvio nuovo Run AutoML su dataset ripulito per generare nuvo modello da testare in ambiente di produzione
-   
-   - modello basato sulle 7 distanze originali e sulle altre 5 features derivate
-   
-   
-   
-   Prototipo spostato e pannelli sensori riassemblati
-   
-   - test robustezza modello rispetto a variazioni geometria del sistema di acquisizione
-   
-   
-   
-   Test in produzione del nuovo modello
-   
-   - sembra funzionare abbastanza bene anche se con alcuni errori di classificazione
-   
-   
-   
-   Notebook training classificatore SVM  con libreria Scikit learn
-   
-    [multiclass_SVM.ipynb](notebooks/multiclass_SVM.ipynb) 
-   
-   
-   
-   Altro Run AutoML con nuovo dataset contenente solo le nuove feature
-   
-   - [Esperimento UltrasonicVision-AutoML Run 282]( https://ml.azure.com/experiments/id/73dd4254-df03-403e-a9ff-899ff6aa3214/runs/AutoML_18ca3eb0-3bf6-4688-a1a3-b7fc9ea15c2b?wsid=/subscriptions/4f90113f-c88e-4cd8-9b87-9f1b78abca6a/resourceGroups/ML-PHD/providers/Microsoft.MachineLearningServices/workspaces/mlws-phd&tid=067e7d20-e70f-42c6-ae10-8b07e8c4a003)
-   
-   - voglio vedere se in questo modo viene fuori un modello con prestazioni decenti nell'utilizzo reale
-     - deploy modello KNN (Run 293) su endpoint "ultrasonica-vision"
-     - Eseguire test con dati reali del modello in produzione
-   
-   
+## Analisi dati acquisiti
+
+Analisi dati su Colab (gratuito rispetto ad Azure che per l'esecuzione dei notebook è a pagamento)
+
+[Un benvenuto a Colaboratory - Colaboratory (google.com)](https://colab.research.google.com/)
+
+ [data_visualizzation.ipynb](notebbok/data_visualizzation.ipynb) 
+
+## 2021-01-05
+
+Creazione nuovo dataset di training
+
+ [create_training_dataset.ipynb](notebbok/create_training_dataset.ipynb) 
+
+
+
+Avvio nuovo Run AutoML su dataset ripulito per generare nuvo modello da testare in ambiente di produzione
+
+- modello basato sulle 7 distanze originali e sulle altre 5 features derivate
+
+
+
+Prototipo spostato e pannelli sensori riassemblati
+
+- test robustezza modello rispetto a variazioni geometria del sistema di acquisizione
+
+
+
+Test in produzione del nuovo modello
+
+- sembra funzionare abbastanza bene anche se con alcuni errori di classificazione
+
+
+
+Notebook training classificatore SVM  con libreria Scikit learn
+
+ [multiclass_SVM.ipynb](notebooks/multiclass_SVM.ipynb) 
+
+
+
+Altro Run AutoML con nuovo dataset contenente solo le nuove feature
+
+- [Esperimento UltrasonicVision-AutoML Run 282]( https://ml.azure.com/experiments/id/73dd4254-df03-403e-a9ff-899ff6aa3214/runs/AutoML_18ca3eb0-3bf6-4688-a1a3-b7fc9ea15c2b?wsid=/subscriptions/4f90113f-c88e-4cd8-9b87-9f1b78abca6a/resourceGroups/ML-PHD/providers/Microsoft.MachineLearningServices/workspaces/mlws-phd&tid=067e7d20-e70f-42c6-ae10-8b07e8c4a003)
+
+- voglio vedere se in questo modo viene fuori un modello con prestazioni decenti nell'utilizzo reale
+  - deploy modello KNN (Run 293) su endpoint "ultrasonica-vision"
+  - Eseguire test con dati reali del modello in produzione
+
+
+
+## 2021-01-06
+
+Acquisizione nuovi dati di training dopo aver spostato  riassemblato il prototipo
+
+- ancora lettura spostato intorno a 100 da parte del sensore 007
+
+Refactoring gestione argomenti da riga di comando e parametri di configurazione ultrsonic-vision.py
+
+Script rimozione outliar dai sensori
+
