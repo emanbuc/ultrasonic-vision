@@ -22,15 +22,12 @@ import sys, getopt
 # ==================================================
 # --- GLOBAL CONFIG -------
 FAKE_HW = False
-TRAINING_MODE = False
-TRAINING_LABEL = "EMPTY_SEVEN2"
  #True for debug in windows | False to run with real sensors
 SENSORS= ['HCSR04_001','HCSR04_002','HCSR04_003','HCSR04_004','HCSR04_005','HCSR04_006','HCSR04_007'] #List os sensors unique ID
 TRIGGER_GPIOS = [23,22,5,2,17,20,14] #List of GPIO connect to sensors trigger pin
 ECHO_GPIOS = [24,27,6,3,18,21,15] #List of GPIO connect to sensors echo pin
 MAIN_TRIGGER_GPIO = 26
 
-MEASURE_TO_TAKE = 10
 CONTINUOUS_MODE = True
 
 # ==================================================
@@ -49,12 +46,7 @@ def configureGPIO(TRIGGER_GPIOS,ECHO_GPIOS):
     #pull down for trigger button   
     GPIO.setup(MAIN_TRIGGER_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)    
 
-def createDataFile():
-    
-    label=""
-    if(TRAINING_MODE==True):
-        label = "_TRAIN_"+TRAINING_LABEL
-        
+def createDataFile(label):        
     filename= strftime("%Y%m%d_%H%M%S")+label+".csv"
     file = open(filename, "w+")
     if os.stat(filename).st_size == 0: 
@@ -94,6 +86,7 @@ def readFromSensor(sensorIndex):
     while GPIO.input(ECHO_GPIOS[sensorIndex])==0:               
         pulse_start = time.time()              
 
+    pulse_end = time.time()
     while GPIO.input(ECHO_GPIOS[sensorIndex])==1:               
         pulse_end = time.time()
     
@@ -160,16 +153,26 @@ def main(argv):
     print("TRIGGERS: "+ str(TRIGGER_GPIOS))
     print("ECHOS: "+str(ECHO_GPIOS))
     #readArgument(argv,key,scoring_uri)
-    if len(argv)!= 2:
-        print("usage: ultrasonic-vision.py <key> <scoring-uri>")
+    if len(argv)< 3:
+        print("usage: ultrasonic-vision.py <key> <scoring-uri> [<training-label>]")
         sys.exit(2)
 
     key = argv[0]
     scoring_uri = argv[1]
+    
+    if len(argv)== 3:
+        trainingMode = True
+        trainingLabel = argv[2]
+    
 
 
     configureGPIO(TRIGGER_GPIOS,ECHO_GPIOS)
-    file = createDataFile()
+    
+    label=""
+    if(trainingMode==True):
+        label = "_TRAIN_"+trainingLabel
+        
+    file = createDataFile(label)
 
     while True:
         if(FAKE_HW):
@@ -179,8 +182,8 @@ def main(argv):
 
         if(mainTriggerState):
             distances,sampleTimestamp = doMeasure()
-            if(TRAINING_MODE==True):
-                objectClass= TRAINING_LABEL
+            if(trainingMode==True):
+                objectClass= trainingLabel
             else:
                 objectClass = doObjectClassification(SENSORS,distances,key,scoring_uri)
                 print("Object Type: "+ objectClass)
