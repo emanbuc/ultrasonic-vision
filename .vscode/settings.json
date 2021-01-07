@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/Users/emanuelebuchicchio/opt/anaconda3/bin/python"
+    "python.pythonPath": "C:\\Python38\\python.exe",
+    "jupyter.jupyterServerType": "local"
 }
