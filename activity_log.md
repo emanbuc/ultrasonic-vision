@@ -596,5 +596,22 @@ Refactoring gestione argomenti da riga di comando e parametri di configurazione 
 Script rimozione outliars 
 
 - fatto come notebook
-- 
+
+# 2021-01-07
+
+Addestramento modelli classificazione con scikitlearn con notebook [multiclass_SVM.ipynb](notebooks\multiclass_SVM.ipynb) 
+
+Esecuzione modello di classificazione locale su raspberry
+
+- necessario installare scikit leanr su Raspberry
+
+  - ```
+    pip3 install -U scikit-learn=='0.22.2.post1'
+    ```
+
+    attenzione alla versione: su colab c'è la 0.22.2.post1 
+
+    - serve anche un versione più recente di NumPy 
+
+- non serve invece installare pickle perchè è già incluso nella distruzionzione correnti di python 3
 
