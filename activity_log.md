@@ -29,7 +29,8 @@ keybord, power supply, nework cable
 Raspian upgrade
 
 - check raspian version [How to check the Raspbian Version - Pi My Life Up](https://pimylifeup.com/raspbian-version/)
-- Raspian version history [Raspberry Pi OS - Wikipedia](https://en.wikipedia.org/wiki/Raspberry_Pi_OS)
+- Raspian version history [Raspberry Pi OS - Wikipedia](https:
+- [//en.wikipedia.org/wiki/Raspberry_Pi_OS)
 - Raspian upgrade  [Updating and upgrading Raspberry Pi OS - Raspberry Pi Documentation](https://www.raspberrypi.org/documentation/raspbian/updating.md)
 - Reboot
 
@@ -611,7 +612,201 @@ Esecuzione modello di classificazione locale su raspberry
 
     attenzione alla versione: su colab c'è la 0.22.2.post1 
 
+    anaconda su Mac con Anaconda c'è la 0.23.2 
+    
     - serve anche un versione più recente di NumPy 
 
 - non serve invece installare pickle perchè è già incluso nella distruzionzione correnti di python 3
+
+- script addestramento modelli
+
+- conversione modelli in formato ONNX ed esecuzione locale 
+
+- problemi vari con ONNX runtime su PC, Mac e Raspberry 
+
+  - librerie mancanti e versioni non uniformi nei vari ambiente
+  - problema potabilità modelli ML
+    - ONNX ? 
+
+# 2021-01-08
+
+esecuzione locale modelli su Raspberry
+
+## Installazione ONNX Runtime su Raspberry (raspian)
+
+Guida [Install - onnxruntime](https://www.onnxruntime.ai/docs/get-started/install.html#linux--cpu)
+
+### Prerequisites
+
+Raspian Update
+
+```bash
+sudo apt update
+sudo apt upgrade
+sudo reboot
+```
+
+English language package with the `en_US.UTF-8` locale
+
+- Install [language-pack-en package](https://packages.ubuntu.com/search?keywords=language-pack-en)
+- Run `sudo locale-gen en_US.UTF-8`
+- Run `sudo update-locale LANG=en_US.UTF-8`
+
+OpenMP
+
+- `sudo apt-get install libgomp1`, which installs **libgomp.so.1**
+
+Python3.8
+
+Le versioni recenti del runtime ONNX per python richiedono Python3.8 che però non è presente su Raspian. Anche la [versione più recente della distribuzione](https://en.wikipedia.org/wiki/Raspberry_Pi_OS) (ad oggi dicembre 2020) purtroppo installa Python3.7 
+
+### Installazione Python3.8 su Raspian Buster (dicembre 2020)
+
+Il pacchetto python3 per Raspian è aggironato solo fino alla versione 3.7. Per installare la versione 3.8 è necessario compilarla dai sorgenti. 
+
+I sorgenti si possono scaricare da [Python Source Releases | Python.org](https://www.python.org/downloads/source/) - ultima stabile 3.8.7
+
+```
+wget https://www.python.org/ftp/python/3.8.7/Python-3.8.7.tgz
+```
+
+Per la compilazione è necessario installare alcune librerie che potrebbero non essere presenti sul sistema
+
+```bash
+sudo apt-get update
+sudo apt-get install -y build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev
+```
+
+Sul web si trovano diverse guide per l'installazione.  Ad esempio: [How to install Python 3.8 on Raspberry Pi ](https://www.ramoonus.nl/2019/10/23/how-to-install-python-3-8-on-raspberry-pi/). La procedura che ho utilizzato io è questa:
+
+1) scaricare i sorgenti e compilare
+
+```bash
+wget https://www.python.org/ftp/python/3.8.7/Python-3.8.7.tar.xz
+tar xf Python-3.8.7.tar.xz
+cd Python-3.8.7
+./configure --prefix=/usr/local/opt/python-3.8.7
+make -j 4
+```
+
+2) Install
+
+```bash
+sudo make altinstall
+```
+
+3) Remove the files
+
+```bash
+cd ..
+sudo rm -r Python-3.8.7
+rm Python-3.8.7.tar.xz
+```
+
+4) Aprire il file .bashrc con Nano 
+
+```
+nano ~/.bashrc
+```
+
+In fondo al file aggiungere il path e gli alias per l'installazione di Python3.8 In questo modo l'OS continua a gestire la distribuzione di Python3.7 nella /usr/bin, ma per l'utente corrente gli alias alias _pip3_ e _python3_ punteranno all'installazione della versione 3.8 in  _/usr/local/opt_ 
+
+```bash
+export PATH=/usr/local/opt/python-3.8.7/bin/:$PATH
+alias pip3=/usr/local/opt/python-3.8.7/bin/pip3.8
+alias python3=/usr/local/opt/python-3.8.7/bin/python3.8
+
+
+```
+
+5) rileggere il file .bashrc
+
+```
+source ~/.bashrc
+```
+
+6) Verificare gli alias
+
+```
+python3 -V
+pip3 -V
+```
+
+![image-20210108140837948](media\python38_alias.png)
+
+7) Installare pip, wheel e numpy
+
+Nel nuovo ambiente Python3.8 è ora necessario aggiornare pip ed installare wheel e numpy. 
+
+**Attenzione con il comando "sudo" gli alias non funzionano (sono solo per l'utente "pi"), quindi è necessario specificare il path completo per installare i pacchetti.**
+
+```bash
+sudo /usr/local/opt/python-3.8.7/bin/pip3.8 install --upgrade pip wheel
+sudo /usr/local/opt/python-3.8.7/bin/pip3.8 install numpy
+```
+
+### Pacchetto PyWheel
+
+Per l'architettura ARM32v7 del Raspberry  non sono disponibili release binarie ufficiali ne sul sito ONNX ne su [PyWheel · PyPI ](https://pypi.org/project/PyWheel/). Per  utilzzare il runtime è quindi necessario eseguire un build ad hoc sul Raspberry stesso oppure come cross compilazione specificando il target ARM32v7.
+
+Il processo di build è documentato è su [onnxruntime/BUILD.md at master · microsoft/onnxruntime (github.com)](https://github.com/microsoft/onnxruntime/blob/master/BUILD.md). La build è comunque un processo lungo e richiede un ambiente di sviluppo non banale da configurare. Fortunatamente è possibile reparire dei pacchetti PyWheel già compilati per Raspberry. Ad esempio su questi repository:
+
+-  [NagarajSMurthy/RaspberryPi-ONNX-Runtime: Install ONNX Runtime on Raspberry Pi 3B+ (github.com)](https://github.com/NagarajSMurthy/RaspberryPi-ONNX-Runtime)
+- [nknytk/built-onnxruntime-for-raspberrypi-linux: Built python wheel files of https://github.com/microsoft/onnxruntime for raspberry pi linux.](https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux)
+
+Le versioni recenti del runtime ONNX per python richiedono Python3.8 che però non è presente su Raspian. Anche la [versione più recente della distribuzione](https://en.wikipedia.org/wiki/Raspberry_Pi_OS) (ad oggi dicembre 2020) purtroppo installa Python3.7 
+
+
+
+### Installazione ONNX Runtime
+
+A  questo punto si può installare il pacchetto wheel  precompilato del runtime di ONNX.(seguendo la procedura di buil oppure scaricando il pacchetto binario già compilato per ARM32v7 e python3.8 da [nknytk/built-onnxruntime-for-raspberrypi-linux: Built python wheel files of https://github.com/microsoft/onnxruntime for raspberry pi linux.](https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux))
+
+```bash
+sudo /usr/local/opt/python-3.8.7/bin/pip3.8 install onnxruntime-1.6.0-cp38-cp38-linux_armv7l.whl
+```
+
+Ora è finalmente possibile testare l'esecuzione locale del modello  eseguendo lo script di test dalla cartella /src
+
+```bash
+cd src
+python3 test-onnx-runtime.py
+```
+
+![image-20210108142125659](media\test_onnx_runtime.png)
+
+
+
+### Runtime SciKitLearn
+
+esecuzione modello scikitlearn fallisce su Raspberry con Python3.7
+
+- ```
+  Traceback (most recent call last):
+    File "/usr/lib/python3/dist-packages/thonny/workbench.py", line 1450, in event_generate
+      handler(event)
+    File "/usr/lib/python3/dist-packages/thonny/assistance.py", line 138, in handle_toplevel_response
+      self._explain_exception(msg["user_exception"])
+    File "/usr/lib/python3/dist-packages/thonny/assistance.py", line 178, in _explain_exception
+      + _error_helper_classes["*"]
+    File "/usr/lib/python3/dist-packages/thonny/assistance.py", line 176, in <listcomp>
+      for helper_class in (
+    File "/usr/lib/python3/dist-packages/thonny/assistance.py", line 491, in __init__
+      super().__init__(error_info)
+    File "/usr/lib/python3/dist-packages/thonny/assistance.py", line 478, in __init__
+      self.last_frame_module_source = read_source(self.last_frame.filename)
+    File "/usr/lib/python3/dist-packages/thonny/common.py", line 252, in read_source
+      with tokenize.open(filename) as fp:
+    File "/usr/lib/python3.7/tokenize.py", line 447, in open
+      buffer = _builtin_open(filename, 'rb')
+  FileNotFoundError: [Errno 2] No such file or directory: 'sklearn/tree/_tree.pyx'
+  ```
+
+  Nuovo tentativo con Python3.8
+
+  ```bash
+  python3 test-skl-runtime.py
+  ```
+
+  Esito?
 
