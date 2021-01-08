@@ -19,6 +19,8 @@ import json
 from json.decoder import JSONDecoder
 import sys, getopt
 
+import pickle
+
 # ==================================================
 # --- GLOBAL CONFIG -------
 FAKE_HW = False
@@ -27,6 +29,8 @@ SENSORS= ['HCSR04_001','HCSR04_002','HCSR04_003','HCSR04_004','HCSR04_005','HCSR
 TRIGGER_GPIOS = [23,22,5,2,17,20,14] #List of GPIO connect to sensors trigger pin
 ECHO_GPIOS = [24,27,6,3,18,21,15] #List of GPIO connect to sensors echo pin
 MAIN_TRIGGER_GPIO = 26
+
+localClassificatorPath = '../models/knn_classificator_model_pickle_outline_removed.pkl'
 
 CONTINUOUS_MODE = True
 
@@ -92,7 +96,7 @@ def readFromSensor(sensorIndex):
     
     return pulse_start,pulse_end
 
-def doObjectClassification(SENSORS, distances,key,scoring_uri):
+def doRemoteObjectClassification(SENSORS, distances,key,scoring_uri):
     
     
     rawData={}
@@ -125,7 +129,15 @@ def doObjectClassification(SENSORS, distances,key,scoring_uri):
     respObj = JSONDecoder().decode(resp.json())
     return respObj['result'][0]
 
+def doLocalClassification(distances,key,local_classificator):
+    result= local_classificator.predict(distances)
+    return result[0]
+    
 
+def loadLocalModel(localClassificatorPath):
+    localClassificator= pickle.load(open(localClassificatorPath, 'rb'))
+    return localClassificator
+    
 def doMeasure():
     print(" ==== doMeasure starts ====")
     distances = []
@@ -167,6 +179,7 @@ def main(argv):
 
 
     configureGPIO(TRIGGER_GPIOS,ECHO_GPIOS)
+    localClassificator= loadLocalModel(localClassificatorPath)
     
     label=""
     if(trainingMode==True):
@@ -185,8 +198,10 @@ def main(argv):
             if(trainingMode==True):
                 objectClass= trainingLabel
             else:
-                objectClass = doObjectClassification(SENSORS,distances,key,scoring_uri)
-                print("Object Type: "+ objectClass)
+                objectClass = doRemoteObjectClassification(SENSORS,distances,key,scoring_uri)
+                print("Remote classificator object type: "+ objectClass)
+                objectClass = doLocalClassification(distances,localClassificator)
+                print("Remote classificator object type: "+ objectClass)
                 
             writeDataToLocalFile(file,sampleTimestamp,SENSORS,distances,objectClass)
 
