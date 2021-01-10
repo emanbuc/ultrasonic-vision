@@ -1,13 +1,21 @@
 # Ultrasonic-Vision
 Sistema di acquisizione dati in grado di stimare la posizione di un oggetto all'interno di un area delimitata e riconoscere il tipo di oggetto presente utilizzando impulsi ad ultrasuoni ed un sistema di classificazione basato su machine learning.
 
+
+
+[Indice dei Contenuti]
+
+
+
 ## Scopo del progetto 
 
 Realizzare un sistema di misura in grado di stimare la posizione di un oggetto  all'interno di un area delimitata e riconoscere il tipo di oggetto presente utilizzando impulsi ad ultrasuoni ed un sistema di classificazione basato su _machine learning_. 
 
 L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo funzionante del sistema con lo scopo di valutare la fattibilità del progetto ed individuare le eventuali criticità che dovranno essere affrontate nelle realizzazione delle successive versioni del sistema.
 
-### Attività previste
+### Attività previste dal progetto
+
+_Nota: Una descrizione dettagliata delle attività svolte è riportata in [activity_log.md](activity_log.md)_
 
 - [x] progetto di massima HW
 - [x] progetto di massima SW
@@ -52,6 +60,13 @@ Nei sistemi con architettura Fog/Edge computing l'inferenza sui dati viene esegu
 ### Cloud AI
 
 Un secondo sistema di classificazione degli oggetti è stato pubblicato utilizzando  il servizio [Azure Machine Learning](https://azure.microsoft.com/it-it/services/machine-learning/) su un _container Docker_ e reso accessibile tramite un web service REST con endpoint protetto da token di autenticazione.
+
+## Riconoscimento degli oggetti
+
+TBC
+
+- dipendente dalla posizione
+- indipendente dalla posizione
 
 ### Limitazioni note
 
