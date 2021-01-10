@@ -862,3 +862,20 @@ python3 test-onnx-runtime.py
 
 ![image-20210108142125659](media\test_onnx_runtime.png)
 
+## 2021-01-09
+
+Risistemazione Notebook "Analisi Dati Sensori" per relazione finale
+
+	- correlazione
+
+Feature Engeneering 
+
+	- Binning
+
+## 
+
+## 2021-01-10
+
+Risistemazione Notebook "Analisi Dati Sensori" per relazione finale
+
+Ambiente di sviluppo  su Windows10 : Visual Studio Code + Python3.8 + Jupyter Extension for Visual Studio Code
