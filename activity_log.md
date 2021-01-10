@@ -29,7 +29,8 @@ keybord, power supply, nework cable
 Raspian upgrade
 
 - check raspian version [How to check the Raspbian Version - Pi My Life Up](https://pimylifeup.com/raspbian-version/)
-- Raspian version history [Raspberry Pi OS - Wikipedia](https://en.wikipedia.org/wiki/Raspberry_Pi_OS)
+- Raspian version history [Raspberry Pi OS - Wikipedia](https:
+- [//en.wikipedia.org/wiki/Raspberry_Pi_OS)
 - Raspian upgrade  [Updating and upgrading Raspberry Pi OS - Raspberry Pi Documentation](https://www.raspberrypi.org/documentation/raspbian/updating.md)
 - Reboot
 
@@ -611,7 +612,270 @@ Esecuzione modello di classificazione locale su raspberry
 
     attenzione alla versione: su colab c'è la 0.22.2.post1 
 
+    anaconda su Mac con Anaconda c'è la 0.23.2 
+    
     - serve anche un versione più recente di NumPy 
 
 - non serve invece installare pickle perchè è già incluso nella distruzionzione correnti di python 3
 
+- script addestramento modelli
+
+- conversione modelli in formato ONNX ed esecuzione locale 
+
+- problemi vari con ONNX runtime su PC, Mac e Raspberry 
+
+  - librerie mancanti e versioni non uniformi nei vari ambiente
+  - problema potabilità modelli ML
+    - ONNX ? 
+
+# 2021-01-08
+
+esecuzione locale modelli su Raspberry
+
+### Installazione Python3.8 su Raspian Buster (dicembre 2020)
+
+Alcuni esempi e librerie non funzionano su Python3.7. ll pacchetto python3 per Raspian è aggironato solo fino alla versione 3.7. Per installare la versione 3.8 è necessario compilarla dai sorgenti.  
+
+I sorgenti si possono scaricare da [Python Source Releases | Python.org](https://www.python.org/downloads/source/) - ultima stabile 3.8.7
+
+```
+wget https://www.python.org/ftp/python/3.8.7/Python-3.8.7.tgz
+```
+
+Per la compilazione è necessario installare alcune librerie che potrebbero non essere presenti sul sistema
+
+```bash
+sudo apt-get update
+sudo apt-get install -y build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev
+```
+
+Sul web si trovano diverse guide per l'installazione.  Ad esempio: [How to install Python 3.8 on Raspberry Pi ](https://www.ramoonus.nl/2019/10/23/how-to-install-python-3-8-on-raspberry-pi/). La procedura che ho utilizzato io è questa:
+
+1) scaricare i sorgenti e compilare
+
+```bash
+wget https://www.python.org/ftp/python/3.8.7/Python-3.8.7.tar.xz
+tar xf Python-3.8.7.tar.xz
+cd Python-3.8.7
+./configure --prefix=/usr/local/opt/python-3.8.7
+make -j 4
+```
+
+2) Install
+
+```bash
+sudo make altinstall
+```
+
+3) Remove the files
+
+```bash
+cd ..
+sudo rm -r Python-3.8.7
+rm Python-3.8.7.tar.xz
+```
+
+4) Aprire il file .bashrc con Nano 
+
+```
+nano ~/.bashrc
+```
+
+In fondo al file aggiungere il path e gli alias per l'installazione di Python3.8 In questo modo l'OS continua a gestire la distribuzione di Python3.7 nella /usr/bin, ma per l'utente corrente gli alias alias _pip3_ e _python3_ punteranno all'installazione della versione 3.8 in  _/usr/local/opt_ 
+
+```bash
+export PATH=/usr/local/opt/python-3.8.7/bin/:$PATH
+alias pip3=/usr/local/opt/python-3.8.7/bin/pip3.8
+alias python3=/usr/local/opt/python-3.8.7/bin/python3.8
+
+
+```
+
+5) rileggere il file .bashrc
+
+```
+source ~/.bashrc
+```
+
+6) Verificare gli alias
+
+```
+python3 -V
+pip3 -V
+```
+
+![image-20210108140837948](media\python38_alias.png)
+
+7) Installare pip, wheel e numpy
+
+Nel nuovo ambiente Python3.8 è ora necessario aggiornare pip ed installare wheel 
+
+**Attenzione con il comando "sudo" gli alias non funzionano (sono solo per l'utente "pi"), quindi è necessario specificare il path completo per installare i pacchetti.**
+
+```bash
+sudo /usr/local/opt/python-3.8.7/bin/pip3.8 install --upgrade pip wheel
+```
+
+Per installare gli altri pacchetti ad esempio numpy:
+
+```
+sudo /usr/local/opt/python-3.8.7/bin/pip3.8 install numpy
+```
+
+**Attenzione: solo per alcune architetture e versioni di python sono disponibili i pacchetti binari precompilati PyWheel. Spesso per Python 3.8 è necessario compilare dai sorgenti a questa operazione su Raspberry può richiedere diverse ore.**
+
+
+
+### Installazione SciKit-Learn su Raspian buster (dic 2020)
+
+Su Raspina Buster solitamente è preinstallato Python 3.7.  Nel caso sia stato rimosso (ad esempio per liberare spazio) è possibile installarlo da apt-get
+
+```bash
+sudo apt-get install python3
+sudo apt-get install python3-pip
+```
+
+Dopo l'installazione sul Raspberry sono presenti sia Python3.7 che Python3.8
+
+![image-20210108221124476](media\python37_python38.png)
+
+
+
+#### Python 3.7
+
+I modelli sono stati addestrati nell'ambiente di sviluppo su  MacOs con SciKit-Learn 0.23.2. La versione corrente è la 0.24, ma per  caricarli è consigliabile utilizzare la stessa versione. 
+
+```
+sudo pip3 install scikit-learn==0.23.2
+```
+
+Ora finalmente pip3 installa dai pacchetti binari  da PyWheel
+
+![image-20210108221346789](media\scikitlearn_wheel.png) 
+
+
+
+```bash
+python3 test-skl-runtime.py
+```
+
+Il test ha esito negativo
+
+![image-20210108223719686](media\errore_scikit_learn_python37.png)
+
+Provo ad installare la versione più recente 
+
+```bash
+sudo pip3 install scikit-learn==0.24
+```
+
+Stesso errore con in più i  warning dovuti alla diversa versione tra ambiente di sviluppo e produzione
+
+![image-20210108223952190](media\errore_scikit_learn_python37_002.png)
+
+
+
+Nonostante numerosi tentativi non è stato possibile utilizzare i modelli su Raspberry. Gli stessi modelli funzionano invece correttamente su MacOs e su Windows.
+
+
+
+## Inferenza con modelli ML su Raspberry con ONNX Runtime
+
+Microsoft e una community di partner hanno creato ONNX come standard aperto per la rappresentazione di modelli di machine learning. I modelli di [molti Framework](https://onnx.ai/supported-tools) , tra cui TensorFlow, PyTorch, SciKit-Learn, keras, Chainer, MXNET, MATLAB e SparkML possono essere esportati o convertiti nel formato ONNX standard. Quando i modelli sono nel formato ONNX, possono essere eseguiti in un'ampia gamma di piattaforme e dispositivi.
+
+L'ottimizzazione dei modelli di machine learning per l'inferenza o il punteggio del modello è difficile poiché è necessario ottimizzare il modello e la libreria di inferenza per sfruttare al meglio le funzionalità hardware. L'ottimizzazione di tutte le diverse combinazioni di Framework e hardware è molto dispendiosa in termini di tempo. 
+
+[ONNX Runtime](https://onnxruntime.ai/) è un motore di inferenza a prestazioni elevate per la distribuzione di modelli ONNX in produzione. È ottimizzato per cloud e Edge e funziona in Linux, Windows e Mac. Scritto in C++, include anche API C, Python, C#, Java e JavaScript (Node.js) per l'utilizzo in diversi ambienti.  
+
+ONNX Runtime is backward compatible with all the operators in the ONNX specification. Newer versions of ONNX Runtime support all models that worked with the prior version.
+
+Utilizzando ONNX è possibile risolvere contemporaneamente due importanti problemi
+
+- la portabilità del modello su piattaforme hardware diverse
+- interoperabilità tra i diversi framework di ML esistenti
+
+Nell'abito di questo progetto problemi di portabilità si sono verificati anche tra gli ambienti di sviluppo locali (Anaconda di Windows10 e MacOS) e ambienti di sviluppo cloud (Azure Machine Learning, Google Colaboratory) e successivamente anche tra gli ambienti di sviluppo locali e gli ambienti di produzione (raspberry e container docker su Azure Machiene Learning)
+
+### Installazione ONNX Runtime
+
+Guida [Install - onnxruntime](https://www.onnxruntime.ai/docs/get-started/install.html#linux--cpu)
+
+#### Prerequisites
+
+Raspian Update
+
+```bash
+sudo apt update
+sudo apt upgrade
+sudo reboot
+```
+
+English language package with the `en_US.UTF-8` locale
+
+- Install [language-pack-en package](https://packages.ubuntu.com/search?keywords=language-pack-en)
+- Run `sudo locale-gen en_US.UTF-8`
+- Run `sudo update-locale LANG=en_US.UTF-8`
+
+OpenMP
+
+- `sudo apt-get install libgomp1`, which installs **libgomp.so.1**
+
+Python3.5 - 3.8
+
+Le versioni recenti del runtime ONNX per python richiedono Python3.8 che però non è presente su Raspian. Anche la [versione più recente della distribuzione](https://en.wikipedia.org/wiki/Raspberry_Pi_OS) (ad oggi dicembre 2020) purtroppo installa Python3.7 
+
+#### Installazione
+
+Per l'architettura ARM32v7 del Raspberry  non sono disponibili release binarie ufficiali ne sul sito ONNX ne su [PyWheel · PyPI ](https://pypi.org/project/PyWheel/). Per  utilzzare il runtime è quindi necessario eseguire un build ad hoc sul Raspberry stesso oppure come cross compilazione specificando il target ARM32v7.
+
+Il processo di build è documentato è su [onnxruntime/BUILD.md at master · microsoft/onnxruntime (github.com)](https://github.com/microsoft/onnxruntime/blob/master/BUILD.md). La build è comunque un processo lungo e richiede un ambiente di sviluppo non banale da configurare. Fortunatamente è possibile reparire dei pacchetti PyWheel già compilati per Raspberry. Ad esempio su questi repository:
+
+-  [NagarajSMurthy/RaspberryPi-ONNX-Runtime: Install ONNX Runtime on Raspberry Pi 3B+ (github.com)](https://github.com/NagarajSMurthy/RaspberryPi-ONNX-Runtime)
+-  [nknytk/built-onnxruntime-for-raspberrypi-linux: Built python wheel files of https://github.com/microsoft/onnxruntime for raspberry pi linux.](https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux) 
+
+A  questo punto si può installare il pacchetto wheel  precompilato del runtime di ONNX.(seguendo la procedura di buil oppure scaricando il pacchetto binario già compilato per ARM32v7 e python3.7/3.8 da [nknytk/built-onnxruntime-for-raspberrypi-linux: Built python wheel files of https://github.com/microsoft/onnxruntime for raspberry pi linux.](https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux))
+
+**Python 3.7**
+
+```bash
+https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux/raw/master/wheels/buster/onnxruntime-1.6.0-cp37-cp37m-linux_armv7l.whl
+
+sudo pip3 install onnxruntime-1.6.0-cp37-cp37m-linux_armv7l.whl
+```
+
+**Python 3.8**
+
+```bash
+https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux/raw/master/wheels/buster/onnxruntime-1.6.0-cp38-cp38-linux_armv7l.whl
+```
+
+```bash
+sudo /usr/local/opt/python-3.8.7/bin/pip3.8 install onnxruntime-1.6.0-cp38-cp38-linux_armv7l.whl
+```
+
+Ora è finalmente possibile testare l'esecuzione locale del modello  eseguendo lo script di test dalla cartella /src
+
+```bash
+cd src
+python3 test-onnx-runtime.py
+```
+
+![image-20210108142125659](media\test_onnx_runtime.png)
+
+## 2021-01-09
+
+Risistemazione Notebook "Analisi Dati Sensori" per relazione finale
+
+	- correlazione
+
+Feature Engeneering 
+
+	- Binning
+
+## 
+
+## 2021-01-10
+
+Risistemazione Notebook "Analisi Dati Sensori" per relazione finale
+
+Ambiente di sviluppo  su Windows10 : Visual Studio Code + Python3.8 + Jupyter Extension for Visual Studio Code
