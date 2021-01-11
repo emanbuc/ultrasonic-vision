@@ -129,7 +129,7 @@ def doRemoteObjectClassification(SENSORS, distances,key,scoring_uri):
     respObj = JSONDecoder().decode(resp.json())
     return respObj['result'][0]
 
-def doLocalClassification(distances,key,local_classificator):
+def doLocalClassification(distances,local_classificator):
     result= local_classificator.predict(distances)
     return result[0]
     
