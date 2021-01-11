@@ -5,15 +5,39 @@ Sistema di acquisizione dati in grado di stimare la posizione di un oggetto all'
 
 [Indice dei Contenuti]
 
-
-
 ## Scopo del progetto 
 
 Realizzare un sistema di misura in grado di stimare la posizione di un oggetto  all'interno di un area delimitata e riconoscere il tipo di oggetto presente utilizzando impulsi ad ultrasuoni ed un sistema di classificazione basato su _machine learning_. 
 
 L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo funzionante del sistema con lo scopo di valutare la fattibilità del progetto ed individuare le eventuali criticità che dovranno essere affrontate nelle realizzazione delle successive versioni del sistema.
 
-### Attività previste dal progetto
+## Contenuto del Repository
+
+Il repository ufficile del progetto è un repository pubblico ospitato su GitHub  https://github.com/emanbuc/ultrasonic-vision. Il contenuto comprende:
+
+- Documentazione del progetto 
+- [Diario giornaliero](activity_log.md) con descrizone dettagliata delle attività svolte
+- [Guida alla configurazione dell'Raspberry PI](docs/raspberry_setup.md) per lo sviluppo e l'utilizzo del sistema
+- [Dataset](datasets/) per l'addestramento dei classificatori
+- [Modelli ML addestrati](models/) e pronti all'uso per la classificaizone degli oggetti
+- [Notebook Jupyter](notebooks/) per l'analisi dei dati, feature engineering e addestramento dei classificatori
+- [Alcuni esempi di dati prodotti](sample_acquisitions/) dal sistema nelle diverse configurazioni geometriche
+- Software Python3:
+  - [Modulo FakeRPi](src/FakeRPi) per eseguire il software senza l'hardware di acquisizione dati
+  - [Applicazione console ultrasonic-vision](src/ultrasonic-vision.py)
+- Vari script sviluppati durante il progetto
+  - [Conversione dei modelli addestrati ](src/samples/convertToONNX.py) per formato SciKitLearn a formato ONNX
+  - [Salvataggio dati su file CSV](src/samples/write-csv-file-test.py)
+  - [Salvataggio distanze stimate dai sensori HC-SR04 in file CSV](src/samples/save-sensor-data-to-file.py)
+  - [Misuratore di distanza ad ultrasuoni con HC-SR04](src/samples/ultrasonic-meter-test.py)
+  - [Test inferenza con modello SciKitLearn](src/samples/test-skl-runtime.py)
+  - [Test Inferenza con modello ONNX](src/samples/test-onnx-runtime.py)
+
+## Come utilizzare il sistema
+
+TBC.
+
+## Stato di avanzamento del progetto
 
 _Nota: Una descrizione dettagliata delle attività svolte è riportata in [activity_log.md](activity_log.md)_
 
@@ -69,11 +93,11 @@ In generale la configurazione geometrica del sistema ed il numero di sensori dev
 
 Nei sistemi con architettura Fog/Edge computing l'inferenza sui dati viene eseguita (almeno in parte) sui dispostivi di edge.  Nella versione 1.0 del sistema sono stati implementati due diversi sistemi di classificazione, utilizzando due diversi approcci per sviluppo modelli di machine learning. 
 
-### Classificatore Edge Computing
+### Classificatore Locale  (Edge Computing)
 
  In questo caso Rasperry Pi  utilizzato per il prototipo dispone di un processore con architettura ARM32v7 per i quale sono disponibili i runtime delle principali librerie di machine larning e deep learning. Per il prototipo è stato selezionato [ONNX]([ONNX | Home](https://onnx.ai/)) che garantisce elevate prestazioni, interoperabilità con i principali framework di sviluppo e portabilità verso architetture diverse.
 
-### Classificatore Cloud Computing
+### Classificatore Remoto (Cloud Computing)
 
 Un secondo sistema di classificazione degli oggetti è stato pubblicato utilizzando  il servizio [Azure Machine Learning](https://azure.microsoft.com/it-it/services/machine-learning/) su un _container Docker_ e reso accessibile tramite un web service REST con endpoint protetto da token di autenticazione.
 
