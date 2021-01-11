@@ -16,11 +16,24 @@ L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo
 Il repository ufficile del progetto è un repository pubblico ospitato su GitHub  https://github.com/emanbuc/ultrasonic-vision. Il contenuto comprende:
 
 - Documentazione del progetto 
-- [Diario giornaliero](activity_log.md) con descrizone dettagliata delle attività svolte
-- [Guida alla configurazione dell'Raspberry PI](docs/raspberry_setup.md) per lo sviluppo e l'utilizzo del sistema
+  - [Diario giornaliero](activity_log.md) con descrizone dettagliata delle attività svolte
+  - [Guida alla configurazione dell'Raspberry PI](docs/raspberry_setup.md) per lo sviluppo e l'utilizzo del sistema
+  - [Guida utilizzo desktop remoto da Windows a Raspian](docs/raspbery_xrdp.md)
+  - [Installazione Python 3.8 su Raspberry]()
+  - [Cablaggio dei moduli HC-SR04](docs/raspberry_wiring_HC-SR04.md)
+  - [Gestione evento "pulsante premuto" su Raspberry](docs/raspberry_button_pressed.md)
+  - [Classificatore con Azure AutoML](docs/azure_autoML.md)
+  - [Classificatore con SciKit Learn](docs/training_scikit-learn_model.md)
+  - [Edge AI]()
 - [Dataset](datasets/) per l'addestramento dei classificatori
 - [Modelli ML addestrati](models/) e pronti all'uso per la classificaizone degli oggetti
 - [Notebook Jupyter](notebooks/) per l'analisi dei dati, feature engineering e addestramento dei classificatori
+  - [Analsi dati acquisiti dai sensori](notebooks/analisi_dati_sensori.ipynb)
+  - [Conversione modelli in formato ONNX](notebooks/convertoToONNX.ipynb)
+  - [Preparazione dataset per addestramento](notebooks/create_training_dataset.ipynb)
+  - [Scikit-Leanr Model Training](notebooks/model_training.ipynb)
+  - [Azure AutoML Model Training](notebooks/ultrasonic-vision-train-automl.ipynb)
+  - [Rimozione Outliear](notebooks/remove_outlier.ipynb)
 - [Alcuni esempi di dati prodotti](sample_acquisitions/) dal sistema nelle diverse configurazioni geometriche
 - Software Python3:
   - [Modulo FakeRPi](src/FakeRPi) per eseguire il software senza l'hardware di acquisizione dati

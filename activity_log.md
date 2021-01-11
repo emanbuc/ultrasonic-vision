@@ -633,8 +633,9 @@ Esecuzione modello di classificazione locale su raspberry
 esecuzione locale modelli su Raspberry
 
 ### Installazione Python3.8 su Raspian Buster (dicembre 2020)
+Ambiente di sviluppo su MacOS (Aanconda) e su Windows utilizza Python 3.8. Per evitare problemi di portabilità dei modelli è preferibile utilizzare la stessa configurazione tra ambiente di sviluppo e produzione.
 
-Alcuni esempi e librerie non funzionano su Python3.7. ll pacchetto python3 per Raspian è aggironato solo fino alla versione 3.7. Per installare la versione 3.8 è necessario compilarla dai sorgenti.  
+Inolte esempi e librerie richiedono Python 3.8 e non funzionano non funzionano su Python3.7. ll pacchetto python3 per Raspian è aggironato solo fino alla versione 3.7. Per installare la versione 3.8 è necessario compilarla dai sorgenti.  
 
 I sorgenti si possono scaricare da [Python Source Releases | Python.org](https://www.python.org/downloads/source/) - ultima stabile 3.8.7
 
@@ -879,3 +880,10 @@ Feature Engeneering
 Risistemazione Notebook "Analisi Dati Sensori" per relazione finale
 
 Ambiente di sviluppo  su Windows10 : Visual Studio Code + Python3.8 + Jupyter Extension for Visual Studio Code
+
+## 2021-01-11
+
+Riorganizzazione contenuto repository
+Documentazione di progetto
+Relazione su prototipo realizzato
+
