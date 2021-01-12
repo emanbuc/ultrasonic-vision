@@ -1,31 +1,45 @@
-# Il prototipo realizzato (versione 1.0)
+# Il prototipo Ultrasonic Vision 1.0
 
-## Scopo
-
-Testare possibilità di stimare la posizione di un oggetto e riconoscere il tipo di oggetto utilizzando un numero limitato di sensori
+Lo scopo di questo protipo è quello verificare la fattibilità ed   evidenziare le criticità del sistema
 
 ## Requisiti 
 
-1. il sistema deve riuscire a stimare la posizione di un oggetto all'interno di un area delimitata
+1. il sistema deve riuscire a rilevare la presenza di un oggetto all'interno di un area delimitata  e stimatne la posizione rispetto ai misuratori di distanza
 2. il sistema deve riconoscere il tipo di oggetto presente (classificazione muticlasse)
-3. utilizzare HW standard, a basso costo e facilmente reperibile. Possibilmente solo moduli già pronti, senza schede custom.
-4. il sistema deve essere documentato e riproducibile. Ad esempio per esercitazioni di laboratorio.  
+3. il prototipo deve essere realizzato con  HW standard, a basso costo e facilmente reperibile. Possibilmente solo moduli già pronti, senza schede custom.
+4. il sistema deve essere ben documentato e utilizzabile ad esempio per esercitazioni di laboratorio.  
 
 ## Hardware
 
-Prototipo realizzato con Raspberry PI 3 e sensori HC-SR04. Software completamente open source. Costo complessivo  hardaware  inferiore a 50€. Tutti i componenti facilmente reperibili dai rivenditori di elettronica oppure su Amazon eBay e simili.
+Per l'assemblaggio del prototipo sono stati utilizzati:
+- un Raspberry PI 3 completo di alimentatore
+- sette misuratori di distanza ad ultrasuoni HC-SR04/HC-SR04+
+- kit di cavi Dupont 
+- almeno 3 metri di cavo per sistemi di allarme 
+- tre breadbord piccole (half size)
+- un pulsante
+- sette resistenze 18Kohm
+- sette resistenze 10Kohm
+
+Nota: Dei moduli HC-SR04 [esistnono divese versioni](https://emanuelebuchicchio.wordpress.com/2016/08/04/sensore-ad-ultrasuoni-hc-sr04-un-sonar-integrato-compatibile-con-esp8266-arduino-e-raspberry-per-3e/) tra cui anche alcune funzionano a 3.3-3.5 Volt, mentre l'originale funziona a 5V.
+
+Costo complessivo hardaware inferiore a 50€ compresi breadboard e cavi.
+
+ Tutti i componenti facilmente reperibili dai rivenditori di elettronica oppure su Amazon eBay e simili. Per un elenco più esteso di possibili rivenditori vedi [Guida all'acquisto di componenti e strumenti](https://emanuelebuchicchio.wordpress.com/2016/12/10/guida-allacquisto-di-componenti-e-strumenti).
 
 Nota: Ogni sensore richiede GND, VCC + 2 GPIO (trigger + echo). Su Raspberry 2 ci sono 24 GPIO pin disponibili => questo sistema può supportare  fino a 12 sensori.
 
 Software scritto in Python facile da scrivere, mantenere e debuggare direttamente sul Raspberry senza bisogno di altri ambienti di sviluppo. Include sistema di "simulazione" dei sensori delle libreria GPIO che non è presente nel normali PC in modo da permettere l'esecuzione ed il debug anche senza avere accesso all'hardware. 
 
-## Misuratori ad ultrasuoni
+## Misuratori ad ultrasuoni HC-SR04
 
 Sul mercato esistono diversi misuratori di distanza ad ultrasuoni, destinati al mercato dei maker,  con funzionalità e prestazioni sostanzialmente equivalenti. Per il prototipo sono stati utilizzati misuratori di distanza ad ultrasuoni tipo [HC-SR04/SR04+](https://www.alldatasheet.com/datasheet-pdf/pdf/1132203/ETC2/HC-SR04.html) che erano disponibili in laboratorio.
 
 Si tratta di moduli standard, realizzati e distribuiti da diversi fornitori, facilmente reperibili sul mercato al costo indicativo di 2-3€.
 
 ![SR-HC04](../media/Ultrasonic-sensor-2D-model.png)
+
+Per maggiori informazini vedi sul funzionamento di questi moduli [Risorse.md]
 
 
 
@@ -166,6 +180,18 @@ La portata utile dei sensori utilizzati è di circa 3 metri. Per ragioni logisti
 
 *Nota: per la descrizione delle attività di assemblaggio e cablatura vedi  [activity_log.md](..\activity_log.md)* 
 
+## Riconoscimento degli oggetti
+
+ Nella versione 1.0 del sistema sono stati sviluppati due diversi sistemi di classificazione, utilizzando due diversi approcci. 
+
+### Classificatore Locale  (Edge Computing)
+
+ In questo caso Rasperry Pi  utilizzato per il prototipo dispone di un processore con architettura ARM32v7 per i quale sono disponibili i runtime delle principali librerie di machine larning e deep learning. Per il prototipo è stato selezionato [ONNX]([ONNX | Home](https://onnx.ai/)) che garantisce elevate prestazioni, interoperabilità con i principali framework di sviluppo e portabilità verso architetture diverse.
+
+### Classificatore Remoto (Cloud Computing)
+
+Un secondo sistema di classificazione degli oggetti è stato pubblicato utilizzando  il servizio [Azure Machine Learning](https://azure.microsoft.com/it-it/services/machine-learning/) su un _container Docker_ e reso accessibile tramite un web service REST con endpoint protetto da token di autenticazione.
+
 ## Posizionamento degli oggetti e dataset di training
 
 ## Dati training 3D
@@ -176,24 +202,24 @@ Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisiz
 
 Sono stati sperimentati diversi posizionamenti degli oggetti all'interno del range dei sensori.  I dati di training del classificatore sono stati acquisiti posizionando gli oggetti nella zona centrale on modo da avere potenzialmente letture significative da tutti sensori presenti (compresi quelli ora non presenti nella configurazione a sette sensori)
 
-![posizionamento_oggetto](media/object_postion03.jpg)
+![posizionamento_oggetto](../media/object_postion03.jpg)
 
 
 
 Acquisizione second dataset di training con configurazione  a sette sensori e barriere parallele ai piani dei sensori
 
-- SQUARE_MILK_90 ![SQUARE_MILK_90](media/SQUARE_MILK_90.jpg)
-- SQUARE_MILK_45 ![SQUARE_MILK_45](media/SQUARE_MILK_45.jpg)
+- SQUARE_MILK_90 ![SQUARE_MILK_90](../media/SQUARE_MILK_90.jpg)
+- SQUARE_MILK_45 ![SQUARE_MILK_45](../media/SQUARE_MILK_45.jpg)
 
-- BEAN_CAN ![BEAN_CAN](media/BEAN_CAN.jpg)
-- SOAP_BOTTLE_FRONT ![SOAP_BOTTLE_FRONT](media/SOAP_BOTTLE_FRONT.jpg)
-- SOAP_BOTTLE_SIDE ![SOAP_BOTTLE_SIDE](media/SOAP_BOTTLE_SIDE.jpg)
-- GLASS ![GLASS](media/GLASS.jpg)
-- RECTANGULAR_BOX  ![RECTANGULAR_BOX](media/RECTANGULAR_BOX.jpg)
-- RECTANGULAR_BOX_SIDE ![RECTANGULAR_BOX_SIDE](media/RECTANGULAR_BOX_SIDE.jpg)
-- WALL_BALL ![BALL_WALL](media/BALL_WALL.jpg)
-- BALL_CENTER ![BALL_CENTER](media/BALL_CENTER.jpg)
-- BEER_BOTTLE ![BEER_BOTTLE](media/BEER_BOTTLE.jpg)
+- BEAN_CAN ![BEAN_CAN](../media/BEAN_CAN.jpg)
+- SOAP_BOTTLE_FRONT ![SOAP_BOTTLE_FRONT](../media/SOAP_BOTTLE_FRONT.jpg)
+- SOAP_BOTTLE_SIDE ![SOAP_BOTTLE_SIDE](../media/SOAP_BOTTLE_SIDE.jpg)
+- GLASS ![GLASS](../media/GLASS.jpg)
+- RECTANGULAR_BOX  ![RECTANGULAR_BOX](../media/RECTANGULAR_BOX.jpg)
+- RECTANGULAR_BOX_SIDE ![RECTANGULAR_BOX_SIDE](../media/RECTANGULAR_BOX_SIDE.jpg)
+- WALL_BALL ![BALL_WALL](../media/BALL_WALL.jpg)
+- BALL_CENTER ![BALL_CENTER](../media/BALL_CENTER.jpg)
+- BEER_BOTTLE ![BEER_BOTTLE](../media/BEER_BOTTLE.jpg)
 
 Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisizione dati, senza utilizzare riferimenti precisi per la posizione con lo scopo di rendere più robusto il riconoscimento da parte del classificatore. Per ogni oggetto l'acquisizione dati è stata ripetuta più volte dopo aver tolto e posizionato nuovamente l'oggetto con variazioni casuali di posizionamento. 
 

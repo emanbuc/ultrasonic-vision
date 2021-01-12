@@ -1,84 +1,40 @@
-# Ultrasonic-Vision
-Sistema di acquisizione dati in grado di stimare la posizione di un oggetto all'interno di un area delimitata e riconoscere il tipo di oggetto presente utilizzando impulsi ad ultrasuoni ed un sistema di classificazione basato su machine learning.
+# Progetto Ultrasonic Vision
+Ultrasonic Vision è un sistema di acquisizione dati in grado di rilevare la presenza di un oggetto, determinarne la posizione e riconoscere il tipo oggetto. Il sistema utilizza dei misuratori di distanza ad ultrasuoni dei modelli di classificazione addestrati con tecniche di machine learning.
 
+L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo funzionante del sistema con lo scopo di valutare la fattibilità del progetto ed individuare le criticità che dovranno essere affrontate nelle realizzazione delle successive versioni del sistema.
 
+## Sommario
+- [Progetto Ultrasonic Vision](#progetto-ultrasonic-vision)
+  - [Sommario](#sommario)
+  - [Come utilizzare il sistema](#come-utilizzare-il-sistema)
+- [Il sitema Ultrasonic Vision](#il-sitema-ultrasonic-vision)
+  - [Architettura](#architettura)
+  - [Funzionamento del sistema](#funzionamento-del-sistema)
+  - [Limitazioni note](#limitazioni-note)
+  - [Il prototipo realizzato](#il-prototipo-realizzato)
+  - [Contenuto del Repository](#contenuto-del-repository)
+  - [Roardmap del progetto](#roardmap-del-progetto)
+  - [Futuri Sviluppi](#futuri-sviluppi)
 
-[Indice dei Contenuti]
-
-## Scopo del progetto 
-
-Realizzare un sistema di misura in grado di stimare la posizione di un oggetto  all'interno di un area delimitata e riconoscere il tipo di oggetto presente utilizzando impulsi ad ultrasuoni ed un sistema di classificazione basato su _machine learning_. 
-
-L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo funzionante del sistema con lo scopo di valutare la fattibilità del progetto ed individuare le eventuali criticità che dovranno essere affrontate nelle realizzazione delle successive versioni del sistema.
-
-## Contenuto del Repository
-
-Il repository ufficile del progetto è un repository pubblico ospitato su GitHub  https://github.com/emanbuc/ultrasonic-vision. Il contenuto comprende:
-
-- Documentazione del progetto 
-  - [Diario giornaliero](activity_log.md) con descrizone dettagliata delle attività svolte
-  - [Guida alla configurazione dell'Raspberry PI](docs/raspberry_setup.md) per lo sviluppo e l'utilizzo del sistema
-  - [Guida utilizzo desktop remoto da Windows a Raspian](docs/raspbery_xrdp.md)
-  - [Installazione Python 3.8 su Raspberry]()
-  - [Cablaggio dei moduli HC-SR04](docs/raspberry_wiring_HC-SR04.md)
-  - [Gestione evento "pulsante premuto" su Raspberry](docs/raspberry_button_pressed.md)
-  - [Classificatore con Azure AutoML](docs/azure_autoML.md)
-  - [Classificatore con SciKit Learn](docs/training_scikit-learn_model.md)
-  - [Edge AI]()
-- [Dataset](datasets/) per l'addestramento dei classificatori
-- [Modelli ML addestrati](models/) e pronti all'uso per la classificaizone degli oggetti
-- [Notebook Jupyter](notebooks/) per l'analisi dei dati, feature engineering e addestramento dei classificatori
-  - [Analsi dati acquisiti dai sensori](notebooks/analisi_dati_sensori.ipynb)
-  - [Conversione modelli in formato ONNX](notebooks/convertoToONNX.ipynb)
-  - [Preparazione dataset per addestramento](notebooks/create_training_dataset.ipynb)
-  - [Scikit-Leanr Model Training](notebooks/model_training.ipynb)
-  - [Azure AutoML Model Training](notebooks/ultrasonic-vision-train-automl.ipynb)
-  - [Rimozione Outliear](notebooks/remove_outlier.ipynb)
-- [Alcuni esempi di dati prodotti](sample_acquisitions/) dal sistema nelle diverse configurazioni geometriche
-- Software Python3:
-  - [Modulo FakeRPi](src/FakeRPi) per eseguire il software senza l'hardware di acquisizione dati
-  - [Applicazione console ultrasonic-vision](src/ultrasonic-vision.py)
-- Vari script sviluppati durante il progetto
-  - [Conversione dei modelli addestrati ](src/samples/convertToONNX.py) per formato SciKitLearn a formato ONNX
-  - [Salvataggio dati su file CSV](src/samples/write-csv-file-test.py)
-  - [Salvataggio distanze stimate dai sensori HC-SR04 in file CSV](src/samples/save-sensor-data-to-file.py)
-  - [Misuratore di distanza ad ultrasuoni con HC-SR04](src/samples/ultrasonic-meter-test.py)
-  - [Test inferenza con modello SciKitLearn](src/samples/test-skl-runtime.py)
-  - [Test Inferenza con modello ONNX](src/samples/test-onnx-runtime.py)
 
 ## Come utilizzare il sistema
 
 TBC.
 
-## Stato di avanzamento del progetto
+# Il sitema Ultrasonic Vision
 
-_Nota: Una descrizione dettagliata delle attività svolte è riportata in [activity_log.md](activity_log.md)_
+Il sistema adotta una architettura di tipo _Edge computing_: in cui l'elaborazione è eseguita quanto più possibile vicino alla sorgente dei dati. Anche la componente di intelligenza è eseguita sul campo  per la parte di inverenza (_Edge AI_), mentre l'addestramento dei modelli è eseguito su cloud (_cloud computing_) oppure su server raggiugibili tramite rete LAN/WAN (_fog computing_) per sfruttare le maggiori risorse computazionali disponibili.
 
-- [x] progetto di massima HW
-- [x] progetto di massima SW
-- [x] progetto sistema ML
-- [x] prototipo HW/SW
-- [x] test acquisizione dati
-- [x] analisi dei dati acquisiti
-- [x] definire configurazione geometrica riproducibile del sistema
-- [x] creare dataset per addestramento modello
-- [x] sviluppare un classificatore dimostrativo con un modello semplice
-- [x] deploy del modello su Raspberry 
-- [x] deploy del modello su cloud come web service
-- [x] valutazione performance del modello
-- [x] ottimizzare classificatore
-- [ ] Relazione sul lavoro svolto e risultati ottenuti
-- [ ] Documentazione utile per proseguire lo sviluppo del sistema 
-
-### Architettura
-
-Il sistema adotta un approccio Edge/Fog computing: l'elaborazione è eseguita quanto più possibile vicino alla sorgente dei dati.  Anche la componente di intelligenza è eseguita sul campo (Edge AI), lasciando sul cloud solo l'addestramento del modello di classificazione per sfruttare le maggiori risorse computazionali disponibili. L'architettura di riferimento è a quattro livelli
+## Architettura 
+L'architettura di riferimento è a quattro livelli
 
 ![image-20201229054638716](media/architecture_field_edge_fog_cloud_with_task.png)
 
-[diagramma implementazione architettura in sistema specifico]
+1. sensori ed attuatori che interagiscono direttamente con il mondo fisico sul campo
+2. gateway di campo (_edge_) che raccoglie i dati di tutti i sensori, esegue le elaborazioni a livello di edge computing e gestisce le comunicazioni con l'esterno
+3. sistema informativo dell'impianto produttivo o dell'organizzione (MES, ERP, SCADA, databse, servizi enterprise, .... )
+4. applicazione e servizi su cloud (_cloud computing_) usate principalmente per l'addestramento del modelli di machine learning e lo stoccaggio dei dati a lungo termine
 
-  
 
 ## Funzionamento del sistema
 
@@ -102,17 +58,63 @@ In generale la configurazione geometrica del sistema ed il numero di sensori dev
 
  [Prototipo del sistema di misura Ultrasocin Vision - versione 1.0](docs\prototipo_versione_01.md) 
 
-## Riconoscimento degli oggetti
 
-Nei sistemi con architettura Fog/Edge computing l'inferenza sui dati viene eseguita (almeno in parte) sui dispostivi di edge.  Nella versione 1.0 del sistema sono stati implementati due diversi sistemi di classificazione, utilizzando due diversi approcci per sviluppo modelli di machine learning. 
 
-### Classificatore Locale  (Edge Computing)
+## Contenuto del Repository
 
- In questo caso Rasperry Pi  utilizzato per il prototipo dispone di un processore con architettura ARM32v7 per i quale sono disponibili i runtime delle principali librerie di machine larning e deep learning. Per il prototipo è stato selezionato [ONNX]([ONNX | Home](https://onnx.ai/)) che garantisce elevate prestazioni, interoperabilità con i principali framework di sviluppo e portabilità verso architetture diverse.
+Il repository ufficile del progetto è un repository pubblico ospitato su GitHub  https://github.com/emanbuc/ultrasonic-vision. Il contenuto comprende:
 
-### Classificatore Remoto (Cloud Computing)
+- Documentazione del progetto 
+  - [Diario giornaliero](activity_log.md) con descrizone dettagliata delle attività svolte
+  - [Guida alla configurazione dell'Raspberry PI](docs/raspberry_setup.md) per lo sviluppo e l'utilizzo del sistema
+  - [Guida utilizzo desktop remoto da Windows a Raspian](docs/raspbery_xrdp.md)
+  - [Installazione Python 3.8 su Raspberry]()
+  - [Cablaggio dei moduli HC-SR04](docs/raspberry_wiring_HC-SR04.md)
+  - [Gestione evento "pulsante premuto" su Raspberry](docs/raspberry_button_pressed.md)
+  - [Classificatore con Azure AutoML](docs/azure_autoML.md)
+  - [Classificatore con SciKit Learn](docs/training_scikit-learn_model.md)
+  - [Edge AI]()
+- [Dataset](datasets/) per l'addestramento dei classificatori
+- [Modelli ML addestrati](models/) e pronti all'uso per la classificaizone degli oggetti
+- Notebook Jupyter per l'analisi dei dati, feature engineering e addestramento dei classificatori
+  - [Analsi dati acquisiti dai sensori](notebooks/analisi_dati_sensori.ipynb)
+  - [Conversione modelli in formato ONNX](notebooks/convertoToONNX.ipynb)
+  - [Preparazione dataset per addestramento](notebooks/create_training_dataset.ipynb)
+  - [Scikit-Leanr Model Training](notebooks/model_training.ipynb)
+  - [Azure AutoML Model Training](notebooks/ultrasonic-vision-train-automl.ipynb)
+  - [Rimozione Outliear](notebooks/remove_outlier.ipynb)
+- [Alcuni esempi di dati prodotti](sample_acquisitions/) dal sistema nelle diverse configurazioni geometriche
+- Software Python3:
+  - [Modulo FakeRPi](src/FakeRPi) per eseguire il software senza l'hardware di acquisizione dati
+  - [Applicazione console ultrasonic-vision](src/ultrasonic-vision.py)
+- Vari script sviluppati durante il progetto
+  - [Conversione dei modelli addestrati ](src/samples/convertToONNX.py) per formato SciKitLearn a formato ONNX
+  - [Salvataggio dati su file CSV](src/samples/write-csv-file-test.py)
+  - [Salvataggio distanze stimate dai sensori HC-SR04 in file CSV](src/samples/save-sensor-data-to-file.py)
+  - [Misuratore di distanza ad ultrasuoni con HC-SR04](src/samples/ultrasonic-meter-test.py)
+  - [Test inferenza con modello SciKitLearn](src/samples/test-skl-runtime.py)
+  - [Test Inferenza con modello ONNX](src/samples/test-onnx-runtime.py)
 
-Un secondo sistema di classificazione degli oggetti è stato pubblicato utilizzando  il servizio [Azure Machine Learning](https://azure.microsoft.com/it-it/services/machine-learning/) su un _container Docker_ e reso accessibile tramite un web service REST con endpoint protetto da token di autenticazione.
+
+## Roardmap del progetto
+
+_Nota: Una descrizione dettagliata delle attività svolte è riportata in [activity_log.md](activity_log.md)_
+
+- [x] progetto di massima HW
+- [x] progetto di massima SW
+- [x] progetto sistema ML
+- [x] prototipo HW/SW
+- [x] test acquisizione dati
+- [x] analisi dei dati acquisiti
+- [x] definire configurazione geometrica riproducibile del sistema
+- [x] creare dataset per addestramento modello
+- [x] sviluppare un classificatore dimostrativo con un modello semplice
+- [x] deploy del modello su Raspberry 
+- [x] deploy del modello su cloud come web service
+- [x] valutazione performance del modello
+- [x] ottimizzare classificatore
+- [ ] Relazione sul lavoro svolto e risultati ottenuti
+- [ ] Documentazione utile per proseguire lo sviluppo del sistema 
 
 ## Futuri Sviluppi 
 
