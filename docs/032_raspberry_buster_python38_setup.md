@@ -1,4 +1,4 @@
-### Installazione Python3.8 su Raspian Buster (dicembre 2020)
+# Installazione Python3.8 su Raspian Buster (dicembre 2020)
 Ambiente di sviluppo su MacOS (Aanconda) e su Windows utilizza Python 3.8. Per evitare problemi di portabilità dei modelli è preferibile utilizzare la stessa configurazione tra ambiente di sviluppo e produzione.
 
 Inolte esempi e librerie richiedono Python 3.8 e non funzionano non funzionano su Python3.7. ll pacchetto python3 per Raspian è aggironato solo fino alla versione 3.7. Per installare la versione 3.8 è necessario compilarla dai sorgenti.  
@@ -71,9 +71,9 @@ python3 -V
 pip3 -V
 ```
 
-![image-20210108140837948](media\python38_alias.png)
+![image-20210108140837948](../media/python38_alias.png)
 
-7) Installare pip, wheel e numpy
+1) Installare pip, wheel e numpy
 
 Nel nuovo ambiente Python3.8 è ora necessario aggiornare pip ed installare wheel 
 

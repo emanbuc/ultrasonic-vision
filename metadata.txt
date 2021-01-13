@@ -1,13 +1,13 @@
 ---
 title:
 - type: main
-  text: Pay Off
+  text: Ultrasonic Vision 1.0
 creator:
 - role: author
-  text: Dan Ariely
-description: The Hidden Logic that Shapes our Motivation
-rights: Commercial
-language: en-US
+  text: Emanuele Buchicchio
+description: Sistema di misura e classificazione oggetti ad ultrasuoni
+rights: Creative Commons Attribution 4.0 International Public License
+language: it-IT
 stylesheet: epub.css
 cover-image: cover.jpg
 ...

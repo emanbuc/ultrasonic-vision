@@ -887,3 +887,13 @@ Riorganizzazione contenuto repository
 Documentazione di progetto
 Relazione su prototipo realizzato
 
+## 2021-01-12
+Documnetazione progetto
+
+## 2021-01-13
+
+Conversione documentazione di progetto MarkDown con Pandoc
+
+Installato pandoc (versione 2.11 su Mac OS)
+
+pandoc -o dist/ultrasonic_vision_v1.epub metadata.txt docs/*.md  --table-of-contents

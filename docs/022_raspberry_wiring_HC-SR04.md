@@ -1,4 +1,4 @@
-### Interfacciamento con moduli HC-SR-04 / HC-SR-04+ 
+# Interfacciamento moduli HC-SR-04 / HC-SR-04+ 
 
 I moduli HC-SR-04 in commercio sono più o meno tutti uguali e derivano da uno stesso progetto di base. La versione "+" è stata modificata per avere tensioni di ingresso/uscita a 3.3V al posto dei 5V dell'originale.  
 

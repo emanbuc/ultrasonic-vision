@@ -36,7 +36,7 @@ sudo pip3 install scikit-learn==0.23.2
 
 Ora finalmente pip3 installa dai pacchetti binari  da PyWheel
 
-![image-20210108221346789](media\scikitlearn_wheel.png) 
+![image-20210108221346789](../media/scikitlearn_wheel.png) 
 
 
 
@@ -46,7 +46,7 @@ python3 test-skl-runtime.py
 
 Il test ha esito negativo
 
-![image-20210108223719686](media\errore_scikit_learn_python37.png)
+![image-20210108223719686](../media/errore_scikit_learn_python37.png)
 
 Provo ad installare la versione più recente 
 
@@ -56,7 +56,7 @@ sudo pip3 install scikit-learn==0.24
 
 Stesso errore con in più i  warning dovuti alla diversa versione tra ambiente di sviluppo e produzione
 
-![image-20210108223952190](media\errore_scikit_learn_python37_002.png)
+![image-20210108223952190](../media/errore_scikit_learn_python37_002.png)
 
 
 
@@ -145,5 +145,5 @@ cd src
 python3 test-onnx-runtime.py
 ```
 
-![image-20210108142125659](media\test_onnx_runtime.png)
+![image-20210108142125659](../media/test_onnx_runtime.png)
 

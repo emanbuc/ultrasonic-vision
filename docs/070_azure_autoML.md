@@ -3,7 +3,7 @@
 
 creato dataset (con dati simulati) per iniare a sperimentare l'addestramento ed il deploy del classificatore
 
-![image-20201229120842143](media\image-20201229120842143.png)
+![image-20201229120842143](../media/image-20201229120842143.png)
 
 
 

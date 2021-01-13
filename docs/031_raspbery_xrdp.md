@@ -58,11 +58,11 @@ By default Xrdp uses the `/etc/ssl/private/ssl-cert-snakeoil.key` file which is 
 sudo adduser xrdp ssl-cert 
 ```
 
-![image-20201228150623568](media\rdp_raspberry.png)
+![image-20201228150623568](../media/rdp_raspberry.png)
 
 
 
-![image-20201228150825761](media\remote_desktop_session_python.png)
+![image-20201228150825761](../media/remote_desktop_session_python.png)
 
 
 
