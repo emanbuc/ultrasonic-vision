@@ -13,7 +13,7 @@ Lo scopo di questo protipo è quello verificare la fattibilità ed   evidenziare
 
 Per l'assemblaggio del prototipo sono stati utilizzati:
 - un Raspberry PI 3 completo di alimentatore
-- sette misuratori di distanza ad ultrasuoni HC-SR04/HC-SR04+
+- misuratori di distanza ad ultrasuoni HC-SR04/HC-SR04+ (numero variabile in base alla configurazione geometrica desiderata. Il prototipo è stato testato con configurazioni a 4 e 7 sensori)
 - kit di cavi Dupont 
 - almeno 3 metri di cavo per sistemi di allarme 
 - tre breadbord piccole (half size)
@@ -21,50 +21,28 @@ Per l'assemblaggio del prototipo sono stati utilizzati:
 - sette resistenze 18Kohm
 - sette resistenze 10Kohm
 
-Nota: Dei moduli HC-SR04 [esistnono divese versioni](https://emanuelebuchicchio.wordpress.com/2016/08/04/sensore-ad-ultrasuoni-hc-sr04-un-sonar-integrato-compatibile-con-esp8266-arduino-e-raspberry-per-3e/) tra cui anche alcune funzionano a 3.3-3.5 Volt, mentre l'originale funziona a 5V.
-
-Costo complessivo hardaware inferiore a 50€ compresi breadboard e cavi.
-
  Tutti i componenti facilmente reperibili dai rivenditori di elettronica oppure su Amazon eBay e simili. Per un elenco più esteso di possibili rivenditori vedi [Guida all'acquisto di componenti e strumenti](https://emanuelebuchicchio.wordpress.com/2016/12/10/guida-allacquisto-di-componenti-e-strumenti).
 
-Nota: Ogni sensore richiede GND, VCC + 2 GPIO (trigger + echo). Su Raspberry 2 ci sono 24 GPIO pin disponibili => questo sistema può supportare  fino a 12 sensori.
+ Costo complessivo stimato per i componenti elencati inferiore a 50€ compresi breadboard e cavi.
 
-Software scritto in Python facile da scrivere, mantenere e debuggare direttamente sul Raspberry senza bisogno di altri ambienti di sviluppo. Include sistema di "simulazione" dei sensori delle libreria GPIO che non è presente nel normali PC in modo da permettere l'esecuzione ed il debug anche senza avere accesso all'hardware. 
+ 
+### Misuratori di distanza ad ultrasuoni HC-SR04
 
-## Misuratori ad ultrasuoni HC-SR04
+Sul mercato esistono diversi misuratori di distanza ad ultrasuoni, destinati al mercato dei maker, con funzionalità e prestazioni sostanzialmente equivalenti. Per il prototipo sono stati utilizzati misuratori di distanza ad ultrasuoni tipo [HC-SR04/SR04+](https://www.alldatasheet.com/datasheet-pdf/pdf/1132203/ETC2/HC-SR04.html) che erano disponibili in laboratorio.
 
-Sul mercato esistono diversi misuratori di distanza ad ultrasuoni, destinati al mercato dei maker,  con funzionalità e prestazioni sostanzialmente equivalenti. Per il prototipo sono stati utilizzati misuratori di distanza ad ultrasuoni tipo [HC-SR04/SR04+](https://www.alldatasheet.com/datasheet-pdf/pdf/1132203/ETC2/HC-SR04.html) che erano disponibili in laboratorio.
+Le prestrazioni ed il funzionamento sono descritti [nel capitolo dedicato ai moduli HC-SR04](022_raspberry_wiring_HC-SR04.md)
 
-Si tratta di moduli standard, realizzati e distribuiti da diversi fornitori, facilmente reperibili sul mercato al costo indicativo di 2-3€.
+### Massimo numero di sensori gestibili
 
-![SR-HC04](../media/Ultrasonic-sensor-2D-model.png)
+Ogni sensore richiede GND, VCC + 2 GPIO (trigger + echo). Su Raspberry 2 ci sono 24 GPIO pin disponibili. Senza adottare particolari accortezze questo sistema può supportare  fino a 12 sensori.
+Il timing dei sengnali sui pin "echo" e "trigger" del sensore ne permette volendo anche la gestione con un solo GPIO. In questo modo il numeor massimo di sensori che un singolo raspberry può gestire sale a 24.
 
-Per maggiori informazini vedi sul funzionamento di questi moduli [Risorse.md]
+## Software
+Software sviluppato in Python: facile da scrivere, mantenere e debuggare. Attività di sviluppo e debug possono avvenire direttamente sul Raspberry (in sessione locale oppure in sessione remota) senza bisogno di altri strumenti o ambienti di sviluppo. 
 
-
-
-Carattristiche HC-SR04
-
-- Operating voltage: +5V
-- Theoretical Measuring Distance: 2cm to 450cm
-- Practical Measuring Distance: 2cm to 80cm
-- Accuracy: 3mm
-- Measuring angle covered: <15°
-- Operating Current: <15mA
-- Operating Frequency: 40Hz
-
-### Pinout HC-RS04
-
-I moduli sono dotati di interfaccia standard a 4 pin utilizzata da molti sensori
-
-
-
-| **Pin Number** | **Pin Name** | **Description**                                              |
-| -------------- | ------------ | ------------------------------------------------------------ |
-| 1              | Vcc          | The Vcc pin powers the sensor, typically with +5V            |
-| 2              | Trigger      | Trigger pin is an Input pin. This pin has to be kept high for 10us to initialize measurement by sending US wave. |
-| 3              | Echo         | Echo pin is an Output pin. This pin goes high for a period of time which will be equal to the time taken for the US wave to return back to the sensor. |
-| 4              | Ground       | This pin is connected to the Ground of the system.           |
+Per il prototipo della versione 01 sono stati sviluppati:
+- Modulo FakeRPi per eseguire il software senza l'hardware di acquisizione dati
+- Applicazione console ultrasonic-vision (che include la modalità di simulazione per esecuzione senza hardware)
 
 ## Software
 

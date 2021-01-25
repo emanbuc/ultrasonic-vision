@@ -17,7 +17,7 @@ L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo
 
 ## Il prototipo realizzato
 
- [Prototipo del sistema di misura Ultrasocin Vision - versione 1.0](docs\020_prototipo_versione_01.md) 
+ [Prototipo del sistema di misura Ultrasocin Vision - versione 1.0](docs/020_prototipo_versione_01.md) 
 
 
 
