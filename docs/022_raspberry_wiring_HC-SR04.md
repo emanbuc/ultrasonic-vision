@@ -18,24 +18,18 @@ _Nota: Nel caso di configurazioni misti di moduli 3.3V a 5v attenzione alla cabl
 
 ## Cablaggio pannello sensori superiore
 
-I moduli HCSC04 sono predisposit per collegamento con cavi Dupont a 4 poli. In laboratorio ho disponibili solo cavi corti (10-20cm), metre per collegare i sensori sul tetto sono necessari cavi a circa 1 metro.  
+I moduli HCSC04 sono predisposti per collegamento con cavi Dupont a 4 poli. In laboratorio ho disponibili solo cavi corti (10-20cm), mentre per collegare tutti sensori sul tetto sono necessari cavi lunghi 1-2 metri.  
 
-Cavi lunghi sono più difficili da trovare disponibili sul mercato, ma sono costosi [Amazon.it : cavi dupont](https://www.amazon.it/s?k=cavi+dupont).  Per il prototipo ho individuato due possibili soluzioni economincamente sostenibili:
+Cavi dupont lunghi sono disponibili sul mercato, ma sono costosi [Amazon.it : cavi dupont](https://www.amazon.it/s?k=cavi+dupont) e non sempre facili da trovare.  Per il prototipo ho individuato due possibili soluzioni economincamente sostenibili:
 
-- cavo ethernet (xx coppie di cavi)
-- cavo per sensori impianto di allarme a 4 poli (Vcc, GND, signal01, signal02) + schermatura + anima i nylon per restistenza meccanica
+- cavo ethernet (8 fili)
+- cavo per sensori impianto di allarme a 4 fili (Vcc, GND, signal01, signal02) + schermatura + anima i nylon per restistenza meccanica
 
-Avevo disponibili degli spezzoni da circa due metri di cavo per sistemi di allarme già tagliati  ed li ho utilizzati per realizzare i cavi dupont.
+Avevo disponibili in laboratorio  degli spezzoni da circa due metri di cavo per sistemi di allarme ed ho utilizzato quelli per realizzare i cavi dupont.
 
-![Visualizza immagine di origine](../media/cavo_allarme.jpg)
+![cavo dupont per i sensori](../media/sensor_cable02.jpg)
 
-[Cavo antifurto 2 x 0,50 mm² + 2 x 0,22 mm² GR2 - MESSI & PAOLONI 5222-CCA - Spagnuolo S.R.L.](https://www.spagnuolosrl.it/prodotto/cavo-antifurto-2-x-050-mm-2-x-022-mm-gr2-messi-paoloni-5222-cca/)
-
- Dopo aver intestato i cavi con i connettori dupont maschio/femmina ho così ottenuto dei a quattrofili ottimi per il collegamento dei moduli HCSR04
-
-![cavo sensori](../media/sensor_cable02.jpg)
-
-Dopo aver realizzato i tre cavi di lunghezza sufficiente e stato possibile montare il pannello superiore con i sensori ed il relativo telaio di sostegno. Per minimizzare i disturbi il telaio di supporto è stato realizzato filo di ferro plastificato a sezione circolare.
+Dopo aver realizzato i tre cavi di lunghezza sufficiente e stato possibile montare il pannello superiore con i sensori ed il relativo telaio di sostegno. 
 
 ![roof sensor panel](../media/roof_panel_wiring.jpg)
 

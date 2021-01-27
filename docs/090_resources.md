@@ -18,7 +18,6 @@ http://codelectron.com/measure-distance-ultrasonic-sensor-pi-hc-sr04/
 
 https://www.bluetin.io/sensors/python-library-ultrasonic-hc-sr04/ 
 
- 
 
 https://emanuelebuchicchio.wordpress.com/2016/07/18/misurare-la-distanza-di-un-oggetto/ 
 
