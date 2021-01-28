@@ -21,5 +21,5 @@ I test effettuati hanno evidenziato che:
 - La forma ed il materiale degli oggetti ha un effetto importante nell'accuratezza della stima della distanza. 
   - Per la riflessione delle onde sonore vale la legge si Snell quindi se l'onda sonora colpisce una superficie non parallela al piano frontale del sensore è possibile che l'onda riflessa non raggiunga direttamente il ricevitore (distanza stimata superiode a quella reale, o non lo raggiunga affatto)
   - L'impednza acustica dell'interfaccia tra l'aria (gas) ed un corpo solido bersaglio è solitamente molto elevata e questo in generale genera una buona riflessione. In presenza di superfici  fonoassorbenti e l'energi ariflessa può essere molto minore e a volte l'eco putrebbe non essere rilevato dal ricevitore
-  - Nel caso di supercifi irregolari l'onda riflessa può essere molto attenuta a causa fi fenomeni di diffrazione
+  - Nel caso di superci irregolari l'onda riflessa può essere molto attenuta a causa fi fenomeni di diffrazione
 

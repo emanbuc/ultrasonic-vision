@@ -16,6 +16,15 @@ I moduli HC-SR-04 che funzionano a 5V non possono essere collegati direttamente 
 
 _Nota: Nel caso di configurazioni misti di moduli 3.3V a 5v attenzione alla cablatura delle linee Vcc!_
 
+## Collegamento alla morsettiera 
+
+ **Nota: spegnere sempre Raspberry prima di modificare i cablaggi** 
+
+Raspberry 3 è dotato di una morsettiera a 40 pin che include massa, alimentazione, vari tipi di bus di comunicazione e GPIO
+Per maggiori informazioni sul pinout vedi [documnetazione specifica](https://www.raspberrypi.org/documentation/usage/gpio/)
+
+![GPIO pins](../media/GPIO-Pinout-Diagram-2.png)
+
 ## Cablaggio pannello sensori superiore
 
 I moduli HCSC04 sono predisposti per collegamento con cavi Dupont a 4 poli. In laboratorio ho disponibili solo cavi corti (10-20cm), mentre per collegare tutti sensori sul tetto sono necessari cavi lunghi 1-2 metri.  
