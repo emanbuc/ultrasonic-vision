@@ -18,6 +18,8 @@ Per sviluppare e pubblicare rapidamente un classificatore da utilizzare insieme 
 
 Tutti i risulati ottenuti nei diversi "run" generati dall'esperimento possono poi essere analizzati.
 
+Per maggiori dettagli vedi notebook [ultrasonic-vision-train-automl](../notebooks/ultrasonic-vision-train-automl.ipynb)
+
 ### Risultati ottenuti
 
 Nel caso specifico come metrica primaria è stata scelta _weighted AUC_ dato che il numero di campioni non era omogeneo per tutte le classi. Tra i vari modelli addestrati da _AutoML_ ho selezionato quello prodotto dalla pipeline "RobustScaler +  LightGBM".
@@ -116,6 +118,8 @@ pip show azureml-core
 ```
 
 Nota: la versione deve essere **la stessa** di quella usata nel workspace su AzureML per evitare problemi di copatibilità
+
+
 
 Per maggiori informazioni fare riferimento alla documentazione online
 [Install the Azure Machine Learning SDK for Python - Azure Machine Learning Python | Microsoft Docs](https://docs.microsoft.com/en-us/python/api/overview/azure/ml/install?view=azure-ml-py)
