@@ -2,7 +2,7 @@
 
 Lo scopo di questo protipo è quello verificare la fattibilità ed   evidenziare le criticità del sistema
 
-## Requisiti 
+## Requisiti
 
 1. il sistema deve riuscire a rilevare la presenza di un oggetto all'interno di un area delimitata  e stimatne la posizione rispetto ai misuratori di distanza
 2. il sistema deve riconoscere il tipo di oggetto presente (classificazione muticlasse)
@@ -12,10 +12,11 @@ Lo scopo di questo protipo è quello verificare la fattibilità ed   evidenziare
 ## Hardware
 
 Per l'assemblaggio del prototipo sono stati utilizzati:
+
 - un Raspberry PI 3 completo di alimentatore
 - misuratori di distanza ad ultrasuoni HC-SR04/HC-SR04+ (numero variabile in base alla configurazione geometrica desiderata. Il prototipo è stato testato con configurazioni a 4 e 7 sensori)
-- kit di cavi Dupont 
-- almeno 3 metri di cavo per sistemi di allarme 
+- kit di cavi Dupont per breadboard
+- almeno 3 metri di cavo per sistemi di allarme a 4 fili
 - tre breadbord piccole (half size)
 - un pulsante
 - sette resistenze 18Kohm
@@ -25,7 +26,6 @@ Per l'assemblaggio del prototipo sono stati utilizzati:
 
  Costo complessivo stimato per i componenti elencati inferiore a 50€ compresi breadboard e cavi.
 
- 
 ### Misuratori di distanza ad ultrasuoni HC-SR04
 
 Sul mercato esistono diversi misuratori di distanza ad ultrasuoni, destinati al mercato dei maker, con funzionalità e prestazioni sostanzialmente equivalenti. Per il prototipo sono stati utilizzati misuratori di distanza ad ultrasuoni tipo [HC-SR04/SR04+](https://www.alldatasheet.com/datasheet-pdf/pdf/1132203/ETC2/HC-SR04.html) che erano disponibili in laboratorio.
@@ -37,8 +37,13 @@ Le prestrazioni ed il funzionamento sono descritti [nel capitolo dedicato ai mod
 Ogni sensore richiede GND, VCC + 2 GPIO (trigger + echo). Su Raspberry 2 ci sono 24 GPIO pin disponibili. Senza adottare particolari accortezze questo sistema può supportare  fino a 12 sensori.
 Il timing dei sengnali sui pin "echo" e "trigger" del sensore ne permette volendo anche la gestione con un solo GPIO. In questo modo il numeor massimo di sensori che un singolo raspberry può gestire sale a 24.
 
+### Numero di sensori utilizzati
+
+L'hardware utilizzato consente di utilizzare fino a 12 sensori. Al momento in laboratorio sono disponibili 5 sensori HC-SR04+ e 5 sensori HC-SR04 . Per l'addestramento del classificatore è stata utilizzata una configurazione con sette sensori in modo da lasciare alcuni sensori disponibili per testare l'utilizzo di moduli remoti con microcontrollore ESP8266, mantenendo invariata la configurazione dei sistema principale.
+
 ## Software
-Software sviluppato in Python: facile da scrivere, mantenere e debuggare. Attività di sviluppo e debug possono avvenire direttamente sul Raspberry (in sessione locale oppure in sessione remota) senza bisogno di altri strumenti o ambienti di sviluppo. 
+
+Software sviluppato in Python: facile da scrivere, mantenere e debuggare. Attività di sviluppo e debug possono avvenire direttamente sul Raspberry (in sessione locale oppure in sessione remota) senza bisogno di altri strumenti o ambienti di sviluppo.
 
 Per il prototipo della versione 01 sono stati sviluppati:
 - Modulo FakeRPi per eseguire il software senza l'hardware di acquisizione dati

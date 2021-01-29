@@ -1,10 +1,12 @@
+# Raspberry PI per applicazioni di Edge AI
+
 Addestramento modelli classificazione con scikitlearn con notebook [multiclass_SVM.ipynb](notebooks\multiclass_SVM.ipynb) 
 
 Esecuzione modello di classificazione locale su raspberry
 
 - necessario installare scikit leanr su Raspberry
 
-  - ```
+   ```shell
     pip3 install -U scikit-learn=='0.22.2.post1'
     ```
 
