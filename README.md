@@ -4,6 +4,7 @@ Ultrasonic Vision è un sistema di acquisizione dati in grado di rilevare la pre
 L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo funzionante del sistema con lo scopo di valutare la fattibilità del progetto ed individuare le criticità che dovranno essere affrontate nelle realizzazione delle successive versioni del sistema.
 
 ## Sommario
+
 - [Progetto Ultrasonic Vision](#progetto-ultrasonic-vision)
   - [Sommario](#sommario)
   - [Il sistema Ultrasonic Vision](#il-sistema-ultrasonic-vision)
@@ -13,28 +14,27 @@ L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo
   - [Futuri Sviluppi](#futuri-sviluppi)
 
 ## Il sistema Ultrasonic Vision
+
 [sistema Ultrasonic Vision](docs/010_ultrasonic_vision.md)
 
 ## Il prototipo realizzato
 
- [Prototipo del sistema di misura Ultrasocin Vision - versione 1.0](docs/020_prototipo_versione_01.md) 
-
-
+ [Prototipo del sistema di misura Ultrasocin Vision - versione 1.0](docs/020_prototipo_versione_01.md)
 
 ## Contenuto del Repository
 
-Il repository ufficile del progetto è un repository pubblico ospitato su GitHub  https://github.com/emanbuc/ultrasonic-vision. Il contenuto comprende:
+Il repository ufficile del progetto è un repository pubblico ospitato su GitHub  [https://github.com/emanbuc/ultrasonic-vision](https://github.com/emanbuc/ultrasonic-vision). Il contenuto comprende:
 
-- Documentazione del progetto 
+- Documentazione del progetto
   - [Diario giornaliero](activity_log.md) con descrizone dettagliata delle attività svolte
   - [Guida alla configurazione dell'Raspberry PI](docs/raspberry_setup.md) per lo sviluppo e l'utilizzo del sistema
   - [Guida utilizzo desktop remoto da Windows a Raspian](docs/raspbery_xrdp.md)
-  - [Installazione Python 3.8 su Raspberry]()
+  - [Installazione Python 3.8 su Raspberry](docs/032_raspberry_buster_python38_setup.md)
   - [Cablaggio dei moduli HC-SR04](docs/raspberry_wiring_HC-SR04.md)
   - [Gestione evento "pulsante premuto" su Raspberry](docs/raspberry_button_pressed.md)
   - [Classificatore con Azure AutoML](docs/azure_autoML.md)
   - [Classificatore con SciKit Learn](docs/training_scikit-learn_model.md)
-  - [Edge AI]()
+  - [Edge AI](docs/050_raspberry_edge_AI.md)
 - [Dataset](datasets/) per l'addestramento dei classificatori
 - [Modelli ML addestrati](models/) e pronti all'uso per la classificaizone degli oggetti
 - Notebook Jupyter per l'analisi dei dati, feature engineering e addestramento dei classificatori
@@ -49,7 +49,7 @@ Il repository ufficile del progetto è un repository pubblico ospitato su GitHub
   - [Modulo FakeRPi](src/FakeRPi) per eseguire il software senza l'hardware di acquisizione dati
   - [Applicazione console ultrasonic-vision](src/ultrasonic-vision.py)
 - Vari script sviluppati durante il progetto
-  - [Conversione dei modelli addestrati ](src/samples/convertToONNX.py) per formato SciKitLearn a formato ONNX
+  - [Conversione dei modelli addestrati](src/samples/convertToONNX.py) per formato SciKitLearn a formato ONNX
   - [Salvataggio dati su file CSV](src/samples/write-csv-file-test.py)
   - [Salvataggio distanze stimate dai sensori HC-SR04 in file CSV](src/samples/save-sensor-data-to-file.py)
   - [Misuratore di distanza ad ultrasuoni con HC-SR04](src/samples/ultrasonic-meter-test.py)
@@ -70,15 +70,13 @@ _Nota: Una descrizione dettagliata delle attività svolte è riportata in [activ
 - [x] definire configurazione geometrica riproducibile del sistema
 - [x] creare dataset per addestramento modello
 - [x] sviluppare un classificatore dimostrativo con un modello semplice
-- [x] deploy del modello su Raspberry 
+- [x] deploy del modello su Raspberry
 - [x] deploy del modello su cloud come web service
 - [x] valutazione performance del modello
 - [x] ottimizzare classificatore
-- [ ] Relazione sul lavoro svolto e risultati ottenuti
-- [ ] Documentazione utile per proseguire lo sviluppo del sistema 
+- [] Relazione sul lavoro svolto e risultati ottenuti
+- [x] Documentazione utile per proseguire lo sviluppo del sistema
 
-## Futuri Sviluppi 
+## Futuri Sviluppi
 
- [futuri_sviluppi.md](docs\futuri_sviluppi.md) 
-
-
+ [futuri_sviluppi.md](docs\futuri_sviluppi.md)

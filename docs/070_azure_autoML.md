@@ -30,7 +30,7 @@ Il modello non era stato selezionato come _best run_ da AutoML, Il modello prese
 
 Il modello addestrato e disponible nella cartella dei modelli  [AutoML71880948429.zip](../models/AutoML71880948429.zip)
 
-### Metriche del modello 
+### Metriche del modello
 
 Di seguito un analisi dettagliata i parametri suggeriti nel  [documentazione di AutoML](https://docs.microsoft.com/en-us/azure/machine-learning/) con i punteggi ottenuti dal modello e i paragrafi applicabili del metodo di valutazione.
 
@@ -54,7 +54,7 @@ A curve that approaches the top-left corner of the chart is approaching a 100% T
 
 ![image-20210103004240899](../media/model_roc_curve.png)
 
-#### The precision-recall curve 
+#### The precision-recall curve
 
 The precision-recall curve plots the relationship between precision and recall as the decision threshold changes. Recall is the ability of a model to detect all positive samples and precision is the ability of a model to avoid labeling negative samples as positive. Some business problems might require higher recall and some higher precision depending on the relative importance of avoiding false negatives vs false positives.
 
