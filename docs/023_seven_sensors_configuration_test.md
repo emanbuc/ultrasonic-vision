@@ -50,11 +50,13 @@ Il test di normalità applicato è quello implementato nella funzione [normaltes
 
     2 D’Agostino, R. and Pearson, E. S. (1973), “Tests for departure from normality”, Biometrika, 60, 613-622
 
-## Analisi dati esperimenti con oggetti
+## Analisi dati esperimenti con oggetti (Caso di studio esperimento "BEAN_CAN")
 
 Il dataset include i dati raccolti posizionando diversi tipi oggetti all'interno dell'area di misura approssimativamente nella stessa posizione. Gli esperimenti sono stai ripetuti più volte riposizionando ogni volta l'oggetto. Ad ogni ripetizione l'oggetto è stato posizionato in una posizione leggermente diversa da quella precedente, in modo da produrre un dataset di addestramento più simile alle condizioni operative del sistema in produzione.
 
 A titolo di esempio viene riportata l'analisi dell'esperimento "BEAN_CAN" eseguito su un barattolo di fagioli in scatola con dimensioni vicine al limite inferiore ammissibile e una geometria idonea ad evidenzare eventuali problemi nella stima delle distanze (superficie cilindrica, presenza di superfici complesse (elementi tridimensionali e bordi)
+
+![esperimento bean_can](../media/BEAN_CAN.jpg)
 
 L'esperimento è stato ripetuto tre volte rimuovendo e riposizionando l'oggetto. Per ogni posizionamento sono state ottenute rispettivamente 10,11 e 15 misure valide contenenti la stima della distanza da tutti i sensori. (in totale 36 misure)I risultati delle tre ripetizioni sono stati riportati nei file:
 
@@ -71,23 +73,26 @@ I grafici delle distribuzioni mostrano due picchi ben distinti, mentre il terzo 
 ### Stime delle distanze orizzontali
 
 Nella prima ripetizione il sensori HCSR04_001 e HCSR04_003 hanno fornito delle stime molti vicine al caso "oggetto non presente" (EMPTY_SEVEN). Nelle altre ripetizioni ha dato delle stime vicine alla distanza reale di circa 20 cm
-Nella prima ripetizione il sensori HCSR04_001 e HCSR04_003 hanno prodotto delle stime sostanzialmente corrette in tutte le ripetizioni
+
+Nella prima ripetizione il sensori HCSR04_002 e HCSR04_004 hanno prodotto delle stime sostanzialmente corrette in tutte le ripetizioni
 
 ### Stime delle distanze verticali
 
 Il sensore 005 non "ha visto" l'oggetto in nessuna delle ripetizioni
-il sensore 006 ha fornito un stima completamente errata (2000 cm) nel primo esperimento e sotanzialmente corretta (circa 40 cm) nelle altre due ripetizioni
+il sensore 006 ha fornito un stima completamente errata (2000 cm) nel primo esperimento e approssimativamente corretta (circa 40 cm) nelle altre due ripetizioni
 
 I dati del sensore 007 presentano una distribuzione diversa dal caso "empty seven", ma non è chiaro come questa differenza sia correlata alla presenza dell'oggetto nell'area di misura.
 
 ## Conclusioni
 
-I test effettuati hanno evidenziato che:
+L'analisi dei dati dimostra che il tempo di volo (e quinid la distanza) restituito dai singoli sensori dipende fortemente dalla posizione dell'oggetto all'interno dell'area di rilevamento. Il sistema è quindi potenzialmente in grado di stimare la posizione del bersaglio all'interno dell'area di rilevamento.
 
-- La stima della distanza restituita dai moduli HC-SR04 è influenzata da fari fattori ambientali (variazioni di temperatura, correnti d'aria, sorgenti di rumore o vibrazione significative ...)
-- La forma ed il materiale degli oggetti ha un effetto importante nell'accuratezza della stima della distanza.
+L'analisi ha però evidenziato anche alcune importanti criticità:
+
+- La stima della distanza restituita dai moduli HC-SR04 è influenzata da vari fattori ambientali (variazioni di temperatura, correnti d'aria, sorgenti di rumore o vibrazione significative ...)
+
+- La relazione tra la distanza stimata e quella reale non è sempre lineare. Nel caso di posizionemento dell'oggetto non ideale la misura è affetta da errori annche molto ampi e difficimente compensabili perchè dipendenti dalle carateristiche fisiche e geometriche del bersaglio.
+  - La forma ed il materiale degli oggetti ha un effetto importante nell'accuratezza della stima della distanza.
   - Per la riflessione delle onde sonore vale la legge si Snell quindi se l'onda sonora colpisce una superficie non parallela al piano frontale del sensore è possibile che l'onda riflessa non raggiunga direttamente il ricevitore (distanza stimata superiode a quella reale, o non lo raggiunga affatto)
   - L'impednza acustica dell'interfaccia tra l'aria (gas) ed un corpo solido bersaglio è solitamente molto elevata e questo in generale genera una buona riflessione. In presenza di superfici  fonoassorbenti e l'energi ariflessa può essere molto minore e a volte l'eco putrebbe non essere rilevato dal ricevitore
-  - Nel caso di superci irregolari l'onda riflessa può essere molto attenuta a causa fi fenomeni di diffrazione
-
-Per un analisi dettagliata dei dati acquisiti durante i test vedi [Notebook Analisi Dati Sensori](../notebooks/analisi_dati_sensori.ipynb)
+  - Nel caso di superci irregolari l'onda riflessa può essere molto attenuta a causa fi fenomeni di diffrazione)
