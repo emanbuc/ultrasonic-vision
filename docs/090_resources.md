@@ -8,20 +8,7 @@
 
 ## Utrasonic Range Sensors 
 
-https://www.seeedstudio.com/blog/2019/11/04/hc-sr04-features-arduino-raspberrypi-guide/ 
-
-https://www.instructables.com/HC-SR04-Ultrasonic-Sensor-With-Raspberry-Pi-2/ 
-
-https://thepihut.com/blogs/raspberry-pi-tutorials/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi 
-
-http://codelectron.com/measure-distance-ultrasonic-sensor-pi-hc-sr04/ 
-
-https://www.bluetin.io/sensors/python-library-ultrasonic-hc-sr04/ 
-
-
-https://emanuelebuchicchio.wordpress.com/2016/07/18/misurare-la-distanza-di-un-oggetto/ 
-
-https://emanuelebuchicchio.wordpress.com/2016/08/04/sensore-ad-ultrasuoni-hc-sr04-un-sonar-integrato-compatibile-con-esp8266-arduino-e-raspberry-per-3e/ 
+ 
 
  
 

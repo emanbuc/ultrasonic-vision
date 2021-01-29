@@ -32,3 +32,30 @@ I moduli sono dotati di interfaccia standard a 4 pin utilizzata da molti sensori
 | 2              | Trigger      | Trigger pin is an Input pin. This pin has to be kept high for 10us to initialize measurement by sending US wave. |
 | 3              | Echo         | Echo pin is an Output pin. This pin goes high for a period of time which will be equal to the time taken for the US wave to return back to the sensor. |
 | 4              | Ground       | This pin is connected to the Ground of the system.           |
+
+
+## Altro materiale sui moduli HC-SR04 e sensori ad ultrasuoni in generale
+
+http://www.pcserviceselectronics.co.uk/arduino/Ultrasonic/index.php
+
+https://www.sciencedirect.com/topics/engineering/ultrasonic-sensor
+
+https://gndtovcc.home.blog/2020/04/18/complete-guide-for-ultrasonic-sensor-hc-sr04-with-arduino/
+
+https://www.electronicwings.com/sensors-modules/ultrasonic-module-hc-sr04
+
+https://www.seeedstudio.com/blog/2019/11/04/hc-sr04-features-arduino-raspberrypi-guide/ 
+
+https://www.instructables.com/HC-SR04-Ultrasonic-Sensor-With-Raspberry-Pi-2/ 
+
+https://thepihut.com/blogs/raspberry-pi-tutorials/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi 
+
+http://codelectron.com/measure-distance-ultrasonic-sensor-pi-hc-sr04/ 
+
+https://www.bluetin.io/sensors/python-library-ultrasonic-hc-sr04/ 
+
+https://www.albertobarbisan.it/didattica/ultrasuoni.pdf
+
+https://emanuelebuchicchio.wordpress.com/2016/07/18/misurare-la-distanza-di-un-oggetto/ 
+
+https://emanuelebuchicchio.wordpress.com/2016/08/04/sensore-ad-ultrasuoni-hc-sr04-un-sonar-integrato-compatibile-con-esp8266-arduino-e-raspberry-per-3e/
