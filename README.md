@@ -1,48 +1,19 @@
 # Progetto Ultrasonic Vision
 
-Ultrasonic Vision è un sistema di acquisizione dati in grado di rilevare la presenza di un oggetto, determinarne la posizione e riconoscere il tipo oggetto. Il sistema utilizza dei misuratori di distanza ad ultrasuoni dei modelli di classificazione addestrati con tecniche di machine learning.
+Ultrasonic Vision è un sistema di acquisizione dati in grado di rilevare la presenza di un oggetto, determinarne la posizione e riconoscere il tipo oggetto. Il sistema utilizza dei misuratori di distanza ad ultrasuoni e dei modelli di classificazione addestrati con tecniche di machine learning.
 
-L'obiettivo del progetto è quello di progettare e realizzare un primo prototipo funzionante del sistema con lo scopo di valutare la fattibilità del progetto ed individuare le criticità che dovranno essere affrontate nelle realizzazione delle successive versioni del sistema.
+L'obiettivo del progetto è quello di realizzare un primo prototipo funzionante al fine di individuare le criticità che dovranno essere affrontate nella progettazione del prodotto finale.
 
 ## Sommario
 
-- [Progetto Ultrasonic Vision](#progetto-ultrasonic-vision)
-  - [Sommario](#sommario)
-  - [Il sistema Ultrasonic Vision](#il-sistema-ultrasonic-vision)
-  - [Il prototipo realizzato](#il-prototipo-realizzato)
-  - [Risultati ottenuti](#risultati-ottenuti)
-  - [Roardmap del progetto](#roardmap-del-progetto)
-  - [Futuri Sviluppi](#futuri-sviluppi)
-  - [Repository del progetto](#repository-del-progetto)
+1. [Il sistema Ultrasonic Vision](docs/010_ultrasonic_vision.md)
+2. [Il prototipo realizzato](docs/020_prototipo_versione_01.md)
+3. [Sintesi dei risultati ottenuti](docs/075_conclusioni_e_risultati.md)
+4. [futuri_sviluppi.md](docs\futuri_sviluppi.md)
+5. [strumenti e tecnologie utilizzate](docs/095_strumenti_e_tecnologie_utilizzate.md)
+6. [Altre Risorse](/docs/090_resources.md)
 
-## Il sistema Ultrasonic Vision
-
-[sistema Ultrasonic Vision](docs/010_ultrasonic_vision.md)
-
-## Il prototipo realizzato
-
- [Prototipo del sistema di misura Ultrasocin Vision - versione 1.0](docs/020_prototipo_versione_01.md)
-
-## Risultati ottenuti
-
-L'analisi dei dati dimostra che il vettore dei tempi di volo (_TOF_) stimanti dai sensori dipende dalla posizione del bersaglio all'interno dell'area di rilevamento e dalle caratteristiche fisiche (geometria, materiale e tipo di superfice) dell'oggetto. Il sistema è quindi potenzialmente in grado di stimare la posizione dell'oggetto all'interno dell'area di rilevamento e di dicriminare tra diversi tipi di oggetti.
-
-I test eseguiti con ilprototipo del sistema hanno però evidenziato anche alcune importanti criticità:
-
-- Il pattern delle distanze stimate dipende in maniera non facilmente separabile sia dal tipo di oggetto presente nell'area di rilevamento che dalla posizione dell'oggetto rispetto ai sensori. Il problema può essere mitigato scgliendo una opportuna configurazione geometrica (numero e posizione dei sensori).
-
-- L'impossibilità di separare gli effetti della posizione dell'bersaglio da quelli della geometria e delle caratteristiche fisiche dell'oggetto rendono particolarmente complesso il compito di sviluppare un sistema di classificazione degli oggetti indipendente dalla posizione. 
-  
-I modelli di classificazione addestrati e testati si sono invece rivelati molto precisi se gli oggetti da identificare vengono posizionati in maniera precisa, riucreando una condizione molto vicina a quella in cui sono stati prodotti i dati di addestramento.
-
-- I classificatori addestrati nell'ambito di queso progetto hanno performance molto elevate se gli oggetti vengono posizionati esattamente come durante la fase di training, ma non riescono ad riconoscere l'oggetto in maniera indipendente dalla posizione. Questo problema è affrontato nel progetto [Ultrasonic Object Recognition](https://github.com/emanbuc/ultrasonic-object-recognition) che ha come obiettivo la realizzazione di un sistema di riconoscimento degli oggetti basato sui misuratori ad ultrasuoni utilizzando tecniche di machine learning e deep learning più avanzare avanzate.
-
-- La relazione tra la distanza stimata e quella reale non è sempre lineare. Nel caso di posizionemento dell'oggetto non ideale la misura è affetta da errori annche molto ampi e difficimente compensabili perchè dipendenti dalle carateristiche fisiche e geometriche del bersaglio.
-  - La forma ed il materiale degli oggetti ha un effetto importante nell'accuratezza della stima della distanza.
-  - Per la riflessione delle onde sonore vale la legge si Snell quindi se l'onda sonora colpisce una superficie non parallela al piano frontale del sensore è possibile che l'onda riflessa non raggiunga direttamente il ricevitore (distanza stimata superiode a quella reale, o non lo raggiunga affatto)
-  - L'impedenza acustica dell'interfaccia tra l'aria (gas) ed un corpo solido bersaglio è solitamente molto elevata e questo in generale genera una buona riflessione. In presenza di superfici  fonoassorbenti e l'energi ariflessa può essere molto minore e a volte l'eco putrebbe non essere rilevato dal ricevitore
-  - Nel caso di superfici irregolari l'onda riflessa può essere molto attenuta a causa fi fenomeni di diffrazione)
-
+Relazione finale scaricabile in formato ([ePub](./dist/book.epub) , PDF)
 
 ## Roardmap del progetto
 
@@ -61,15 +32,10 @@ _Nota: Una descrizione dettagliata delle attività svolte è riportata in [activ
 - [x] deploy del modello su cloud come web service
 - [x] valutazione performance del modello
 - [x] ottimizzare classificatore
-- [] Relazione sul lavoro svolto e risultati ottenuti
+- [ ] Relazione sul lavoro svolto e risultati ottenuti
 - [x] Documentazione utile per proseguire lo sviluppo del sistema
 
-## Futuri Sviluppi
-
- [futuri_sviluppi.md](docs\futuri_sviluppi.md)
-
- 
-## Repository del progetto
+## Contenuto del Repository
 
 Il repository del progetto è ospitato su GitHub  [https://github.com/emanbuc/ultrasonic-vision](https://github.com/emanbuc/ultrasonic-vision). Il contenuto include
 
@@ -105,4 +71,3 @@ Il repository del progetto è ospitato su GitHub  [https://github.com/emanbuc/ul
   - [Misuratore di distanza ad ultrasuoni con HC-SR04](src/samples/ultrasonic-meter-test.py)
   - [Test inferenza con modello SciKitLearn](src/samples/test-skl-runtime.py)
   - [Test Inferenza con modello ONNX](src/samples/test-onnx-runtime.py)
-
