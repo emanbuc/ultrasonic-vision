@@ -113,9 +113,9 @@ Gestione evento "button press" come trigger per avviare la misura
 Raspberry PI dispone di resistenze Pull-Up / Pull-Down onboard configurabili via software
 
 - si possono usare le resistenze interne e semplificare il circuito eliminando resistenze esterne
-- https://kalitut.com/raspberrypi-gpio-pull-up-pull-down-resistor/ 
-- https://raspi.tv/2013/rpi-gpio-basics-6-using-inputs-and-outputs-together-with-rpi-gpio-pull-ups-and-pull-downs
-- https://www.programcreek.com/python/example/98874/RPi.GPIO.add_event_detect
+- <https://kalitut.com/raspberrypi-gpio-pull-up-pull-down-resistor/> 
+- <https://raspi.tv/2013/rpi-gpio-basics-6-using-inputs-and-outputs-together-with-rpi-gpio-pull-ups-and-pull-downs>
+- <https://www.programcreek.com/python/example/98874/RPi.GPIO.add_event_detect>
 
 ### Open a remote session to Raspberry
 

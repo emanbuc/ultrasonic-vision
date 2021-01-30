@@ -8,30 +8,5 @@
 
 ## Utrasonic Range Sensors 
 
- 
-
- 
-
-## ESP8266 
-
-https://arduino-esp8266.readthedocs.io/en/latest/index.html 
-
-http://espcopter.com/ 
-
-https://github.com/esp8266/Arduino 
-
- 
-
-## MQTT 
-
-https://www.instructables.com/How-to-Use-MQTT-With-the-Raspberry-Pi-and-ESP8266/ 
-
-https://everythingesp.com/arduino-tutorial-protocol-buffers-messages-with-strings/ 
-
- 
-
-## ML 
-
-https://developer.arm.com/solutions/machine-learning-on-arm/developer-material/how-to-guides/teach-your-raspberry-pi-multi-gesture/single-page 
 
  

@@ -46,12 +46,13 @@ L'hardware utilizzato consente di utilizzare fino a 12 sensori. Al momento in la
 Software sviluppato in Python: facile da scrivere, mantenere e debuggare. Attività di sviluppo e debug possono avvenire direttamente sul Raspberry (in sessione locale oppure in sessione remota) senza bisogno di altri strumenti o ambienti di sviluppo.
 
 Per il prototipo della versione 01 sono stati sviluppati:
+
 - Modulo FakeRPi per eseguire il software senza l'hardware di acquisizione dati
 - Applicazione console ultrasonic-vision (che include la modalità di simulazione per esecuzione senza hardware)
 
-## Software
+### ultrasonic-vision.py
 
-Il software di controllo del sistema di misura è stato sviluppato in Python 3. Lo script principale da eseguire sul sistema in produzione è l'applicazione console  [ultrasonic-vision.py](..\src\ultrasonic-vision.py) 
+Il software di controllo del sistema di misura è stato sviluppato in Python 3. Lo script principale da eseguire sul sistema in produzione è l'applicazione console  [ultrasonic-vision.py](..\src\ultrasonic-vision.py)
 
 ```bash
 ultrasonic-vision.py <key> <scoring-uri> [<training-label>]
@@ -59,8 +60,8 @@ ultrasonic-vision.py <key> <scoring-uri> [<training-label>]
 
 | Parametro      | Descrizione                                                  |
 | -------------- | ------------------------------------------------------------ |
-| key            | API key per l'utilizzo del webservice REST che esegue il modello di classificazione. **Obbligatorio. ** |
-| scoring-uri    | URI dell'endpoint pubblico del webservice REST del classificatore. **Obbligatorio **. |
+| key            | API key per l'utilizzo del webservice REST che esegue il modello di classificazione. **Obbligatorio.** |
+| scoring-uri    | URI dell'endpoint pubblico del webservice REST del classificatore. **Obbligatorio**.|
 | training-label | Label associata alle distanze stimate dai sensori. Se questo parametro è presente l'applicazione funziona in modalità _addestramento_. **Opzionale**. |
 
 L'applicazione può essere usata in tre modalità:
@@ -108,7 +109,7 @@ Nella modalità riconoscimento l'applicazione svolge i seguenti compiti:
    3. Stampa sulla console le distanze stimate dai sensori
    4. esegue la chiamata al web service del servizio  di classificazione degli oggetti in cloud e stampa sulla console il risultato
    5. esegue localmente il classificatore utilizzando le API Python del Runtime ONNX e stampa sulla console il risultato
-   6. scrive le distanze e il risultato della classificazione sul file della sessione di acquisizione dati 
+   6. scrive le distanze e il risultato della classificazione sul file della sessione di acquisizione dati
 
 ### Modalità Addestramento
 
@@ -123,16 +124,15 @@ Nella modalità addestramento l'applicazione svolge i seguenti compiti:
 
 ### Gestione avvio della misurazione
 
+```Py
 MAIN_TRIGGER_GPIO = 26
-
-
 
    while True:
         if(FAKE_HW):
             mainTriggerState= True       
         else:
             mainTriggerState= GPIO.input(MAIN_TRIGGER_GPIO)
-
+```
 
 [Gestione evento "pulsante premuto" su Raspberry](docs/raspberry_button_pressed.md)
 
@@ -154,14 +154,13 @@ La portata utile dei sensori utilizzati è di circa 3 metri. Per ragioni logisti
 
 ![configurazione_7_sensori](../media/configurazione_7_sensori.png)
 
-![BALL_CENTER](C:\gitrepos\ultrasonic-vision\media\BALL_CENTER.jpg)
+![BALL_CENTER](../media\BALL_CENTER.jpg)
 
-
-[Test della configurazione a sette sensori](docs/seven_sensors_configuration_test.md)
+[Test della configurazione a sette sensori](023_seven_sensors_configuration_test.md)
 
 ## Assemblaggio e cablatura
 
-*Nota: per la descrizione delle attività di assemblaggio e cablatura vedi  [activity_log.md](..\activity_log.md)* 
+_Nota: per la descrizione delle attività di assemblaggio e cablatura vedi  anche [../activity_log.md](..\activity_log.md)_
 
 ## Riconoscimento degli oggetti
 
