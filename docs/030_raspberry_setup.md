@@ -33,6 +33,23 @@ Per la procedura di aggiornamento seguire la [guida nella documentazione](https:
 
 Il progetto prevede un pulsante/interuttore per abilitare l'acquisizione collegato ad uno dei pin GPIO.
 
+La gestione di un pulsante è un tipico esempio di gestione di un input digitale: dal punto di vista elettrico lo schema deve includere, oltre all'interruttore, le resistenze di pull up/down. Mentre dal punto di vista software viene come un evento di cambio di stato dell'GPIO collegato al pulsante.
+
+### Pull Up /Pull down su input digitali
+
+Raspberry PI dispone di resistenze Pull-Up / Pull-Down onboard configurabili via software. Si possono usare le resistenze interne e semplificare il circuito eliminando resistenze esterne.
+
+```Python
+#pull down for trigger button   
+GPIO.setup(MAIN_TRIGGER_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)    
+```
+
+Alcuni esempi disponibili in rete sulla gestione di input digitali
+
+- [https://kalitut.com/raspberrypi-gpio-pull-up-pull-down-resistor/](https://kalitut.com/raspberrypi-gpio-pull-up-pull-down-resistor/)
+- [https://raspi.tv/2013/rpi-gpio-basics-6-using-inputs-and-outputs-together-with-rpi-gpio-pull-ups-and-pull-downs](https://raspi.tv/2013/rpi-gpio-basics-6-using-inputs-and-outputs-together-with-rpi-gpio-pull-ups-and-pull-downs)
+- [https://www.programcreek.com/python/example/98874/RPi.GPIO.add_event_detect](https://www.programcreek.com/python/example/98874/RPi.GPIO.add_event_detect)
+
 ### gestione  software I/O digitale
 
 Dal punto di vista software La chisura dell La gestione evento "button press" in un sistema embedded tipicamente può essere fatta può essere realizzata in tre modi:
@@ -66,21 +83,6 @@ Alcuni esempi disponibili in rete:
 
 - [https://roboticsbackend.com/raspberry-pi-gpio-interrupts-tutorial/](https://roboticsbackend.com/raspberry-pi-gpio-interrupts-tutorial/)
 - [https://raspberrypihq.com/use-a-push-button-with-raspberry-pi-gpio/](https://raspberrypihq.com/use-a-push-button-with-raspberry-pi-gpio/)
-
-### Pull Up /Pull down su input digitali
-
-Raspberry PI dispone di resistenze Pull-Up / Pull-Down onboard configurabili via software. Si possono usare le resistenze interne e semplificare il circuito eliminando resistenze esterne.
-
-```Python
-#pull down for trigger button   
-GPIO.setup(MAIN_TRIGGER_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)    
-```
-
-Alcuni esempi disponibili in rete sulla gestione di input digitali
-
-- [https://kalitut.com/raspberrypi-gpio-pull-up-pull-down-resistor/](https://kalitut.com/raspberrypi-gpio-pull-up-pull-down-resistor/)
-- [https://raspi.tv/2013/rpi-gpio-basics-6-using-inputs-and-outputs-together-with-rpi-gpio-pull-ups-and-pull-downs](https://raspi.tv/2013/rpi-gpio-basics-6-using-inputs-and-outputs-together-with-rpi-gpio-pull-ups-and-pull-downs)
-- [https://www.programcreek.com/python/example/98874/RPi.GPIO.add_event_detect](https://www.programcreek.com/python/example/98874/RPi.GPIO.add_event_detect)
 
 ## Sessione remota su Raspberry da PC di sviluppo
 

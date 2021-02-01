@@ -1,25 +1,24 @@
-# Interfacciamento moduli HC-SR-04 / HC-SR-04+ 
+# Interfacciamento moduli HC-SR-04 / HC-SR-04+
 
 I moduli HC-SR-04 in commercio sono più o meno tutti uguali e derivano da uno stesso progetto di base. La versione "+" è stata modificata per avere tensioni di ingresso/uscita a 3.3V al posto dei 5V dell'originale.  
 
-I moduli HC-SR-04 che funzionano a 5V non possono essere collegati direttamente ai GPIO di Raspberry, ma serve un adattatore di livello da 5V a 3.3V. Nel caso specifico è sufficiente un partitore di tensione. 
+I moduli HC-SR-04 che funzionano a 5V non possono essere collegati direttamente ai GPIO di Raspberry, ma serve un adattatore di livello da 5V a 3.3V. Nel caso specifico è sufficiente un partitore di tensione.
 
- - ![V_2 = V_{out} = V_{in} \frac{R_2}{R_1 + R_2}](../media/Voltage_divider_formula.svg)
+- ![voltage divider formula](../media/Voltage_divider_formula.svg)
 
- - ![voltage divider](../media/Voltage_divider.svg)
+- ![voltage divider](../media/Voltage_divider.svg)
 
  image source: [Voltage divider - Partitore di tensione - Wikipedia](https://it.wikipedia.org/wiki/Partitore_di_tensione#/media/File:Voltage_divider.svg)
 
  Tra resistenze disponibili in laboratorio sono stati scelti valori 18K e 10K per realizzare il partitore in modo da ottenere una tensione invefiore a 3.3V sul pin.
 
- => V_{out} = 5 * 18K / (18K+10K)=3.2V 
+ => V_{out} = 5 * 18K / (18K+10K)=3.2V
 
 _Nota: Nel caso di configurazioni misti di moduli 3.3V a 5v attenzione alla cablatura delle linee Vcc!_
 
-## Collegamento alla morsettiera 
+## Collegamento alla morsettiera
 
- **Nota: spegnere sempre Raspberry prima di modificare i cablaggi** 
-
+ **Nota: spegnere sempre Raspberry prima di modificare i cablaggi**
 Raspberry 3 è dotato di una morsettiera a 40 pin che include massa, alimentazione, vari tipi di bus di comunicazione e GPIO
 Per maggiori informazioni sul pinout vedi [documnetazione specifica](https://www.raspberrypi.org/documentation/usage/gpio/)
 
@@ -38,7 +37,6 @@ Avevo disponibili in laboratorio  degli spezzoni da circa due metri di cavo per 
 
 ![cavo dupont per i sensori](../media/sensor_cable02.jpg)
 
-Dopo aver realizzato i tre cavi di lunghezza sufficiente e stato possibile montare il pannello superiore con i sensori ed il relativo telaio di sostegno. 
+Dopo aver realizzato i tre cavi di lunghezza sufficiente e stato possibile montare il pannello superiore con i sensori ed il relativo telaio di sostegno.
 
 ![roof sensor panel](../media/roof_panel_wiring.jpg)
-

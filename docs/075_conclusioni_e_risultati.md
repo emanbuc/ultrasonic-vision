@@ -6,7 +6,7 @@ I test eseguiti con ilprototipo del sistema hanno però evidenziato anche alcune
 
 - Il pattern delle distanze stimate dipende in maniera non facilmente separabile sia dal tipo di oggetto presente nell'area di rilevamento che dalla posizione dell'oggetto rispetto ai sensori. Il problema può essere mitigato scgliendo una opportuna configurazione geometrica (numero e posizione dei sensori).
 
-- L'impossibilità di separare gli effetti della posizione dell'bersaglio da quelli della geometria e delle caratteristiche fisiche dell'oggetto rendono particolarmente complesso il compito di sviluppare un sistema di classificazione degli oggetti indipendente dalla posizione. 
+- L'impossibilità di separare gli effetti della posizione dell'bersaglio da quelli della geometria e delle caratteristiche fisiche dell'oggetto rendono particolarmente complesso il compito di sviluppare un sistema di classificazione degli oggetti indipendente dalla posizione.
   
 I modelli di classificazione addestrati e testati si sono invece rivelati molto precisi se gli oggetti da identificare vengono posizionati in maniera precisa, riucreando una condizione molto vicina a quella in cui sono stati prodotti i dati di addestramento.
 

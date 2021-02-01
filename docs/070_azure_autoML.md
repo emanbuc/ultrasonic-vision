@@ -96,9 +96,9 @@ The calibration curve is sensitive to the number of samples, so a small validati
 
 ![image-20210103010400452](../media/model_calibration_curve.png)
 
-## Deploy come web service 
+## Deploy come web service
 
-Il modello ottenuto tramite AutoML è stato poi pubblicato come webservice consumabile da parte del software presente a bordo del Raspberry. Il modello sarà eseguito all'interno di un container docker ed sarà accessibile tramite chiamata POST ad un endpoint REST. 
+Il modello ottenuto tramite AutoML è stato poi pubblicato come webservice consumabile da parte del software presente a bordo del Raspberry. Il modello sarà eseguito all'interno di un container docker ed sarà accessibile tramite chiamata POST ad un endpoint REST.
 
 ![image-20210103001251119](../media/deploy_model.png)
 
@@ -119,8 +119,5 @@ pip show azureml-core
 
 Nota: la versione deve essere **la stessa** di quella usata nel workspace su AzureML per evitare problemi di copatibilità
 
-
-
 Per maggiori informazioni fare riferimento alla documentazione online
 [Install the Azure Machine Learning SDK for Python - Azure Machine Learning Python | Microsoft Docs](https://docs.microsoft.com/en-us/python/api/overview/azure/ml/install?view=azure-ml-py)
-

@@ -160,11 +160,13 @@ La portata utile dei sensori utilizzati è di circa 3 metri. Per ragioni logisti
 
 ## Assemblaggio e cablatura
 
-_Nota: per la descrizione delle attività di assemblaggio e cablatura vedi  anche [../activity_log.md](..\activity_log.md)_
+Il prototipo oltre al Raspberry utilizza solo un pulsante e sette moduli HC-SR04. Non sono necessari altri componenti esterni.
+
+Per i dettagli sul collegamento dei moduli HC-SR04 al Raspberry vedi [cablatura SR-HC04](022_raspberry_wiring_HC-SR04.md)
 
 ## Riconoscimento degli oggetti
 
- Nella versione 1.0 del sistema sono stati sviluppati due diversi sistemi di classificazione, utilizzando due diversi approcci. 
+ Nella versione 1.0 del sistema sono stati sviluppati due diversi sistemi di classificazione, utilizzando due diversi approcci.
 
 ### Classificatore Locale  (Edge Computing)
 
@@ -178,15 +180,13 @@ Un secondo sistema di classificazione degli oggetti è stato pubblicato utilizza
 
 ## Dati training 3D
 
-Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisizione dati, senza utilizzare riferimenti precisi per la posizione con lo scopo di rendere più robusto il riconoscimento da parte del classificatore. Per ogni oggetto acquisizione dati è stata ripetuta più volte dopo aver tolto e posizionato nuovamente l'oggetto con variazioni casuali di posizionamento. 
+Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisizione dati, senza utilizzare riferimenti precisi per la posizione con lo scopo di rendere più robusto il riconoscimento da parte del classificatore. Per ogni oggetto acquisizione dati è stata ripetuta più volte dopo aver tolto e posizionato nuovamente l'oggetto con variazioni casuali di posizionamento.
 
 ### Posizionamento oggetti
 
 Sono stati sperimentati diversi posizionamenti degli oggetti all'interno del range dei sensori.  I dati di training del classificatore sono stati acquisiti posizionando gli oggetti nella zona centrale on modo da avere potenzialmente letture significative da tutti sensori presenti (compresi quelli ora non presenti nella configurazione a sette sensori)
 
 ![posizionamento_oggetto](../media/object_postion03.jpg)
-
-
 
 Acquisizione second dataset di training con configurazione  a sette sensori e barriere parallele ai piani dei sensori
 
@@ -203,6 +203,4 @@ Acquisizione second dataset di training con configurazione  a sette sensori e ba
 - BALL_CENTER ![BALL_CENTER](../media/BALL_CENTER.jpg)
 - BEER_BOTTLE ![BEER_BOTTLE](../media/BEER_BOTTLE.jpg)
 
-Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisizione dati, senza utilizzare riferimenti precisi per la posizione con lo scopo di rendere più robusto il riconoscimento da parte del classificatore. Per ogni oggetto l'acquisizione dati è stata ripetuta più volte dopo aver tolto e posizionato nuovamente l'oggetto con variazioni casuali di posizionamento. 
-
-
+Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisizione dati, senza utilizzare riferimenti precisi per la posizione con lo scopo di rendere più robusto il riconoscimento da parte del classificatore. Per ogni oggetto l'acquisizione dati è stata ripetuta più volte dopo aver tolto e posizionato nuovamente l'oggetto con variazioni casuali di posizionamento.
