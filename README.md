@@ -13,7 +13,9 @@ L'obiettivo del progetto è quello di realizzare un primo prototipo funzionante 
 5. [strumenti e tecnologie utilizzate](docs/095_strumenti_e_tecnologie_utilizzate.md)
 6. [Altre Risorse](/docs/090_resources.md)
 
-Relazione finale scaricabile in formato ([ePub](./dist/book.epub) , PDF)
+Relazione finale scaricabile in formato ([ePub](./dist/relazione_progetto_ultrasonic_vision_v1.ePub) , [PDF](./dist/relazione_progetto_ultrasonic_vision_v1.pdf))
+
+_Nota: il documento della relazione finale è prodotto in maniera automatica dai file sorgenti in formato Markdown utilizzando Pandoc_
 
 ## Roardmap del progetto
 
@@ -32,7 +34,7 @@ _Nota: Una descrizione dettagliata delle attività svolte è riportata in [activ
 - [x] deploy del modello su cloud come web service
 - [x] valutazione performance del modello
 - [x] ottimizzare classificatore
-- [ ] Relazione sul lavoro svolto e risultati ottenuti
+- [x] Relazione sul lavoro svolto e risultati ottenuti
 - [x] Documentazione utile per proseguire lo sviluppo del sistema
 
 ## Contenuto del Repository
