@@ -6,7 +6,7 @@ Il sistema adotta una architettura di tipo _Edge computing_: in cui l'elaborazio
 
 L'architettura di riferimento è a quattro livelli
 
-![image-20201229054638716](../media/architecture_field_edge_fog_cloud_with_task.png)
+![Architettura edge computing a 4 livelli](../media/architecture_field_edge_fog_cloud_with_task.png)
 
 1. sensori ed attuatori che interagiscono direttamente con il mondo fisico sul campo
 2. gateway di campo (_edge_) che raccoglie i dati di tutti i sensori, esegue le elaborazioni a livello di edge computing e gestisce le comunicazioni con l'esterno

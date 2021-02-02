@@ -69,19 +69,19 @@ L'applicazione può essere usata in tre modalità:
 1. **modalità addestramento** in cui viene passato come parametro la "label" associata all'oggetto presente all'interno dell'area di rilevamento
 
    ```bash
-   ultrasonic-vision.py asc12345567789 http://webserviceurl.azure.com/123-456-5567/score BALL
+   ultrasonic-vision.py asc12345567789 http://<...>/score BALL
    ```
 
 2. **modalità riconoscimento** (produzione) in cui è il modello di classificazione ad assegnare la label in base alle distanze stimate dai sensori
 
    ```bash
-   ultrasonic-vision.py asc12345567789 http://webserviceurl.azure.com/123-456-5567/score
+   ultrasonic-vision.py asc12345567789 http://<...>/score
    ```
 
 3. **modalità riconoscimento con hardware simulato**  in cui è il modello di classificazione ad assegnare la label in base, ma le stime delle distanze sono generate in maniera randomica.
 
 ```bash
-ultrasonic-vision.py asc12345567789 http://webserviceurl.azure.com/123-456-5567/score
+ultrasonic-vision.py asc12345567789 http://<...>/123-456-5567/score
 ```
 
 Questa modalità consente di eseguire l'applicazione su PC che non dispongono di periferiche di I/O digitale compatibili con la libreria GPIO presente nell'ambiente di runtime Python su Raspberry. Gli errori a runtime legati al modulo RPi.GPIO vengono evitati sostituendo il modulo originale con un smeplice mockup creato per questo scopo denominato FakeRPi.GPIO
@@ -144,7 +144,7 @@ L'applicazione  [ultrasonic-vision.py](..\src\ultrasonic-vision.py)  produce fil
 - una colonna per ogni sensore presente contenente la distanza stimata in cm arrotondata alla seconda cifra decimale
 - la label di classificazione associata alla misura
 
-![image-20210111130801736](../media/data_acquisition_sample.png)
+![Esempio di acquisizione dati](../media/data_acquisition_sample.png)
 
 ## Configurazione a sette sensori
 
@@ -190,17 +190,27 @@ Sono stati sperimentati diversi posizionamenti degli oggetti all'interno del ran
 
 Acquisizione second dataset di training con configurazione  a sette sensori e barriere parallele ai piani dei sensori
 
-- SQUARE_MILK_90 ![SQUARE_MILK_90](../media/SQUARE_MILK_90.jpg)
-- SQUARE_MILK_45 ![SQUARE_MILK_45](../media/SQUARE_MILK_45.jpg)
+- SQUARE_MILK_90
+   ![SQUARE_MILK_90](../media/SQUARE_MILK_90.jpg)
+- SQUARE_MILK_45
+   ![SQUARE_MILK_45](../media/SQUARE_MILK_45.jpg)
 
-- BEAN_CAN ![BEAN_CAN](../media/BEAN_CAN.jpg)
-- SOAP_BOTTLE_FRONT ![SOAP_BOTTLE_FRONT](../media/SOAP_BOTTLE_FRONT.jpg)
-- SOAP_BOTTLE_SIDE ![SOAP_BOTTLE_SIDE](../media/SOAP_BOTTLE_SIDE.jpg)
-- GLASS ![GLASS](../media/GLASS.jpg)
-- RECTANGULAR_BOX  ![RECTANGULAR_BOX](../media/RECTANGULAR_BOX.jpg)
-- RECTANGULAR_BOX_SIDE ![RECTANGULAR_BOX_SIDE](../media/RECTANGULAR_BOX_SIDE.jpg)
+- BEAN_CAN
+   ![BEAN_CAN](../media/BEAN_CAN.jpg)
+- SOAP_BOTTLE_FRONT
+  ![SOAP_BOTTLE_FRONT](../media/SOAP_BOTTLE_FRONT.jpg)
+- SOAP_BOTTLE_SIDE
+   ![SOAP_BOTTLE_SIDE](../media/SOAP_BOTTLE_SIDE.jpg)
+- GLASS
+  ![GLASS](../media/GLASS.jpg)
+- RECTANGULAR_BOX  
+  ![RECTANGULAR_BOX](../media/RECTANGULAR_BOX.jpg)
+- RECTANGULAR_BOX_SIDE
+   ![RECTANGULAR_BOX_SIDE](../media/RECTANGULAR_BOX_SIDE.jpg)
 - WALL_BALL ![BALL_WALL](../media/BALL_WALL.jpg)
-- BALL_CENTER ![BALL_CENTER](../media/BALL_CENTER.jpg)
-- BEER_BOTTLE ![BEER_BOTTLE](../media/BEER_BOTTLE.jpg)
+- BALL_CENTER
+   ![BALL_CENTER](../media/BALL_CENTER.jpg)
+- BEER_BOTTLE
+   ![BEER_BOTTLE](../media/BEER_BOTTLE.jpg)
 
 Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisizione dati, senza utilizzare riferimenti precisi per la posizione con lo scopo di rendere più robusto il riconoscimento da parte del classificatore. Per ogni oggetto l'acquisizione dati è stata ripetuta più volte dopo aver tolto e posizionato nuovamente l'oggetto con variazioni casuali di posizionamento.

@@ -24,7 +24,9 @@ Per maggiori dettagli vedi notebook [ultrasonic-vision-train-automl](../notebook
 
 Nel caso specifico come metrica primaria è stata scelta _weighted AUC_ dato che il numero di campioni non era omogeneo per tutte le classi. Tra i vari modelli addestrati da _AutoML_ ho selezionato quello prodotto dalla pipeline "RobustScaler +  LightGBM".
 
-Il modello non era stato selezionato come _best run_ da AutoML, Il modello presenta delle metriche di performance tutte molto alte ![image-20210102234946336](../media/model_metrics.png) e rispetto a quelli proposti da AutoML è caratterizzato da un _calibration curve_ più "equlibrata".
+Il modello non era stato selezionato come _best run_ da AutoML, Il modello presenta delle metriche di performance tutte molto alte e rispetto a quelli proposti da AutoML è caratterizzato da un _calibration curve_ più "equlibrata".
+
+![Metriche modello selezionato](../media/model_metrics.png)
 
 [LightGBM](https://github.com/microsoft/LightGBM) è un algoritmo di classificaizone ad albero ad elevate prestazioni sviluppato da Microsoft e rilasciaot come open source.
 
@@ -42,7 +44,7 @@ In the studio, a darker cell indicates a higher number of samples. Selecting **N
 
 The confusion matrix of a good model will have most samples along the diagonal
 
-![image-20210102234838298](../media/confusion_matrix.png)
+![Confusion Matrix](../media/confusion_matrix.png)
 
 #### ROC curve
 
@@ -52,13 +54,13 @@ The area under the curve (AUC) can be interpreted as the proportion of correctly
 
 A curve that approaches the top-left corner of the chart is approaching a 100% TPR and 0% FPR, the best possible model. A random model would produce an ROC curve along the `y = x` line from the bottom-left corner to the top-right. A worse than random model would have an ROC curve that dips below the `y = x` line.
 
-![image-20210103004240899](../media/model_roc_curve.png)
+![ROC Curve](../media/model_roc_curve.png)
 
 #### The precision-recall curve
 
 The precision-recall curve plots the relationship between precision and recall as the decision threshold changes. Recall is the ability of a model to detect all positive samples and precision is the ability of a model to avoid labeling negative samples as positive. Some business problems might require higher recall and some higher precision depending on the relative importance of avoiding false negatives vs false positives.
 
-![image-20210103004658289](../media/model_precision_recall.png)
+![Precision - Recall curve](../media/model_precision_recall.png)
 
 #### Cumulative gains curve
 
@@ -70,7 +72,7 @@ A perfect model will rank all positive samples above all negative samples giving
 
 The baseline random model will have a cumulative gains curve following `y = x` where for `x%` of samples considered only about `x%` of the total positive samples were detected. A perfect model will have a micro average curve that touches the top-left corner and a macro average line that has slope `1 / num_classes` until cumulative gain is 100% and then horizontal until the data percent is 100.
 
-![image-20210103005108612](../media/model_cumulative_gain.png)
+![Cumulative Gain Curve](../media/model_cumulative_gain.png)
 
 #### Lift curve
 
@@ -80,7 +82,7 @@ This relative performance takes into account the fact that classification gets h
 
 The baseline lift curve is the `y = 1` line where the model performance is consistent with that of a random model. In general, the lift curve for a good model will be higher on that chart and farther from the x-axis, showing that when the model is most confident in its predictions it performs many times better than random guessing.
 
-![image-20210103005738688](../media/model_lift_curve.png)
+![Lift Curve](../media/model_lift_curve.png)
 
 #### Calibration curve
 
@@ -94,13 +96,13 @@ An over-confident model will over-predict probabilities close to zero and one, r
 
 The calibration curve is sensitive to the number of samples, so a small validation set can produce noisy results that can be hard to interpret. This does not necessarily mean that the model is not well-calibrated.
 
-![image-20210103010400452](../media/model_calibration_curve.png)
+![Calibration Curve](../media/model_calibration_curve.png)
 
 ## Deploy come web service
 
 Il modello ottenuto tramite AutoML è stato poi pubblicato come webservice consumabile da parte del software presente a bordo del Raspberry. Il modello sarà eseguito all'interno di un container docker ed sarà accessibile tramite chiamata POST ad un endpoint REST.
 
-![image-20210103001251119](../media/deploy_model.png)
+![Deploy model](../media/deploy_model.png)
 
 Endpoint: `http://64b32d7c-d926-4197-b807-1350e63adf7c.westeurope.azurecontainer.io/score`
 

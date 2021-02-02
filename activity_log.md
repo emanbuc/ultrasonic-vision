@@ -361,18 +361,22 @@ Ogni oggetto è stato posto approssimativamente al centro dell'altra di acquisiz
 
 Sono stati sperimentati diversi posizionamenti degli oggetti all'interno del range dei sensori.  I dati di training del classificatore sono stati acquisiti posizionando gli oggetti nella zona centrale on modo da avere potenzialmente letture significative da tutti sensori presenti (compresi quelli ora non presenti nella configurazione a sette sensori)
 
-![posizionamento_oggetto](media/object_postion03.jpg)
+![posizionamento bersaglio](media/object_postion03.jpg)
 
 
 
 Acquisizione second dataset di training con configurazione  a sette sensori e barriere parallele ai piani dei sensori
 
-- SQUARE_MILK_90 ![SQUARE_MILK_90](media/SQUARE_MILK_90.jpg)
+- SQUARE_MILK_90
+   ![SQUARE_MILK_90](media/SQUARE_MILK_90.jpg)
 - SQUARE_MILK_45 ![SQUARE_MILK_45](media/SQUARE_MILK_45.jpg)
 
-- BEAN_CAN ![BEAN_CAN](media/BEAN_CAN.jpg)
-- SOAP_BOTTLE_FRONT ![SOAP_BOTTLE_FRONT](media/SOAP_BOTTLE_FRONT.jpg)
-- SOAP_BOTTLE_SIDE ![SOAP_BOTTLE_SIDE](media/SOAP_BOTTLE_SIDE.jpg)
+- BEAN_CAN 
+  ![BEAN_CAN](media/BEAN_CAN.jpg)
+- SOAP_BOTTLE_FRONT 
+  ![SOAP_BOTTLE_FRONT](media/SOAP_BOTTLE_FRONT.jpg)
+- SOAP_BOTTLE_SIDE 
+  ![SOAP_BOTTLE_SIDE](media/SOAP_BOTTLE_SIDE.jpg)
 - GLASS ![GLASS](media/GLASS.jpg)
 - RECTANGULAR_BOX  ![RECTANGULAR_BOX](media/RECTANGULAR_BOX.jpg)
 - RECTANGULAR_BOX_SIDE ![RECTANGULAR_BOX_SIDE](media/RECTANGULAR_BOX_SIDE.jpg)
