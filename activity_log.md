@@ -434,7 +434,7 @@ The area under the curve (AUC) can be interpreted as the proportion of correctly
 
 A curve that approaches the top-left corner of the chart is approaching a 100% TPR and 0% FPR, the best possible model. A random model would produce an ROC curve along the `y = x` line from the bottom-left corner to the top-right. A worse than random model would have an ROC curve that dips below the `y = x` line.
 
-![image-20210103004240899](/Users/emanuelebuchicchio/ultrasonic-vision/media/model_roc_curve.png)
+![image-20210103004240899](media/model_roc_curve.png)
 
 #### The precision-recall curve 
 

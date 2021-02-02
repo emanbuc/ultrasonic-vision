@@ -154,7 +154,7 @@ La portata utile dei sensori utilizzati è di circa 3 metri. Per ragioni logisti
 
 ![configurazione_7_sensori](../media/configurazione_7_sensori.png)
 
-![BALL_CENTER](../media\BALL_CENTER.jpg)
+![BALL_CENTER](../media/BALL_CENTER.jpg)
 
 [Test della configurazione a sette sensori](023_seven_sensors_configuration_test.md)
 
